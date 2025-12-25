@@ -2,8 +2,8 @@
 
 ## Project: STM32-Based SDR Transceiver with USB-C Power Delivery
 
-**Version:** 1.0  
-**Date:** December 2024  
+**Version:** 2.0
+**Date:** December 2024
 **Based on:** uSDX/truSDX H-Bridge Architecture
 
 ---
@@ -29,9 +29,10 @@
 
 This document describes a software-defined radio (SDR) transceiver design based on the uSDX/truSDX H-bridge Class-E power amplifier architecture, modernized with:
 
-- **STM32G4 microcontroller** with integrated USB Power Delivery (UCPD)
+- **STM32G4 microcontroller** for DSP and system control (UCPD peripheral unused)
+- **TPS25750D standalone USB-PD controller** for autonomous power negotiation
 - **Dual USB-C connectors**: one for power/data, one for debug/JTAG
-- **3S lithium battery** with PMBus-compatible charging and monitoring
+- **4S lithium battery** (12.8-16.8V) with BQ25798 buck-boost charging and BQ76920 monitoring
 - **Flexible LPF switching** supporting both latching relays and MOSFET options
 
 The design targets HF amateur radio bands (80m-10m) with QRP power levels (0.5-5W), supporting CW, SSB, and digital modes.
@@ -49,14 +50,14 @@ The design targets HF amateur radio bands (80m-10m) with QRP power levels (0.5-5
 │                                                                             │
 │  ┌──────────────┐     ┌──────────────────────────────────────────────────┐ │
 │  │  USB-C #1    │     │              POWER MANAGEMENT                    │ │
-│  │  (Power+Data)│────►│  TCPP03-M20 ──► STM32G4 UCPD ──► BQ25713        │ │
-│  │  Up to 20V   │     │                                    │             │ │
-│  └──────────────┘     │                                    ▼             │ │
-│                       │                              3S Li-Ion Pack      │ │
-│                       │                              (9.6-12.6V)         │ │
+│  │  (Power+Data)│────►│  TPS25750D (Standalone USB-PD) ──► BQ25798      │ │
+│  │  Up to 20V   │     │  (I2CM autonomous charger control)     │        │ │
+│  └──────────────┘     │                                        ▼        │ │
+│                       │                              4S Li-Ion Pack      │ │
+│                       │                              (12.8-16.8V)        │ │
 │                       │                                    │             │ │
 │                       │                              BQ76920 AFE         │ │
-│                       │                              (Fuel Gauge)        │ │
+│                       │                              (Battery Monitor)   │ │
 │                       └──────────────────────────────────────────────────┘ │
 │                                         │                                   │
 │                                         ▼                                   │
@@ -93,8 +94,8 @@ The design targets HF amateur radio bands (80m-10m) with QRP power levels (0.5-5
 | Frequency Range | 3.5 - 30 MHz (80m - 10m) |
 | Output Power | 0.5 - 5W (adjustable) |
 | Modes | CW, LSB, USB, AM, FM, Digital |
-| Power Input | USB-C PD (5-20V), 3S Li-Ion |
-| Battery | 3S 18650 (9.6-12.6V, ~3000mAh) |
+| Power Input | USB-C PD (5-20V via TPS25750D), 4S Li-Ion |
+| Battery | 4S 18650 (12.8-16.8V, ~3000mAh) |
 | Current Draw | RX: ~100mA, TX: ~500mA @ 5W |
 | Debug Interface | JTAG + Dual Serial via FT4232H |
 
@@ -119,11 +120,11 @@ The design targets HF amateur radio bands (80m-10m) with QRP power levels (0.5-5
 
 | ID | Requirement | Priority |
 |----|-------------|----------|
-| PR-001 | Shall negotiate USB PD up to 20V/3A (60W max) | Must |
-| PR-002 | Shall charge 3S Li-Ion pack with CC/CV profile | Must |
-| PR-003 | Shall provide battery protection (OVP, UVP, OCP, OTP) | Must |
+| PR-001 | Shall negotiate USB PD up to 20V/3A (60W max) via TPS25750D | Must |
+| PR-002 | Shall charge 4S Li-Ion pack with CC/CV profile via BQ25798 | Must |
+| PR-003 | Shall provide battery protection (OVP, UVP, OCP, OTP) via BQ76920 | Must |
 | PR-004 | Shall report battery state via I2C/SMBus | Should |
-| PR-005 | Shall support dead battery boot from USB-C | Must |
+| PR-005 | Shall support dead battery boot from USB-C (TPS25750D feature) | Must |
 | PR-006 | Shall provide OTG capability (5V output when on battery) | Could |
 
 ### 3.3 Performance Requirements
@@ -157,7 +158,7 @@ The design targets HF amateur radio bands (80m-10m) with QRP power levels (0.5-5
 | SPI | 4 channels | External flash, optional codec |
 | UCPD | 2 ports | USB-C Power Delivery |
 
-**Rationale:** The STM32G4 series provides integrated UCPD eliminating external PD controller, HRTIM for precise PWM generation, and sufficient DSP capability for audio processing.
+**Rationale:** The STM32G4 series provides HRTIM for precise PWM generation and sufficient DSP capability for audio processing. Note: While the STM32G4 has integrated UCPD, this design uses a standalone TPS25750D for USB-PD to simplify firmware development and enable autonomous charger configuration.
 
 ### 4.2 USB-C Port Architecture
 
@@ -166,20 +167,23 @@ The design targets HF amateur radio bands (80m-10m) with QRP power levels (0.5-5
 ```
 USB-C Connector #1
         │
-        ├── CC1/CC2 ──► TCPP03-M20 ──► STM32G4 UCPD1
+        ├── CC1/CC2 ──► TPS25750D (direct connection)
         │                   │
-        │                   ├── VBUS Control (N-FET gate drive)
-        │                   ├── OVP/OCP Protection
-        │                   └── Dead Battery Support
+        │                   ├── Integrated CC protection
+        │                   ├── Integrated 28V/7A power switch
+        │                   ├── Dead Battery Support
+        │                   └── I2CM port → BQ25798 (autonomous charger config)
         │
-        ├── VBUS ──► BQ25713 (Charger Input)
-        │                │
-        │                └──► System Power Rail
+        ├── VBUS ──► TPS25750D ──► PP_HV output ──► BQ25798 (Charger Input)
+        │                                              │
+        │                                              └──► VSYS Power Rail (12-18V)
         │
         ├── D+/D- ──► STM32G4 USB-FS
         │              (CDC-ACM for CAT control)
         │
         └── SBU1/SBU2 ── (Reserved for future use)
+
+Note: No TCPP03 or STM32 UCPD needed - TPS25750D handles all USB-PD functions.
 ```
 
 #### Port 2: Debug Interface
@@ -215,64 +219,88 @@ The Si5351 uses a 25/27 MHz crystal and dual PLLs to generate all required frequ
 ### 5.1 Power Architecture
 
 ```
-                                    ┌─────────────────────────────────┐
-USB-C VBUS ─────────────────────────┤                                 │
-(5-20V from PD)                     │         BQ25713B                │
-        │                           │    Buck-Boost Charger           │
-        │                           │                                 │
-        │   ┌───────────────────────┤ VBUS ────────────────► VSYS     ├──► 12V Rail
-        │   │                       │                        (9-14V)  │
-        │   │                       │ BAT ─────────┐                  │
-        │   │                       │              │                  │
-        │   │                       │ I2C ◄────────┼──────────────────┤
-        │   │                       └──────────────┼──────────────────┘
-        │   │                                      │
-        │   │                                      ▼
-        │   │                           ┌─────────────────────┐
-        │   │                           │    3S Li-Ion Pack   │
-        │   │                           │   (9.6V - 12.6V)    │
-        │   │                           │                     │
-        │   │                           │  Cell 1 ─┬─ 3.0-4.2V│
-        │   │                           │  Cell 2 ─┼─ 3.0-4.2V│
-        │   │                           │  Cell 3 ─┴─ 3.0-4.2V│
-        │   │                           └─────────┬───────────┘
+                                    ┌─────────────────────────────────────────┐
+USB-C VBUS ─────────────────────────┤           TPS25750D                     │
+(5-20V from PD)                     │    Standalone USB-PD Controller        │
+        │                           │                                         │
+        │                           │  • Integrated 28V/7A power switch      │
+        │                           │  • Integrated CC protection            │
+        │   ┌───────────────────────┤  • Dead battery boot support           │
+        │   │                       │  • I2CM port: autonomous BQ25798 ctrl  │
+        │   │                       │  • I2CS port: STM32 monitoring         │
+        │   │                       │                                         │
+        │   │                       │ PP_HV ──────────────────────┐          │
+        │   │                       └─────────────────────────────┼──────────┘
+        │   │                                                     │
+        │   │                                                     ▼
+        │   │                       ┌─────────────────────────────────────────┐
+        │   │                       │           BQ25798                       │
+        │   │                       │    1-4S Buck-Boost Charger              │
+        │   │                       │                                         │
+        │   │                       │ VAC1 ◄── PP_HV from TPS25750D          │
+        │   │                       │                                         │
+        │   │                       │ SYS ─────────────────────► VSYS        │
+        │   │                       │                            (12-18V)    │
+        │   │                       │ BAT ◄────────────────┐                 │
+        │   │                       │                      │                 │
+        │   │                       │ I2C ◄─── TPS25750D I2CM (autonomous)   │
+        │   │                       └──────────────────────┼─────────────────┘
+        │   │                                              │
+        │   │                                              ▼
+        │   │                           ┌─────────────────────────┐
+        │   │                           │    4S Li-Ion Pack       │
+        │   │                           │   (12.8V - 16.8V)       │
+        │   │                           │                         │
+        │   │                           │  Cell 1 ─┬─ 3.2-4.2V   │
+        │   │                           │  Cell 2 ─┼─ 3.2-4.2V   │
+        │   │                           │  Cell 3 ─┼─ 3.2-4.2V   │
+        │   │                           │  Cell 4 ─┴─ 3.2-4.2V   │
+        │   │                           └─────────┬───────────────┘
         │   │                                     │
         │   │                                     ▼
-        │   │                           ┌─────────────────────┐
-        │   │                           │     BQ76920         │
-        │   │                           │  Battery AFE        │
-        │   │                           │                     │
-        │   │                           │ • Cell balancing    │
-        │   │                           │ • Voltage monitor   │
-        │   │                           │ • Coulomb counter   │
-        │   │                           │ • Temp sensing      │
-        │   │                           │ • I2C telemetry     │
-        │   │                           └─────────────────────┘
+        │   │                           ┌─────────────────────────┐
+        │   │                           │     BQ76920             │
+        │   │                           │  Battery AFE (4S mode)  │
+        │   │                           │                         │
+        │   │                           │ • Cell balancing        │
+        │   │                           │ • Voltage monitor       │
+        │   │                           │ • Coulomb counter       │
+        │   │                           │ • Temp sensing          │
+        │   │                           │ • I2C telemetry         │
+        │   │                           └─────────────────────────┘
         │   │
         ▼   ▼
 ┌───────────────────────────────────────────────────────────────────┐
 │                        POWER DISTRIBUTION                         │
 ├───────────────────────────────────────────────────────────────────┤
 │                                                                   │
-│   VSYS (9-14V) ──┬──► H-Bridge PA (uP9636)                       │
+│   VSYS (12-18V) ─┬──► H-Bridge PA (uP9636)                       │
 │                  │                                                │
-│                  ├──► 5V Buck ──┬──► FT4232H                     │
-│                  │   (TPS62160) │                                 │
-│                  │              ├──► Si5351A (VDDO)               │
-│                  │              │                                 │
-│                  │              └──► USB VBUS (OTG mode)          │
-│                  │                                                │
-│                  └──► 3.3V LDO ──┬──► STM32G4                     │
-│                      (AMS1117)   │                                │
-│                                  ├──► Si5351A (VDD core)          │
-│                                  │                                │
-│                                  └──► Misc analog                 │
+│                  └──► 5V Buck ──┬──► FT4232H                     │
+│                      (XL1509)   │                                 │
+│                                 ├──► Si5351A (VDDO)               │
+│                                 │                                 │
+│                                 ├──► USB VBUS (OTG mode)          │
+│                                 │                                 │
+│                                 └──► 3.3V LDO ──┬──► STM32G4     │
+│                                     (AMS1117)   │                 │
+│                                                 ├──► Si5351A VDD  │
+│                                                 │                 │
+│                                                 └──► Misc analog  │
+│                                                                   │
+│   NOTE: AMS1117-3.3 input from 5V rail (NOT VSYS) - max 15V limit │
 └───────────────────────────────────────────────────────────────────┘
 ```
 
 ### 5.2 USB Power Delivery Negotiation
 
-The STM32G4's integrated UCPD peripheral handles PD negotiation:
+The TPS25750D standalone PD controller handles all USB-PD negotiation autonomously:
+
+**TPS25750D Operation:**
+- Fully autonomous USB-PD negotiation (no MCU involvement required)
+- Configured via internal OTP or external I2C EEPROM
+- I2CM port directly controls BQ25798 charger via I2C
+- I2CS port provides STM32 with status monitoring
 
 **Supported Power Profiles (Sink):**
 
@@ -286,32 +314,48 @@ The STM32G4's integrated UCPD peripheral handles PD negotiation:
 
 **Charging Strategy:**
 
-1. At power connection, UCPD negotiates highest available voltage
-2. BQ25713 configured via I2C for 3S charging (12.6V, CC/CV)
-3. Charge current limited based on negotiated power capability
-4. System can run from VBUS directly (NVDC topology) while charging
+1. At cable connection, TPS25750D negotiates highest available voltage
+2. TPS25750D configures BQ25798 via I2CM for 4S charging (16.8V, CC/CV)
+3. Charge current automatically limited based on negotiated power
+4. PP_HV output provides switched VBUS to BQ25798 VAC1 input
+5. System runs from VSYS (12-18V) via BQ25798 NVDC topology
+
+**Dead Battery Boot:**
+- TPS25750D enables system boot even with fully depleted battery
+- Provides minimum power to 3.3V rail before battery reaches viable charge
 
 ### 5.3 Battery Management
 
-**BQ76920 Configuration:**
+**BQ76920 Configuration (4S Mode):**
 
 | Parameter | Setting |
 |-----------|---------|
-| Cell Count | 3S |
-| Overvoltage | 4.25V/cell |
-| Undervoltage | 2.8V/cell |
+| Cell Count | 4S |
+| Overvoltage | 4.25V/cell (17.0V pack) |
+| Undervoltage | 2.8V/cell (11.2V pack) |
 | Overcurrent (Discharge) | 10A |
 | Overcurrent (Charge) | 3A |
 | Short Circuit | 50A, 200µs |
 | Temperature Range | 0-45°C (charge), -20-60°C (discharge) |
 
+**BQ25798 Charger Configuration:**
+
+| Parameter | Setting |
+|-----------|---------|
+| Charge Voltage | 16.8V (4S x 4.2V) |
+| Charge Current | Up to 3A (negotiated) |
+| Input Voltage Range | 5-20V (from TPS25750D PP_HV) |
+| VSYS Output | 12-18V |
+| Topology | Buck-Boost NVDC |
+
 **Telemetry (I2C readable):**
 
-- Individual cell voltages
-- Pack voltage and current
+- Individual cell voltages (BQ76920)
+- Pack voltage and current (BQ76920)
 - State of charge (Coulomb counting)
 - Temperature (NTC)
 - Fault status flags
+- Charger status (BQ25798 via STM32 I2C1)
 
 ---
 
@@ -453,19 +497,45 @@ Rationale:
 
 ### 7.1 I2C Bus Architecture
 
+**Dual-Master Architecture:**
+
 ```
-STM32G4 I2C1 (400 kHz)
-        │
-        ├──► Si5351A (0x60) - Clock synthesizer
-        │
-        ├──► BQ25713 (0x6B) - Battery charger
-        │
-        ├──► BQ76920 (0x08) - Battery AFE
-        │
-        ├──► TCPP03-M20 (0x35) - USB-C port protection
-        │
-        └──► SSD1306 (0x3C) - OLED display (optional)
+                    TPS25750D
+                        │
+            +-----------+-----------+
+            |                       |
+        I2CS Port               I2CM Port
+       (Host/Monitor)         (Charger Control)
+            |                       |
+            v                       v
+       STM32 I2C1              BQ25798 only
+       (shared bus)             (0x6B)
+            |
+       +----+----+----+----+
+       |    |    |    |    |
+    Si5351 BQ76920 TPS25750 SSD1306
+    (0x60) (0x08)  (0x21)  (0x3C)
 ```
+
+**STM32 I2C1 Bus @ 400 kHz:**
+
+| Device | Address | Function |
+|--------|---------|----------|
+| Si5351A | 0x60 | Clock synthesizer |
+| BQ76920 | 0x08 | Battery AFE |
+| TPS25750D | 0x21 | PD controller (I2CS - monitoring) |
+| BQ25798 | 0x6B | Battery charger (read-only monitoring) |
+| SSD1306 | 0x3C | OLED display (optional) |
+
+**TPS25750D I2CM (Autonomous):**
+
+| Device | Address | Function |
+|--------|---------|----------|
+| BQ25798 | 0x6B | Charger configuration & control |
+
+Note: TPS25750D I2CM operates independently to configure BQ25798 based on
+PD negotiation results. STM32 can monitor charger status but TPS25750D
+has priority for charger control.
 
 ### 7.2 GPIO Allocation
 
@@ -482,10 +552,14 @@ STM32G4 I2C1 (400 kHz)
 | Audio Out DAC | PA4 | Analog | Speaker/headphone |
 | I2C1 SCL | PB6 | AF | I2C clock |
 | I2C1 SDA | PB7 | AF | I2C data |
-| UCPD1 CC1 | PB4 | AF | USB-C CC line 1 |
-| UCPD1 CC2 | PB5 | AF | USB-C CC line 2 |
+| TPS25750D_INT | PB4 | Input | PD controller interrupt (optional) |
+| GPIO_SPARE | PB5 | Reserved | Available for expansion |
 | USB DP | PA12 | AF | USB data + |
 | USB DM | PA11 | AF | USB data - |
+
+Note: PB4/PB5 were previously allocated to UCPD CC lines. With TPS25750D
+handling USB-PD autonomously, these pins are now available. PB4 can be
+used to receive interrupts from TPS25750D for status changes.
 
 ### 7.3 FT4232H Configuration
 
@@ -515,23 +589,24 @@ EEPROM configured for:
 │  1. USB-C Connected OR Battery Present                                  │
 │     │                                                                   │
 │     ▼                                                                   │
-│  2. TCPP03 enables VBUS path (if USB) or battery path                  │
+│  2. TPS25750D enables power path (autonomous)                          │
+│     │                                                                   │
+│     ├── If USB: TPS25750D negotiates PD, enables PP_HV                 │
+│     │           Configures BQ25798 via I2CM (no MCU needed)            │
+│     │                                                                   │
+│     └── If battery only: BQ25798 provides VSYS from battery            │
 │     │                                                                   │
 │     ▼                                                                   │
-│  3. 3.3V LDO enables → STM32G4 boots                                   │
+│  3. XL1509 provides 5V → AMS1117 provides 3.3V → STM32G4 boots         │
 │     │                                                                   │
 │     ▼                                                                   │
-│  4. STM32 initializes UCPD peripheral                                  │
+│  4. STM32 initializes I2C1 peripheral                                  │
 │     │                                                                   │
-│     ├── If USB connected: Negotiate PD contract                        │
-│     │   │                                                               │
-│     │   ▼                                                               │
-│     │   Configure BQ25713 for negotiated voltage                       │
-│     │   │                                                               │
-│     │   ▼                                                               │
-│     │   Begin charging if battery < 12.6V                              │
+│     ├── Read TPS25750D status (PD contract info)                       │
 │     │                                                                   │
-│     └── If battery only: Read BQ76920 for SOC                          │
+│     ├── Read BQ25798 status (charging state)                           │
+│     │                                                                   │
+│     └── Read BQ76920 for SOC                                           │
 │         │                                                               │
 │         ▼                                                               │
 │         If SOC < 10%: Display low battery warning                      │
@@ -550,6 +625,9 @@ EEPROM configured for:
 │     │                                                                   │
 │     ▼                                                                   │
 │  9. OPERATIONAL - Ready for RX/TX                                      │
+│                                                                         │
+│  Note: PD negotiation and charger config happen BEFORE MCU boots.      │
+│        MCU only monitors - no USB-PD firmware stack required.          │
 │                                                                         │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
@@ -722,49 +800,47 @@ EEPROM configured for:
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                     USB-C POWER EVENT HANDLING                          │
+│                   (TPS25750D Autonomous Operation)                      │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
 │  EVENT: USB-C Cable Connected                                          │
 │     │                                                                   │
 │     ▼                                                                   │
-│  UCPD peripheral detects CC connection                                 │
+│  TPS25750D detects CC connection (autonomous - no MCU needed)          │
 │     │                                                                   │
 │     ▼                                                                   │
-│  Send Source_Capabilities request                                      │
+│  TPS25750D negotiates PD contract (highest available PDO)              │
 │     │                                                                   │
 │     ▼                                                                   │
-│  Parse advertised PDOs                                                 │
+│  TPS25750D enables PP_HV output with negotiated voltage                │
 │     │                                                                   │
 │     ▼                                                                   │
-│  Select optimal PDO (prefer highest voltage ≤20V)                      │
-│     │                                                                   │
-│     ▼                                                                   │
-│  Send Request message                                                  │
-│     │                                                                   │
-│     ▼                                                                   │
-│  Wait for Accept → PS_RDY                                              │
-│     │                                                                   │
-│     ▼                                                                   │
-│  Configure BQ25713:                                                    │
-│     • Set input voltage limit = negotiated - 0.5V                      │
+│  TPS25750D configures BQ25798 via I2CM:                                │
+│     • Set input voltage limit based on negotiated PDO                  │
 │     • Set charge current based on power budget                         │
-│     • Enable charging if battery needs it                              │
+│     • Enable charging if battery < 16.8V                               │
 │     │                                                                   │
 │     ▼                                                                   │
-│  Update UI with power status                                           │
+│  TPS25750D asserts INT to notify STM32 (optional)                      │
+│     │                                                                   │
+│     ▼                                                                   │
+│  STM32 reads status via I2CS, updates UI                               │
 │                                                                         │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
 │  EVENT: USB-C Cable Disconnected                                       │
 │     │                                                                   │
 │     ▼                                                                   │
-│  UCPD peripheral detects CC disconnect                                 │
+│  TPS25750D detects CC disconnect                                       │
 │     │                                                                   │
 │     ▼                                                                   │
-│  BQ25713 automatically switches to battery power (NVDC)                │
+│  TPS25750D disables PP_HV output                                       │
 │     │                                                                   │
 │     ▼                                                                   │
-│  Check battery SOC via BQ76920                                         │
+│  BQ25798 automatically switches to battery power (NVDC)                │
+│     │                                                                   │
+│     ▼                                                                   │
+│  STM32 checks battery SOC via BQ76920                                  │
 │     │                                                                   │
 │     ├── If SOC > 20%: Continue normal operation                        │
 │     │                                                                   │
@@ -777,13 +853,16 @@ EEPROM configured for:
 │  EVENT: Hard Reset / Power Source Change                               │
 │     │                                                                   │
 │     ▼                                                                   │
-│  If in TX: Immediately terminate transmission                          │
+│  TPS25750D handles protocol-level reset autonomously                   │
 │     │                                                                   │
 │     ▼                                                                   │
-│  Battery takes over seamlessly (NVDC topology)                         │
+│  BQ25798 maintains VSYS from battery (seamless NVDC)                   │
 │     │                                                                   │
 │     ▼                                                                   │
-│  Re-negotiate PD contract when new source available                    │
+│  TPS25750D re-negotiates when source ready                             │
+│                                                                         │
+│  Note: STM32 firmware never involved in PD negotiation.                │
+│        All power events handled by TPS25750D hardware.                 │
 │                                                                         │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
@@ -807,26 +886,26 @@ EEPROM configured for:
 │     │                                                                   │
 │     ├─► STM32 enters STOP2 mode                                        │
 │     │                                                                   │
-│     └─► BQ25713 continues charging autonomously                        │
+│     └─► TPS25750D + BQ25798 continue charging autonomously             │
 │                                                                         │
 │  Wake Sources:                                                          │
 │     • PTT input (GPIO EXTI)                                            │
 │     • Encoder rotation                                                  │
-│     • USB activity (UCPD event)                                        │
+│     • TPS25750D INT (USB-C power event)                                │
 │     • RTC alarm (periodic battery check)                               │
 │                                                                         │
 │  SLEEP CURRENT BUDGET:                                                  │
 │     │                                                                   │
 │     ├── STM32 STOP2: ~2 µA                                             │
-│     ├── BQ25713 standby: ~8 µA                                         │
+│     ├── TPS25750D standby: ~15 µA                                      │
+│     ├── BQ25798 standby: ~10 µA                                        │
 │     ├── BQ76920 ship mode: ~2 µA                                       │
 │     ├── Si5351 disabled: ~1 µA                                         │
-│     ├── TCPP03 standby: ~5 µA                                          │
 │     └── Relay leakage: ~0 µA (latching, no holding current)            │
 │         ─────────────────────                                          │
-│         Total: ~18 µA                                                   │
+│         Total: ~30 µA                                                   │
 │                                                                         │
-│  Battery Life (sleep): 3000mAh / 0.018mA = ~19 years (theoretical)     │
+│  Battery Life (sleep): 3000mAh / 0.030mA = ~11 years (theoretical)     │
 │                                                                         │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
@@ -837,21 +916,21 @@ EEPROM configured for:
 
 ### 9.1 Major Components
 
-| Ref | Part Number | Description | Qty | Est. Cost |
-|-----|-------------|-------------|-----|-----------|
-| U1 | STM32G474RET6 | MCU, ARM Cortex-M4, 512K Flash | 1 | $8.50 |
-| U2 | Si5351A-B-GT | Clock synthesizer, I2C, 8 outputs | 1 | $2.50 |
-| U3 | BQ25713RSNR | Buck-boost charger, 1-4S, I2C | 1 | $4.20 |
-| U4 | BQ76920PW | Battery AFE, 3-5S, I2C | 1 | $2.80 |
-| U5 | TCPP03-M20 | USB-C port protection, DRP | 1 | $1.50 |
-| U6 | FT4232HL | Quad USB-UART/JTAG | 1 | $5.50 |
-| U7 | uP9636 | H-bridge driver w/ MOSFETs | 1 | $3.00 |
-| U8 | TPS62160 | 3A buck converter, 3-17V in | 1 | $1.80 |
-| U9 | AMS1117-3.3 | 1A LDO, 3.3V | 1 | $0.30 |
-| J1 | USB-C Receptacle | 16-pin, mid-mount | 2 | $1.00 |
-| K1-K5 | EC2-3SNU | Latching relay, DPDT, 3V | 5 | $4.00 |
-| Y1 | 25MHz Crystal | 18pF, ±10ppm, for Si5351 | 1 | $0.50 |
-| Y2 | 8MHz Crystal | 20pF, ±10ppm, for STM32 | 1 | $0.40 |
+| Ref | Part Number | LCSC | Description | Qty | Est. Cost |
+|-----|-------------|------|-------------|-----|-----------|
+| U1 | STM32G474RET6 | C481410 | MCU, ARM Cortex-M4, 512K Flash | 1 | $8.50 |
+| U2 | Si5351A-B-GT | C506891 | Clock synthesizer, I2C, 8 outputs | 1 | $2.50 |
+| U3 | TPS25750DRJKR | C2868209 | Standalone USB-PD Controller | 1 | $1.70 |
+| U4 | BQ25798RQMR | C2876593 | 1-4S Buck-Boost Charger, I2C | 1 | $1.47 |
+| U5 | BQ76920PW | C82092 | Battery AFE, 3-5S, I2C (4S config) | 1 | $2.80 |
+| U6 | FT4232HL | C2688064 | Quad USB-UART/JTAG | 1 | $5.50 |
+| U7 | uP9636 | - | H-bridge driver w/ MOSFETs | 1 | $3.00 |
+| U8 | XL1509-5.0 | C61063 | 5V 2A Buck Regulator (40V input) | 1 | $0.20 |
+| U9 | AMS1117-3.3 | C6186 | 1A LDO, 3.3V (5V input) | 1 | $0.05 |
+| J1,J2 | USB-C Receptacle | C2765186 | 16-pin, mid-mount | 2 | $1.00 |
+| K1-K5 | EC2-3SNU | C132490 | Latching relay, DPDT, 3V | 5 | $4.00 |
+| Y1 | 8MHz Crystal | C32160 | 20pF, ±20ppm, for STM32 | 1 | $0.05 |
+| Y2 | 25MHz Crystal | C255909 | 18pF, ±10ppm, for Si5351 | 1 | $0.10 |
 
 ### 9.2 Passive Components (Summary)
 
@@ -867,13 +946,16 @@ EEPROM configured for:
 
 | Category | Cost |
 |----------|------|
-| ICs and Semiconductors | $35.00 |
+| ICs and Semiconductors | $32.00 |
 | Passives | $18.00 |
 | Connectors | $5.00 |
 | PCB (4-layer, 100x80mm) | $15.00 |
 | Enclosure | $10.00 |
-| Battery (3S 18650) | $15.00 |
-| **Total BOM** | **~$98** |
+| Battery (4S 18650) | $20.00 |
+| **Total BOM** | **~$100** |
+
+Note: TPS25750D ($1.70) + BQ25798 ($1.47) = $3.17 vs old TCPP03 ($1.50) + BQ25713 ($4.20) = $5.70.
+Net savings of ~$2.50 offset by 4S battery cost increase.
 
 ---
 
@@ -896,19 +978,30 @@ EEPROM configured for:
 
 For a battery-powered HF transceiver operating above 5V, latching relays provide superior performance where it matters most: zero standby power, excellent RF characteristics, and robust operation.
 
-### 10.2 Integrated UCPD vs External PD Controller
+### 10.2 Integrated UCPD vs Standalone PD Controller
 
-| Factor | STM32 UCPD | External (FUSB302, etc.) | Winner |
-|--------|------------|--------------------------|--------|
-| BOM Cost | $0 (included) | $2-4 | STM32 |
-| Board Space | Minimal | 4x4mm QFN + passives | STM32 |
-| Firmware Complexity | Higher | Lower (I2C config) | External |
-| Flexibility | Full control | Limited by chip | STM32 |
-| USB-IF Certification | ST-provided stack | Chip vendor stack | Tie |
+| Factor | STM32 UCPD + TCPP03 | TPS25750D Standalone | Winner |
+|--------|---------------------|----------------------|--------|
+| BOM Cost | ~$1.50 (TCPP03) | ~$1.70 | Tie |
+| Firmware Complexity | High (X-CUBE-TCPP, RTOS) | Zero (autonomous) | TPS25750D |
+| Charger Integration | Manual I2C config | Autonomous I2CM bus | TPS25750D |
+| Dead Battery Boot | Complex | Built-in | TPS25750D |
+| Rust/Embedded | FFI to ST C stack | Pure I2C monitoring | TPS25750D |
+| USB-IF Certification | ST-provided stack | TI-provided config | Tie |
+| Power Path Control | Firmware-dependent | Hardware-controlled | TPS25750D |
 
-**Decision: STM32 Integrated UCPD**
+**Decision: TPS25750D Standalone Controller**
 
-The STM32G4's integrated UCPD eliminates an external chip and provides full control over PD negotiation. ST's X-CUBE-TCPP software package is USB-IF certified.
+For this Rust-based embedded project, the TPS25750D provides significant advantages:
+
+1. **No USB-PD firmware required** - TPS25750D handles all PD negotiation autonomously
+2. **Native I2C master** - Configures BQ25798 charger without MCU involvement
+3. **Simpler boot sequence** - Power available before MCU even starts
+4. **Dead battery boot** - Hardware-guaranteed, not firmware-dependent
+5. **Eliminates FFI complexity** - No X-CUBE-TCPP C library bindings needed
+6. **Reduced certification scope** - PD stack is TI's responsibility
+
+The marginal cost increase ($0.20) is justified by the dramatic reduction in firmware complexity and improved system reliability.
 
 ### 10.3 Single vs Dual USB-C Connectors
 
@@ -936,29 +1029,34 @@ Separating power/data from debug provides cleaner design, easier development, an
 ├─────────────────────────────────────────────────────────────────────────┤
 │  ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐ │
 │  │   Radio   │ │   Power   │ │    UI     │ │    CAT    │ │  Config   │ │
-│  │  Control  │ │  Manager  │ │  Manager  │ │  Handler  │ │  Storage  │ │
+│  │  Control  │ │  Monitor  │ │  Manager  │ │  Handler  │ │  Storage  │ │
 │  └─────┬─────┘ └─────┬─────┘ └─────┬─────┘ └─────┬─────┘ └─────┬─────┘ │
 │        │             │             │             │             │        │
 ├────────┴─────────────┴─────────────┴─────────────┴─────────────┴────────┤
 │                         MIDDLEWARE LAYER                                │
 ├─────────────────────────────────────────────────────────────────────────┤
 │  ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐               │
-│  │  USB-PD   │ │   Audio   │ │   DSP     │ │  FreeRTOS │               │
-│  │   Stack   │ │  Codec    │ │  Library  │ │   CMSIS   │               │
-│  │ (X-CUBE)  │ │           │ │  (CMSIS)  │ │           │               │
+│  │   I2C     │ │   Audio   │ │   DSP     │ │  Embassy  │               │
+│  │  Drivers  │ │  Codec    │ │  Library  │ │async RTOS │               │
+│  │(TPS/BQ/SI)│ │           │ │  (CMSIS)  │ │           │               │
 │  └─────┬─────┘ └─────┬─────┘ └─────┬─────┘ └─────┬─────┘               │
 │        │             │             │             │                      │
 ├────────┴─────────────┴─────────────┴─────────────┴──────────────────────┤
-│                           HAL LAYER                                     │
+│                           HAL LAYER (Rust)                              │
 ├─────────────────────────────────────────────────────────────────────────┤
-│  ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐      │
-│  │ ADC │ │ DAC │ │HRTIM│ │ I2C │ │ SPI │ │ USB │ │UCPD │ │GPIO │      │
-│  └──┬──┘ └──┬──┘ └──┬──┘ └──┬──┘ └──┬──┘ └──┬──┘ └──┬──┘ └──┬──┘      │
-│     │       │       │       │       │       │       │       │          │
-├─────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴──────────┤
+│  ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐              │
+│  │ ADC │ │ DAC │ │HRTIM│ │ I2C │ │ SPI │ │ USB │ │GPIO │              │
+│  └──┬──┘ └──┬──┘ └──┬──┘ └──┬──┘ └──┬──┘ └──┬──┘ └──┬──┘              │
+│     │       │       │       │       │       │       │                  │
+├─────┴───────┴───────┴───────┴───────┴───────┴───────┴──────────────────┤
 │                         HARDWARE                                        │
+│  Note: USB-PD handled entirely by TPS25750D - no firmware required     │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
+
+**Key Simplification:** With TPS25750D handling USB-PD autonomously, the firmware
+stack eliminates the X-CUBE-TCPP dependency and any C FFI bindings. Power
+monitoring is reduced to simple I2C register reads.
 
 ### 11.2 RTOS Task Structure
 
@@ -966,11 +1064,13 @@ Separating power/data from debug provides cleaner design, easier development, an
 |------|----------|-------|--------|----------|
 | DSP_Audio | Highest | 2KB | 48kHz interrupt | Audio sample processing |
 | Radio_Control | High | 1KB | Event-driven | TX/RX state machine |
-| Power_Manager | High | 1KB | 100ms | Battery/charging monitor |
-| USB_PD | Medium | 2KB | Event-driven | PD negotiation |
+| Power_Monitor | Medium | 512B | 1000ms | Battery/charger I2C polling |
 | UI_Update | Low | 1KB | 50ms | Display refresh |
 | CAT_Handler | Low | 1KB | Event-driven | Serial command processing |
 | Idle | Lowest | 256B | N/A | Sleep mode entry |
+
+Note: USB_PD task eliminated - TPS25750D handles PD autonomously.
+Power_Monitor only polls I2C status registers, no complex state machine.
 
 ### 11.3 Key Algorithms
 
@@ -1001,11 +1101,12 @@ float swr = (1 + gamma) / (1 - gamma);
 |---------|-----------|------------------|---------------|
 | UT-001 | Si5351 | Frequency accuracy | ±1 Hz at 14.2 MHz |
 | UT-002 | Si5351 | Phase accuracy (I/Q) | 90° ±2° |
-| UT-003 | BQ25713 | I2C communication | Read/write all registers |
-| UT-004 | BQ25713 | Charge profile | CC/CV within 1% |
-| UT-005 | UCPD | PD negotiation | Contract at 20V/3A |
-| UT-006 | LPF Relay | Switching | <10ms, reliable |
-| UT-007 | H-Bridge | PWM output | 1-30 MHz, clean edges |
+| UT-003 | BQ25798 | I2C communication | Read/write all registers |
+| UT-004 | BQ25798 | Charge profile | CC/CV within 1% (4S/16.8V) |
+| UT-005 | TPS25750D | PD negotiation | Contract at 20V/3A |
+| UT-006 | TPS25750D | I2CM to BQ25798 | Autonomous charger config |
+| UT-007 | LPF Relay | Switching | <10ms, reliable |
+| UT-008 | H-Bridge | PWM output | 1-30 MHz, clean edges |
 
 ### 12.2 Integration Tests
 
@@ -1033,31 +1134,36 @@ float swr = (1 + gamma) / (1 - gamma);
 
 1. uSDX/truSDX Schematic - DL2MAN/PE1NNZ
 2. Si5351A/B/C Datasheet - Skyworks Solutions
-3. BQ25713/B Datasheet - Texas Instruments
-4. BQ76920 Datasheet - Texas Instruments
-5. STM32G4 Reference Manual - STMicroelectronics
-6. TCPP03-M20 Datasheet - STMicroelectronics
+3. TPS25750 Datasheet - Texas Instruments (SLVSFP8)
+4. BQ25798 Datasheet - Texas Instruments (SLUSE18)
+5. BQ76920 Datasheet - Texas Instruments
+6. STM32G4 Reference Manual - STMicroelectronics
 7. uP9636 Datasheet - uPI Semiconductor
 8. USB Type-C Specification Rev 2.0
 9. USB Power Delivery Specification Rev 3.1
+10. TPS25750 Application Report - TI (SLVAF56)
 
 ---
 
 ## Appendix B: Schematic Checklist
 
-- [ ] STM32G4 with UCPD connections to USB-C #1
-- [ ] TCPP03-M20 protection circuit
-- [ ] BQ25713 charger with external MOSFETs
-- [ ] BQ76920 battery AFE with cell connections
-- [ ] FT4232H with USB-C #2
-- [ ] Si5351A with crystal and I2C
+- [x] STM32G4 MCU with I2C1 connections
+- [x] TPS25750D standalone USB-PD controller (LCSC: C2868209)
+- [x] BQ25798 1-4S buck-boost charger (LCSC: C2876593)
+- [x] BQ76920 battery AFE with 4S cell connections
+- [x] FT4232H with USB-C #2
+- [x] Si5351A with crystal and I2C
 - [ ] uP9636 H-bridge with bootstrap caps
 - [ ] 5-band LPF with latching relays
 - [ ] SWR bridge with ADC connections
 - [ ] Audio input/output circuits
-- [ ] Power distribution (5V, 3.3V rails)
+- [x] Power distribution (5V from XL1509, 3.3V from AMS1117)
 - [ ] Decoupling capacitors on all ICs
-- [ ] ESD protection on all external interfaces
+- [x] ESD protection on USB data lines (USBLC6-2SC6)
+- [x] AMS1117-3.3 input from 5V rail (NOT VSYS)
+- [x] TPS25750D I2CM bus to BQ25798
+- [x] TPS25750D I2CS bus to STM32 I2C1
+- [ ] Verify uP9636 VCC rating >= 18V for 4S operation
 
 ---
 
@@ -1066,6 +1172,7 @@ float swr = (1 + gamma) / (1 - gamma);
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
 | 1.0 | Dec 2024 | - | Initial release |
+| 2.0 | Dec 2024 | - | Major architecture update: TPS25750D + BQ25798 replaces TCPP03 + BQ25713; 4S battery (12.8-16.8V); AMS1117 input from 5V rail; eliminated UCPD firmware dependency |
 
 ---
 

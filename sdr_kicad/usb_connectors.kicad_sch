@@ -7,14 +7,11 @@
   (title_block
     (title "USB-C Connectors")
     (date "2024-12-24")
-    (rev "1.0")
+    (rev "2.0")
     (comment 1 "Dual USB-C: Power/Data + Debug")
-    (comment 2 "USB PD + ESD Protection")
+    (comment 2 "TPS25750D Standalone PD + ESD Protection")
   )
 
-  ;; ============================================
-  ;; USB-C #1: POWER + DATA (Main)
-  ;; ============================================
 
   (text "USB-C #1: Power + MCU Data"
     (exclude_from_sim no)
@@ -23,32 +20,30 @@
     (uuid "text-usbc1-title")
   )
 
-  (text "USB-C Receptacle:\n16-pin mid-mount type\nLCSC: C2765186 or similar\n\nConnections:\n• VBUS → TCPP03 → BQ25713\n• CC1/CC2 → TCPP03 → STM32 UCPD\n• D+/D- → STM32 USB (via ESD)\n• SBU1/SBU2 → NC (reserved)\n• Shield → GND via 1M + 4.7nF\n\nESD Protection:\nUSBLC6-2SC6 (C7519) - Basic\nProtects D+/D- lines"
+  (text "USB-C Receptacle:\n16-pin mid-mount type\nLCSC: C2765186 or similar\n\nConnections (TPS25750D Architecture):\n• VBUS → TPS25750D VBUS (direct)\n• CC1/CC2 → TPS25750D CC1/CC2 (direct)\n  (NO external Rd resistors - TPS25750D has internal)\n• D+/D- → STM32 USB (via ESD)\n• SBU1/SBU2 → NC (reserved)\n• Shield → GND via 1M + 4.7nF\n\nNote: TPS25750D provides:\n• Integrated CC protection\n• Integrated VBUS switch (28V/7A)\n• Dead battery boot support\n• No TCPP03 or STM32 UCPD needed\n\nESD Protection:\nUSBLC6-2SC6 (C7519) - Basic\nProtects D+/D- lines only"
     (exclude_from_sim no)
     (at 25.4 40.64 0)
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid "text-usbc1-note")
   )
 
-  ;; ESD Protection IC
   (text "USBLC6-2SC6 (ESD Protect)"
     (exclude_from_sim no)
-    (at 152.4 25.4 0)
+    (at 165.1 25.4 0)
     (effects (font (size 2 2) bold) (justify left))
     (uuid "text-esd-title")
   )
 
-  (text "USBLC6-2SC6:\n• SOT-23-6 package\n• ESD: ±15kV (air), ±8kV (contact)\n• Low capacitance: 2pF typ\n• LCSC: C7519 (Basic part)\n\nPinout:\n1: I/O1 (D+)\n2: GND\n3: I/O2 (D-)\n4: I/O2 (D-)\n5: VBUS (clamp ref)\n6: I/O1 (D+)"
+  (text "USBLC6-2SC6:\n• SOT-23-6 package\n• ESD: ±15kV (air), ±8kV (contact)\n• Low capacitance: 2pF typ\n• LCSC: C7519 (Basic part)\n\nPinout:\n1: I/O1 (D+)\n2: GND\n3: I/O2 (D-)\n4: I/O2 (D-)\n5: VBUS (clamp ref)\n6: I/O1 (D+)\n\nNote: CC lines protected by\nTPS25750D integrated ESD"
     (exclude_from_sim no)
-    (at 152.4 40.64 0)
+    (at 165.1 40.64 0)
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid "text-esd-note")
   )
 
-  ;; Shield grounding components
   (symbol
     (lib_id "Device:R")
-    (at 76.2 93.98 0)
+    (at 76.2 114.3 0)
     (unit 1)
     (exclude_from_sim no)
     (in_bom yes)
@@ -56,30 +51,30 @@
     (dnp no)
     (uuid "r-shield1")
     (property "Reference" "R60"
-      (at 78.74 91.44 0)
+      (at 78.74 111.76 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "1M"
-      (at 78.74 93.98 0)
+      (at 78.74 114.3 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-      (at 76.2 93.98 0)
+      (at 76.2 114.3 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "LCSC" "C26083"
-      (at 76.2 93.98 0)
+      (at 76.2 114.3 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "JLC_Basic" "Yes"
-      (at 76.2 93.98 0)
+      (at 76.2 114.3 0)
       (effects (font (size 1.27 1.27)) hide)
     )
   )
 
   (symbol
     (lib_id "Device:C")
-    (at 88.9 93.98 0)
+    (at 88.9 114.3 0)
     (unit 1)
     (exclude_from_sim no)
     (in_bom yes)
@@ -87,49 +82,45 @@
     (dnp no)
     (uuid "c-shield1")
     (property "Reference" "C60"
-      (at 91.44 91.44 0)
+      (at 91.44 111.76 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "4.7nF"
-      (at 91.44 93.98 0)
+      (at 91.44 114.3 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-      (at 88.9 93.98 0)
+      (at 88.9 114.3 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "LCSC" "C1538"
-      (at 88.9 93.98 0)
+      (at 88.9 114.3 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "JLC_Basic" "Yes"
-      (at 88.9 93.98 0)
+      (at 88.9 114.3 0)
       (effects (font (size 1.27 1.27)) hide)
     )
   )
 
-  ;; ============================================
-  ;; USB-C #2: DEBUG (FT4232H)
-  ;; ============================================
 
   (text "USB-C #2: Debug Interface"
     (exclude_from_sim no)
-    (at 25.4 127 0)
+    (at 25.4 139.7 0)
     (effects (font (size 2.5 2.5) bold) (justify left))
     (uuid "text-usbc2-title")
   )
 
   (text "USB-C Receptacle:\n16-pin mid-mount type\nSame part as USB-C #1\n\nConnections:\n• VBUS → 5V input for FT4232H\n• CC1/CC2 → 5.1k to GND (sink)\n• D+/D- → FT4232H USB\n• SBU1/SBU2 → NC\n\nNo PD negotiation needed.\nSimple 5V sink configuration."
     (exclude_from_sim no)
-    (at 25.4 142.24 0)
+    (at 25.4 154.94 0)
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid "text-usbc2-note")
   )
 
-  ;; CC resistors for USB-C #2 (5.1k sink)
   (symbol
     (lib_id "Device:R")
-    (at 101.6 152.4 0)
+    (at 101.6 165.1 0)
     (unit 1)
     (exclude_from_sim no)
     (in_bom yes)
@@ -137,30 +128,30 @@
     (dnp no)
     (uuid "r-cc1-sink")
     (property "Reference" "R61"
-      (at 104.14 149.86 0)
+      (at 104.14 162.56 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "5.1k"
-      (at 104.14 152.4 0)
+      (at 104.14 165.1 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-      (at 101.6 152.4 0)
+      (at 101.6 165.1 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "LCSC" "C25905"
-      (at 101.6 152.4 0)
+      (at 101.6 165.1 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "JLC_Basic" "Yes"
-      (at 101.6 152.4 0)
+      (at 101.6 165.1 0)
       (effects (font (size 1.27 1.27)) hide)
     )
   )
 
   (symbol
     (lib_id "Device:R")
-    (at 114.3 152.4 0)
+    (at 114.3 165.1 0)
     (unit 1)
     (exclude_from_sim no)
     (in_bom yes)
@@ -168,31 +159,30 @@
     (dnp no)
     (uuid "r-cc2-sink")
     (property "Reference" "R62"
-      (at 116.84 149.86 0)
+      (at 116.84 162.56 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "5.1k"
-      (at 116.84 152.4 0)
+      (at 116.84 165.1 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-      (at 114.3 152.4 0)
+      (at 114.3 165.1 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "LCSC" "C25905"
-      (at 114.3 152.4 0)
+      (at 114.3 165.1 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "JLC_Basic" "Yes"
-      (at 114.3 152.4 0)
+      (at 114.3 165.1 0)
       (effects (font (size 1.27 1.27)) hide)
     )
   )
 
-  ;; Shield grounding for USB-C #2
   (symbol
     (lib_id "Device:R")
-    (at 76.2 170.18 0)
+    (at 76.2 182.88 0)
     (unit 1)
     (exclude_from_sim no)
     (in_bom yes)
@@ -200,30 +190,30 @@
     (dnp no)
     (uuid "r-shield2")
     (property "Reference" "R63"
-      (at 78.74 167.64 0)
+      (at 78.74 180.34 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "1M"
-      (at 78.74 170.18 0)
+      (at 78.74 182.88 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-      (at 76.2 170.18 0)
+      (at 76.2 182.88 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "LCSC" "C26083"
-      (at 76.2 170.18 0)
+      (at 76.2 182.88 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "JLC_Basic" "Yes"
-      (at 76.2 170.18 0)
+      (at 76.2 182.88 0)
       (effects (font (size 1.27 1.27)) hide)
     )
   )
 
   (symbol
     (lib_id "Device:C")
-    (at 88.9 170.18 0)
+    (at 88.9 182.88 0)
     (unit 1)
     (exclude_from_sim no)
     (in_bom yes)
@@ -231,36 +221,149 @@
     (dnp no)
     (uuid "c-shield2")
     (property "Reference" "C61"
-      (at 91.44 167.64 0)
+      (at 91.44 180.34 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "4.7nF"
-      (at 91.44 170.18 0)
+      (at 91.44 182.88 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-      (at 88.9 170.18 0)
+      (at 88.9 182.88 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "LCSC" "C1538"
-      (at 88.9 170.18 0)
+      (at 88.9 182.88 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "JLC_Basic" "Yes"
-      (at 88.9 170.18 0)
+      (at 88.9 182.88 0)
       (effects (font (size 1.27 1.27)) hide)
     )
   )
 
-  ;; ============================================
-  ;; HIERARCHICAL LABELS
-  ;; ============================================
 
-  (hierarchical_label "VBUS_OUT"
+  (symbol
+    (lib_id "Connector:USB_C_Receptacle_USB2.0")
+    (at 50.8 63.5 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "j1-usbc1")
+    (property "Reference" "J1"
+      (at 50.8 38.1 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "USB_C_Receptacle"
+      (at 50.8 40.64 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12"
+      (at 50.8 63.5 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C2765186"
+      (at 50.8 63.5 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Power_Protection:USBLC6-2SC6")
+    (at 165.1 76.2 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "u10-esd1")
+    (property "Reference" "U10"
+      (at 165.1 63.5 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "USBLC6-2SC6"
+      (at 165.1 66.04 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23-6"
+      (at 165.1 76.2 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C7519"
+      (at 165.1 76.2 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 165.1 76.2 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Connector:USB_C_Receptacle_USB2.0")
+    (at 50.8 152.4 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "j2-usbc2")
+    (property "Reference" "J2"
+      (at 50.8 127 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "USB_C_Receptacle"
+      (at 50.8 129.54 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12"
+      (at 50.8 152.4 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C2765186"
+      (at 50.8 152.4 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Power_Protection:USBLC6-2SC6")
+    (at 165.1 165.1 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "u11-esd2")
+    (property "Reference" "U11"
+      (at 165.1 152.4 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "USBLC6-2SC6"
+      (at 165.1 154.94 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23-6"
+      (at 165.1 165.1 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C7519"
+      (at 165.1 165.1 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 165.1 165.1 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (hierarchical_label "VBUS"
     (shape output)
     (at 228.6 38.1 0)
     (effects (font (size 1.524 1.524)) (justify left))
-    (uuid "hlabel-vbus-out")
+    (uuid "hlabel-vbus")
   )
 
   (hierarchical_label "CC1"
@@ -293,14 +396,14 @@
 
   (hierarchical_label "USB2_DP"
     (shape bidirectional)
-    (at 228.6 139.7 0)
+    (at 228.6 152.4 0)
     (effects (font (size 1.524 1.524)) (justify left))
     (uuid "hlabel-usb2-dp")
   )
 
   (hierarchical_label "USB2_DM"
     (shape bidirectional)
-    (at 228.6 152.4 0)
+    (at 228.6 165.1 0)
     (effects (font (size 1.524 1.524)) (justify left))
     (uuid "hlabel-usb2-dm")
   )

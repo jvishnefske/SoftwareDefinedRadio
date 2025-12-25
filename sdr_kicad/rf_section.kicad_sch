@@ -323,6 +323,249 @@
     )
   )
 
+  (symbol
+    (lib_id "Analog_Switch:FST3253")
+    (at 241.3 127 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "u-qsd")
+    (property "Reference" "U20"
+      (at 241.3 106.68 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "FST3253"
+      (at 241.3 109.22 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Package_SO:TSSOP-16_4.4x5mm_P0.65mm"
+      (at 241.3 127 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C55736"
+      (at 241.3 127 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Relay:EC2-3SNU")
+    (at 101.6 127 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "k1-relay80m")
+    (property "Reference" "K1"
+      (at 101.6 111.76 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "EC2-3SNU"
+      (at 101.6 114.3 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Relay_SMD:Relay_DPDT_Kemet_EC2"
+      (at 101.6 127 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C132490"
+      (at 101.6 127 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Relay:EC2-3SNU")
+    (at 101.6 157.48 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "k2-relay40m")
+    (property "Reference" "K2"
+      (at 101.6 142.24 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "EC2-3SNU"
+      (at 101.6 144.78 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Relay_SMD:Relay_DPDT_Kemet_EC2"
+      (at 101.6 157.48 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C132490"
+      (at 101.6 157.48 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Relay:EC2-3SNU")
+    (at 101.6 187.96 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "k3-relay20m")
+    (property "Reference" "K3"
+      (at 101.6 172.72 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "EC2-3SNU"
+      (at 101.6 175.26 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Relay_SMD:Relay_DPDT_Kemet_EC2"
+      (at 101.6 187.96 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C132490"
+      (at 101.6 187.96 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Relay:EC2-3SNU")
+    (at 101.6 218.44 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "k4-relay15m")
+    (property "Reference" "K4"
+      (at 101.6 203.2 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "EC2-3SNU"
+      (at 101.6 205.74 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Relay_SMD:Relay_DPDT_Kemet_EC2"
+      (at 101.6 218.44 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C132490"
+      (at 101.6 218.44 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Relay:EC2-3SNU")
+    (at 101.6 248.92 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "k5-relay10m")
+    (property "Reference" "K5"
+      (at 101.6 233.68 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "EC2-3SNU"
+      (at 101.6 236.22 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Relay_SMD:Relay_DPDT_Kemet_EC2"
+      (at 101.6 248.92 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C132490"
+      (at 101.6 248.92 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Connector:Conn_Coaxial")
+    (at 355.6 50.8 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "j-ant")
+    (property "Reference" "J10"
+      (at 358.14 45.72 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "SMA"
+      (at 358.14 48.26 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Connector_Coaxial:SMA_Amphenol_132289_EdgeMount"
+      (at 355.6 50.8 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C496549"
+      (at 355.6 50.8 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Diode:1N5711")
+    (at 279.4 63.5 90)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "d1-swr-fwd")
+    (property "Reference" "D1"
+      (at 281.94 60.96 90)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "1N5711"
+      (at 281.94 63.5 90)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Diode_SMD:D_SOD-323"
+      (at 279.4 63.5 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C727110"
+      (at 279.4 63.5 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Diode:1N5711")
+    (at 292.1 63.5 90)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "d2-swr-rev")
+    (property "Reference" "D2"
+      (at 294.64 60.96 90)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "1N5711"
+      (at 294.64 63.5 90)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Diode_SMD:D_SOD-323"
+      (at 292.1 63.5 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C727110"
+      (at 292.1 63.5 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
   (hierarchical_label "VSYS"
     (shape input)
     (at 25.4 50.8 180)

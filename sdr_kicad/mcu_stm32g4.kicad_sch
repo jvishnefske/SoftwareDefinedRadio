@@ -7,14 +7,11 @@
   (title_block
     (title "MCU - STM32G474")
     (date "2024-12-24")
-    (rev "1.0")
-    (comment 1 "ARM Cortex-M4F with UCPD")
+    (rev "2.0")
+    (comment 1 "ARM Cortex-M4F (UCPD unused - TPS25750D handles PD)")
     (comment 2 "JLCPCB Part: C481410")
   )
 
-  ;; ============================================
-  ;; STM32G474RET6 MICROCONTROLLER
-  ;; ============================================
 
   (text "STM32G474RET6 - ARM Cortex-M4F @ 170MHz"
     (exclude_from_sim no)
@@ -23,14 +20,13 @@
     (uuid "text-mcu-title")
   )
 
-  (text "STM32G474RET6 Features:\n• 512KB Flash, 128KB RAM\n• 170MHz Cortex-M4F with FPU/DSP\n• USB Full-Speed + UCPD\n• 5x 12-bit ADC (4 MSPS)\n• 2x 12-bit DAC\n• HRTIM for precise PWM\n• 4x I2C, 4x SPI, 5x UART\n\nLCSC Part: C481410\nPackage: LQFP-64\n\nPin Assignments (Key):\n• PA0: PTT Input\n• PA4: Audio DAC Out\n• PA11/PA12: USB D-/D+\n• PB4/PB5: UCPD CC1/CC2\n• PB6/PB7: I2C1 SCL/SDA\n• PC0/PC1: ADC (SWR FWD/REV)\n• PC2: ADC (Audio In)"
+  (text "STM32G474RET6 Features:\n• 512KB Flash, 128KB RAM\n• 170MHz Cortex-M4F with FPU/DSP\n• USB Full-Speed (UCPD unused)\n• 5x 12-bit ADC (4 MSPS)\n• 2x 12-bit DAC\n• HRTIM for precise PWM\n• 4x I2C, 4x SPI, 5x UART\n\nLCSC Part: C481410\nPackage: LQFP-64\n\nPin Assignments (Key):\n• PA0: PTT Input\n• PA4: Audio DAC Out\n• PA11/PA12: USB D-/D+\n• PB4: TPS25750D INT (optional)\n• PB5: GPIO Spare\n• PB6/PB7: I2C1 SCL/SDA\n• PC0/PC1: ADC (SWR FWD/REV)\n• PC2: ADC (Audio In)\n\nNote: USB-PD handled by TPS25750D\nMCU UCPD peripheral not used"
     (exclude_from_sim no)
     (at 38.1 45.72 0)
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid "text-mcu-features")
   )
 
-  ;; Crystal - 8MHz for HSE
   (text "8MHz HSE Crystal"
     (exclude_from_sim no)
     (at 190.5 38.1 0)
@@ -69,7 +65,6 @@
     )
   )
 
-  ;; HSE Load Capacitors
   (symbol
     (lib_id "Device:C")
     (at 193.04 68.58 0)
@@ -132,9 +127,6 @@
     )
   )
 
-  ;; ============================================
-  ;; POWER DECOUPLING
-  ;; ============================================
 
   (text "Power Decoupling"
     (exclude_from_sim no)
@@ -150,7 +142,6 @@
     (uuid "text-decoupling-note")
   )
 
-  ;; VDD Decoupling Caps
   (symbol
     (lib_id "Device:C")
     (at 241.3 104.14 0)
@@ -182,7 +173,6 @@
     )
   )
 
-  ;; VDDA Decoupling
   (symbol
     (lib_id "Device:C")
     (at 254 104.14 0)
@@ -214,9 +204,6 @@
     )
   )
 
-  ;; ============================================
-  ;; RESET AND BOOT
-  ;; ============================================
 
   (text "Reset Circuit"
     (exclude_from_sim no)
@@ -225,7 +212,6 @@
     (uuid "text-reset-title")
   )
 
-  ;; Reset button
   (symbol
     (lib_id "Switch:SW_Push")
     (at 55.88 157.48 0)
@@ -253,7 +239,6 @@
     )
   )
 
-  ;; Reset pull-up
   (symbol
     (lib_id "Device:R")
     (at 76.2 149.86 0)
@@ -285,7 +270,6 @@
     )
   )
 
-  ;; Reset filter cap
   (symbol
     (lib_id "Device:C")
     (at 88.9 157.48 0)
@@ -317,27 +301,21 @@
     )
   )
 
-  ;; ============================================
-  ;; USB AND UCPD
-  ;; ============================================
 
-  (text "USB Full-Speed + UCPD"
+  (text "USB Full-Speed (Data Only)"
     (exclude_from_sim no)
     (at 127 139.7 0)
     (effects (font (size 2 2) bold) (justify left))
     (uuid "text-usb-title")
   )
 
-  (text "USB Connections:\n• PA11: USB_DM\n• PA12: USB_DP\n\nUCPD Connections:\n• PB4: UCPD1_CC1\n• PB5: UCPD1_CC2\n\nESD Protection:\nUSBLC6-2SC6 (C7519)\nBasic part, protects D+/D-"
+  (text "USB Connections:\n• PA11: USB_DM\n• PA12: USB_DP\n\nFreed UCPD Pins (UCPD not used):\n• PB4: TPS25750D_INT (optional)\n• PB5: GPIO_SPARE (reserved)\n\nNote: USB Power Delivery is handled\nby the standalone TPS25750D controller.\nSTM32 UCPD peripheral unused.\n\nESD Protection:\nUSBLC6-2SC6 (C7519)\nBasic part, protects D+/D-"
     (exclude_from_sim no)
     (at 127 154.94 0)
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid "text-usb-note")
   )
 
-  ;; ============================================
-  ;; ANALOG SECTION
-  ;; ============================================
 
   (text "Analog Inputs"
     (exclude_from_sim no)
@@ -353,9 +331,6 @@
     (uuid "text-analog-note")
   )
 
-  ;; ============================================
-  ;; GPIO SUMMARY
-  ;; ============================================
 
   (text "GPIO Pin Assignments"
     (exclude_from_sim no)
@@ -364,16 +339,13 @@
     (uuid "text-gpio-title")
   )
 
-  (text "Port A:\n PA0  - PTT Input (EXTI)\n PA1  - Band Relay SET 0\n PA2  - Band Relay SET 1\n PA3  - Band Relay SET 2\n PA4  - DAC1_OUT1 (Audio Out)\n PA5  - DAC1_OUT2\n PA6  - Band Relay RESET 0\n PA7  - Band Relay RESET 1\n PA8  - MCO1 (Debug Clock Out)\n PA9  - USART1_TX\n PA10 - USART1_RX\n PA11 - USB_DM\n PA12 - USB_DP\n PA13 - SWDIO\n PA14 - SWCLK\n PA15 - JTAG_TDI\n\nPort B:\n PB0  - ADC (VBAT Sense)\n PB1  - TX Enable\n PB2  - BOOT0 (tie low)\n PB3  - JTAG_TDO/SWO\n PB4  - UCPD1_CC1\n PB5  - UCPD1_CC2\n PB6  - I2C1_SCL\n PB7  - I2C1_SDA\n PB8  - Band Relay RESET 2\n PB9  - Band Relay SET 3\n PB10 - Band Relay RESET 3\n PB11 - Band Relay SET 4\n PB12 - Band Relay RESET 4\n PB13 - SPI2_SCK\n PB14 - SPI2_MISO\n PB15 - SPI2_MOSI\n\nPort C:\n PC0  - ADC1_IN6 (SWR FWD)\n PC1  - ADC1_IN7 (SWR REV)\n PC2  - ADC1_IN8 (Audio In)\n PC3  - Encoder A\n PC4  - Encoder B\n PC5  - Encoder Push\n PC6  - HRTIM1_CH1 (PWM to PA)\n PC7  - HRTIM1_CH2\n PC8  - T/R Switch Control\n PC9  - LED Status\n PC10 - UART4_TX (CAT)\n PC11 - UART4_RX (CAT)\n PC12 - SPI3_MOSI (Flash)\n PC13 - RTC_OUT\n PC14 - OSC32_IN\n PC15 - OSC32_OUT\n\nPort D:\n PD2  - SPI3_MISO"
+  (text "Port A:\n PA0  - PTT Input (EXTI)\n PA1  - Band Relay SET 0\n PA2  - Band Relay SET 1\n PA3  - Band Relay SET 2\n PA4  - DAC1_OUT1 (Audio Out)\n PA5  - DAC1_OUT2\n PA6  - Band Relay RESET 0\n PA7  - Band Relay RESET 1\n PA8  - MCO1 (Debug Clock Out)\n PA9  - USART1_TX\n PA10 - USART1_RX\n PA11 - USB_DM\n PA12 - USB_DP\n PA13 - SWDIO\n PA14 - SWCLK\n PA15 - JTAG_TDI\n\nPort B:\n PB0  - ADC (VBAT Sense)\n PB1  - TX Enable\n PB2  - BOOT0 (tie low)\n PB3  - JTAG_TDO/SWO\n PB4  - TPS25750D_INT (GPIO, optional)\n PB5  - GPIO_SPARE (reserved)\n PB6  - I2C1_SCL\n PB7  - I2C1_SDA\n PB8  - Band Relay RESET 2\n PB9  - Band Relay SET 3\n PB10 - Band Relay RESET 3\n PB11 - Band Relay SET 4\n PB12 - Band Relay RESET 4\n PB13 - SPI2_SCK\n PB14 - SPI2_MISO\n PB15 - SPI2_MOSI\n\nPort C:\n PC0  - ADC1_IN6 (SWR FWD)\n PC1  - ADC1_IN7 (SWR REV)\n PC2  - ADC1_IN8 (Audio In)\n PC3  - Encoder A\n PC4  - Encoder B\n PC5  - Encoder Push\n PC6  - HRTIM1_CH1 (PWM to PA)\n PC7  - HRTIM1_CH2\n PC8  - T/R Switch Control\n PC9  - LED Status\n PC10 - UART4_TX (CAT)\n PC11 - UART4_RX (CAT)\n PC12 - SPI3_MOSI (Flash)\n PC13 - RTC_OUT\n PC14 - OSC32_IN\n PC15 - OSC32_OUT\n\nPort D:\n PD2  - SPI3_MISO"
     (exclude_from_sim no)
     (at 190.5 152.4 0)
     (effects (font (size 1 1)) (justify left))
     (uuid "text-gpio-detail")
   )
 
-  ;; ============================================
-  ;; I2C BUS
-  ;; ============================================
 
   (text "I2C1 Bus Devices"
     (exclude_from_sim no)
@@ -382,17 +354,16 @@
     (uuid "text-i2c-title")
   )
 
-  (text "I2C1 @ 400kHz:\n• 0x60 - Si5351A (Clock Gen)\n• 0x6B - BQ25713 (Charger)\n• 0x08 - BQ76920 (Battery AFE)\n• 0x35 - TCPP03-M20 (USB-C)\n• 0x3C - SSD1306 (OLED, optional)\n\nPull-ups: 2.2k on SCL/SDA\nLCSC: C25879 (Basic 0402)"
+  (text "STM32 I2C1 @ 400kHz (Host Bus):\n• 0x60 - Si5351A (Clock Gen)\n• 0x21 - TPS25750D (USB-PD, I2CS port)\n• 0x6B - BQ25798 (Charger, monitoring)\n• 0x08 - BQ76920 (Battery AFE)\n• 0x3C - SSD1306 (OLED, optional)\n\nTPS25750D I2CM (Charger Control):\n• 0x6B - BQ25798 (autonomous config)\n\nNote: TPS25750D autonomously controls\nBQ25798 via its I2CM port. STM32 can\nmonitor charger status via shared bus.\n\nPull-ups: 2.2k on SCL/SDA\nLCSC: C25879 (Basic 0402)"
     (exclude_from_sim no)
     (at 330.2 45.72 0)
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid "text-i2c-note")
   )
 
-  ;; I2C Pull-ups
   (symbol
     (lib_id "Device:R")
-    (at 355.6 68.58 0)
+    (at 355.6 88.9 0)
     (unit 1)
     (exclude_from_sim no)
     (in_bom yes)
@@ -400,30 +371,30 @@
     (dnp no)
     (uuid "r-i2c-scl")
     (property "Reference" "R20"
-      (at 358.14 66.04 0)
+      (at 358.14 86.36 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "2.2k"
-      (at 358.14 68.58 0)
+      (at 358.14 88.9 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-      (at 355.6 68.58 0)
+      (at 355.6 88.9 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "LCSC" "C25879"
-      (at 355.6 68.58 0)
+      (at 355.6 88.9 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "JLC_Basic" "Yes"
-      (at 355.6 68.58 0)
+      (at 355.6 88.9 0)
       (effects (font (size 1.27 1.27)) hide)
     )
   )
 
   (symbol
     (lib_id "Device:R")
-    (at 368.3 68.58 0)
+    (at 368.3 88.9 0)
     (unit 1)
     (exclude_from_sim no)
     (in_bom yes)
@@ -431,30 +402,27 @@
     (dnp no)
     (uuid "r-i2c-sda")
     (property "Reference" "R21"
-      (at 370.84 66.04 0)
+      (at 370.84 86.36 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "2.2k"
-      (at 370.84 68.58 0)
+      (at 370.84 88.9 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-      (at 368.3 68.58 0)
+      (at 368.3 88.9 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "LCSC" "C25879"
-      (at 368.3 68.58 0)
+      (at 368.3 88.9 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "JLC_Basic" "Yes"
-      (at 368.3 68.58 0)
+      (at 368.3 88.9 0)
       (effects (font (size 1.27 1.27)) hide)
     )
   )
 
-  ;; ============================================
-  ;; HIERARCHICAL LABELS
-  ;; ============================================
 
   (hierarchical_label "+3V3"
     (shape input)
@@ -463,16 +431,16 @@
     (uuid "hlabel-mcu-3v3")
   )
 
-  (hierarchical_label "I2C_SCL"
+  (hierarchical_label "I2C1_SCL"
     (shape bidirectional)
-    (at 381 55.88 0)
+    (at 381 76.2 0)
     (effects (font (size 1.524 1.524)) (justify left))
     (uuid "hlabel-mcu-scl")
   )
 
-  (hierarchical_label "I2C_SDA"
+  (hierarchical_label "I2C1_SDA"
     (shape bidirectional)
-    (at 381 68.58 0)
+    (at 381 88.9 0)
     (effects (font (size 1.524 1.524)) (justify left))
     (uuid "hlabel-mcu-sda")
   )
@@ -505,18 +473,11 @@
     (uuid "hlabel-mcu-usb-dm")
   )
 
-  (hierarchical_label "UCPD_CC1"
-    (shape bidirectional)
+  (hierarchical_label "TPS_INT"
+    (shape input)
     (at 381 152.4 0)
     (effects (font (size 1.524 1.524)) (justify left))
-    (uuid "hlabel-mcu-cc1")
-  )
-
-  (hierarchical_label "UCPD_CC2"
-    (shape bidirectional)
-    (at 381 165.1 0)
-    (effects (font (size 1.524 1.524)) (justify left))
-    (uuid "hlabel-mcu-cc2")
+    (uuid "hlabel-tps-int")
   )
 
 )

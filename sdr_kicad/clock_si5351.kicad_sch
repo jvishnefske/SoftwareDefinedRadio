@@ -12,9 +12,6 @@
     (comment 2 "Quadrature Clocks for QSD")
   )
 
-  ;; ============================================
-  ;; Si5351A CLOCK SYNTHESIZER
-  ;; ============================================
 
   (text "Si5351A-B-GT Clock Synthesizer"
     (exclude_from_sim no)
@@ -30,7 +27,6 @@
     (uuid "text-si5351-features")
   )
 
-  ;; 25MHz Crystal
   (text "25MHz Reference Crystal"
     (exclude_from_sim no)
     (at 152.4 25.4 0)
@@ -65,7 +61,6 @@
     )
   )
 
-  ;; Crystal load caps
   (symbol
     (lib_id "Device:C")
     (at 152.4 63.5 0)
@@ -128,9 +123,6 @@
     )
   )
 
-  ;; ============================================
-  ;; POWER SUPPLY DECOUPLING
-  ;; ============================================
 
   (text "Power Decoupling"
     (exclude_from_sim no)
@@ -146,7 +138,6 @@
     (uuid "text-pwr-note")
   )
 
-  ;; VDD decoupling
   (symbol
     (lib_id "Device:C")
     (at 101.6 114.3 0)
@@ -209,7 +200,6 @@
     )
   )
 
-  ;; VDDO decoupling
   (symbol
     (lib_id "Device:C")
     (at 139.7 114.3 0)
@@ -241,9 +231,6 @@
     )
   )
 
-  ;; ============================================
-  ;; OUTPUT BUFFERS / LEVEL SHIFTING
-  ;; ============================================
 
   (text "Clock Output Conditioning"
     (exclude_from_sim no)
@@ -259,7 +246,6 @@
     (uuid "text-output-note")
   )
 
-  ;; Output series resistors
   (symbol
     (lib_id "Device:R")
     (at 215.9 116.84 90)
@@ -353,9 +339,6 @@
     )
   )
 
-  ;; ============================================
-  ;; HIERARCHICAL LABELS
-  ;; ============================================
 
   (hierarchical_label "I2C_SCL"
     (shape input)

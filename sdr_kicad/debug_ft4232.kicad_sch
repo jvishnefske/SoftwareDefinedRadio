@@ -12,9 +12,6 @@
     (comment 2 "JLCPCB Part: C2688064")
   )
 
-  ;; ============================================
-  ;; FT4232HL QUAD INTERFACE
-  ;; ============================================
 
   (text "FT4232HL - Quad USB to UART/MPSSE"
     (exclude_from_sim no)
@@ -30,9 +27,6 @@
     (uuid "text-ft4232-features")
   )
 
-  ;; ============================================
-  ;; USB INTERFACE
-  ;; ============================================
 
   (text "USB Interface"
     (exclude_from_sim no)
@@ -48,7 +42,6 @@
     (uuid "text-usb-note")
   )
 
-  ;; USB series resistors
   (symbol
     (lib_id "Device:R")
     (at 215.9 68.58 90)
@@ -111,7 +104,6 @@
     )
   )
 
-  ;; Ferrite bead
   (symbol
     (lib_id "Device:Ferrite_Bead")
     (at 190.5 50.8 90)
@@ -143,9 +135,6 @@
     )
   )
 
-  ;; ============================================
-  ;; POWER AND DECOUPLING
-  ;; ============================================
 
   (text "Power Decoupling"
     (exclude_from_sim no)
@@ -161,7 +150,6 @@
     (uuid "text-pwr-note")
   )
 
-  ;; Decoupling caps
   (symbol
     (lib_id "Device:C")
     (at 101.6 119.38 0)
@@ -220,9 +208,6 @@
     )
   )
 
-  ;; ============================================
-  ;; EEPROM
-  ;; ============================================
 
   (text "EEPROM (Optional)"
     (exclude_from_sim no)
@@ -238,9 +223,6 @@
     (uuid "text-eeprom-note")
   )
 
-  ;; ============================================
-  ;; JTAG CONNECTOR
-  ;; ============================================
 
   (text "JTAG/SWD Connection"
     (exclude_from_sim no)
@@ -256,7 +238,6 @@
     (uuid "text-jtag-note")
   )
 
-  ;; JTAG series resistors
   (symbol
     (lib_id "Device:R")
     (at 114.3 182.88 90)
@@ -381,9 +362,6 @@
     )
   )
 
-  ;; ============================================
-  ;; HIERARCHICAL LABELS
-  ;; ============================================
 
   (hierarchical_label "+5V"
     (shape input)
