@@ -1,0 +1,409 @@
+(kicad_sch
+  (version 20231120)
+  (generator "eeschema")
+  (generator_version "8.0")
+  (uuid "clock-si5351-uuid-001")
+  (paper "A4")
+  (title_block
+    (title "Clock Generator - Si5351A")
+    (date "2024-12-24")
+    (rev "1.0")
+    (comment 1 "I2C Programmable Clock Synthesizer")
+    (comment 2 "Quadrature Clocks for QSD")
+  )
+
+  ;; ============================================
+  ;; Si5351A CLOCK SYNTHESIZER
+  ;; ============================================
+
+  (text "Si5351A-B-GT Clock Synthesizer"
+    (exclude_from_sim no)
+    (at 25.4 25.4 0)
+    (effects (font (size 2.5 2.5) bold) (justify left))
+    (uuid "text-si5351-title")
+  )
+
+  (text "Si5351A Features:\n• 8 Independent Outputs (A variant)\n• 8kHz - 160MHz output range\n• I2C Interface (Addr: 0x60)\n• Dual PLLs for phase control\n• <1 Hz frequency resolution\n• Low jitter (<1ps RMS)\n\nLCSC Part: C506891\nPackage: MSOP-10\n\nClock Outputs Used:\n• CLK0: I-channel LO (0°)\n• CLK1: Q-channel LO (90°)\n• CLK2: TX carrier / BFO\n\nQuadrature Generation:\nPLL phase offset method:\nCLK1 phase = CLK0 + 90°"
+    (exclude_from_sim no)
+    (at 25.4 40.64 0)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "text-si5351-features")
+  )
+
+  ;; 25MHz Crystal
+  (text "25MHz Reference Crystal"
+    (exclude_from_sim no)
+    (at 152.4 25.4 0)
+    (effects (font (size 2 2) bold) (justify left))
+    (uuid "text-xtal-title")
+  )
+
+  (symbol
+    (lib_id "Device:Crystal")
+    (at 165.1 50.8 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "y-si5351")
+    (property "Reference" "Y2"
+      (at 165.1 43.18 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "25MHz"
+      (at 165.1 45.72 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Crystal:Crystal_HC49-4H_Vertical"
+      (at 165.1 50.8 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C255909"
+      (at 165.1 50.8 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  ;; Crystal load caps
+  (symbol
+    (lib_id "Device:C")
+    (at 152.4 63.5 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "c-xtal-1")
+    (property "Reference" "C40"
+      (at 154.94 60.96 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "10pF"
+      (at 154.94 63.5 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+      (at 152.4 63.5 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C32949"
+      (at 152.4 63.5 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 152.4 63.5 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Device:C")
+    (at 177.8 63.5 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "c-xtal-2")
+    (property "Reference" "C41"
+      (at 180.34 60.96 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "10pF"
+      (at 180.34 63.5 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+      (at 177.8 63.5 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C32949"
+      (at 177.8 63.5 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 177.8 63.5 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  ;; ============================================
+  ;; POWER SUPPLY DECOUPLING
+  ;; ============================================
+
+  (text "Power Decoupling"
+    (exclude_from_sim no)
+    (at 25.4 101.6 0)
+    (effects (font (size 2 2) bold) (justify left))
+    (uuid "text-pwr-title")
+  )
+
+  (text "VDD (3.3V Core):\n• 100nF ceramic close to pin\n• 10uF bulk nearby\n\nVDDO (Output driver, 3.3V or 5V):\n• 100nF ceramic close to pin\n• Can run at 5V for higher drive\n\nNote: Keep VDD and VDDO\ndecoupling separate for\nbest noise performance."
+    (exclude_from_sim no)
+    (at 25.4 116.84 0)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "text-pwr-note")
+  )
+
+  ;; VDD decoupling
+  (symbol
+    (lib_id "Device:C")
+    (at 101.6 114.3 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "c-vdd-si")
+    (property "Reference" "C42"
+      (at 104.14 111.76 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "100nF"
+      (at 104.14 114.3 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+      (at 101.6 114.3 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C1525"
+      (at 101.6 114.3 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 101.6 114.3 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Device:C")
+    (at 114.3 114.3 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "c-vdd-bulk")
+    (property "Reference" "C43"
+      (at 116.84 111.76 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "10uF"
+      (at 116.84 114.3 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+      (at 114.3 114.3 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C19702"
+      (at 114.3 114.3 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 114.3 114.3 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  ;; VDDO decoupling
+  (symbol
+    (lib_id "Device:C")
+    (at 139.7 114.3 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "c-vddo-si")
+    (property "Reference" "C44"
+      (at 142.24 111.76 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "100nF"
+      (at 142.24 114.3 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+      (at 139.7 114.3 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C1525"
+      (at 139.7 114.3 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 139.7 114.3 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  ;; ============================================
+  ;; OUTPUT BUFFERS / LEVEL SHIFTING
+  ;; ============================================
+
+  (text "Clock Output Conditioning"
+    (exclude_from_sim no)
+    (at 152.4 101.6 0)
+    (effects (font (size 2 2) bold) (justify left))
+    (uuid "text-output-title")
+  )
+
+  (text "Si5351 outputs are CMOS push-pull.\nFor driving FST3253 QSD switches:\n\n• Direct connection OK at 3.3V\n• Series resistor (33-100Ω) for\n  impedance matching and EMI\n• AC coupling if DC offset needed\n\nOutput Series Resistors:\nR50, R51, R52: 47Ω 0402\nLCSC: C25118 (Basic)"
+    (exclude_from_sim no)
+    (at 152.4 116.84 0)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "text-output-note")
+  )
+
+  ;; Output series resistors
+  (symbol
+    (lib_id "Device:R")
+    (at 215.9 116.84 90)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "r-clk0")
+    (property "Reference" "R50"
+      (at 215.9 111.76 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "47R"
+      (at 215.9 114.3 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+      (at 215.9 116.84 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C25118"
+      (at 215.9 116.84 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 215.9 116.84 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Device:R")
+    (at 215.9 129.54 90)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "r-clk1")
+    (property "Reference" "R51"
+      (at 215.9 124.46 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "47R"
+      (at 215.9 127 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+      (at 215.9 129.54 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C25118"
+      (at 215.9 129.54 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 215.9 129.54 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Device:R")
+    (at 215.9 142.24 90)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "r-clk2")
+    (property "Reference" "R52"
+      (at 215.9 137.16 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "47R"
+      (at 215.9 139.7 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+      (at 215.9 142.24 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C25118"
+      (at 215.9 142.24 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 215.9 142.24 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  ;; ============================================
+  ;; HIERARCHICAL LABELS
+  ;; ============================================
+
+  (hierarchical_label "I2C_SCL"
+    (shape input)
+    (at 20.32 170.18 180)
+    (effects (font (size 1.524 1.524)) (justify right))
+    (uuid "hlabel-clk-scl")
+  )
+
+  (hierarchical_label "I2C_SDA"
+    (shape bidirectional)
+    (at 20.32 177.8 180)
+    (effects (font (size 1.524 1.524)) (justify right))
+    (uuid "hlabel-clk-sda")
+  )
+
+  (hierarchical_label "CLK0"
+    (shape output)
+    (at 236.22 116.84 0)
+    (effects (font (size 1.524 1.524)) (justify left))
+    (uuid "hlabel-clk0")
+  )
+
+  (hierarchical_label "CLK1"
+    (shape output)
+    (at 236.22 129.54 0)
+    (effects (font (size 1.524 1.524)) (justify left))
+    (uuid "hlabel-clk1")
+  )
+
+  (hierarchical_label "CLK2"
+    (shape output)
+    (at 236.22 142.24 0)
+    (effects (font (size 1.524 1.524)) (justify left))
+    (uuid "hlabel-clk2")
+  )
+
+  (hierarchical_label "+3V3"
+    (shape input)
+    (at 20.32 185.42 180)
+    (effects (font (size 1.524 1.524)) (justify right))
+    (uuid "hlabel-clk-3v3")
+  )
+
+  (hierarchical_label "+5V"
+    (shape input)
+    (at 20.32 193.04 180)
+    (effects (font (size 1.524 1.524)) (justify right))
+    (uuid "hlabel-clk-5v")
+  )
+
+)

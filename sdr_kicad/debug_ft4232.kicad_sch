@@ -1,0 +1,437 @@
+(kicad_sch
+  (version 20231120)
+  (generator "eeschema")
+  (generator_version "8.0")
+  (uuid "debug-ft4232-uuid-001")
+  (paper "A4")
+  (title_block
+    (title "Debug Interface - FT4232H")
+    (date "2024-12-24")
+    (rev "1.0")
+    (comment 1 "Quad USB-UART/JTAG Interface")
+    (comment 2 "JLCPCB Part: C2688064")
+  )
+
+  ;; ============================================
+  ;; FT4232HL QUAD INTERFACE
+  ;; ============================================
+
+  (text "FT4232HL - Quad USB to UART/MPSSE"
+    (exclude_from_sim no)
+    (at 25.4 25.4 0)
+    (effects (font (size 2.5 2.5) bold) (justify left))
+    (uuid "text-ft4232-title")
+  )
+
+  (text "FT4232HL Features:\n• 4 independent serial channels\n• Channels A/B: MPSSE capable (JTAG/SPI)\n• Channels C/D: UART only\n• USB 2.0 High-Speed (480 Mbps)\n• 3.3V I/O (5V tolerant inputs)\n• Internal EEPROM for config\n\nLCSC Part: C2688064\nPackage: LQFP-64\n\nChannel Assignments:\n• Ch A: JTAG TCK/TMS\n• Ch B: JTAG TDI/TDO\n• Ch C: Debug UART (115200)\n• Ch D: CAT Control UART"
+    (exclude_from_sim no)
+    (at 25.4 40.64 0)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "text-ft4232-features")
+  )
+
+  ;; ============================================
+  ;; USB INTERFACE
+  ;; ============================================
+
+  (text "USB Interface"
+    (exclude_from_sim no)
+    (at 177.8 25.4 0)
+    (effects (font (size 2 2) bold) (justify left))
+    (uuid "text-usb-title")
+  )
+
+  (text "USB Connections:\n• USBDP → USB-C #2 D+\n• USBDM → USB-C #2 D-\n\nFerrite Bead on VBUS:\nFB1: 600Ω @ 100MHz\nLCSC: C1015 (Basic)\n\nUSB Termination:\n27Ω series on D+/D-\nLCSC: C25190 (Basic)"
+    (exclude_from_sim no)
+    (at 177.8 40.64 0)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "text-usb-note")
+  )
+
+  ;; USB series resistors
+  (symbol
+    (lib_id "Device:R")
+    (at 215.9 68.58 90)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "r-usb-dp")
+    (property "Reference" "R70"
+      (at 215.9 63.5 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "27R"
+      (at 215.9 66.04 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+      (at 215.9 68.58 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C25190"
+      (at 215.9 68.58 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 215.9 68.58 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Device:R")
+    (at 215.9 81.28 90)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "r-usb-dm")
+    (property "Reference" "R71"
+      (at 215.9 76.2 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "27R"
+      (at 215.9 78.74 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+      (at 215.9 81.28 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C25190"
+      (at 215.9 81.28 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 215.9 81.28 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  ;; Ferrite bead
+  (symbol
+    (lib_id "Device:Ferrite_Bead")
+    (at 190.5 50.8 90)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "fb-vbus")
+    (property "Reference" "FB1"
+      (at 190.5 45.72 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "600R@100MHz"
+      (at 190.5 48.26 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Inductor_SMD:L_0603_1608Metric"
+      (at 190.5 50.8 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C1015"
+      (at 190.5 50.8 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 190.5 50.8 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  ;; ============================================
+  ;; POWER AND DECOUPLING
+  ;; ============================================
+
+  (text "Power Decoupling"
+    (exclude_from_sim no)
+    (at 25.4 101.6 0)
+    (effects (font (size 2 2) bold) (justify left))
+    (uuid "text-pwr-title")
+  )
+
+  (text "VCCIO (3.3V):\n• 100nF on each VCCIO pin (x4)\n• LCSC: C1525 (Basic)\n\nVCCCORE (Internal 1.8V):\n• Generated internally\n• 3.3uF + 100nF decoupling\n\nVPHY (USB PHY, 3.3V):\n• 100nF + ferrite bead isolation\n\nVREGIN (3.3V-5V input):\n• Tied to +5V via ferrite\n• 4.7uF bulk capacitor"
+    (exclude_from_sim no)
+    (at 25.4 116.84 0)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "text-pwr-note")
+  )
+
+  ;; Decoupling caps
+  (symbol
+    (lib_id "Device:C")
+    (at 101.6 119.38 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "c-vccio1")
+    (property "Reference" "C70"
+      (at 104.14 116.84 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "100nF"
+      (at 104.14 119.38 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+      (at 101.6 119.38 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C1525"
+      (at 101.6 119.38 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 101.6 119.38 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Device:C")
+    (at 114.3 119.38 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "c-vcore")
+    (property "Reference" "C71"
+      (at 116.84 116.84 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "3.3uF"
+      (at 116.84 119.38 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+      (at 114.3 119.38 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C42998"
+      (at 114.3 119.38 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  ;; ============================================
+  ;; EEPROM
+  ;; ============================================
+
+  (text "EEPROM (Optional)"
+    (exclude_from_sim no)
+    (at 177.8 101.6 0)
+    (effects (font (size 2 2) bold) (justify left))
+    (uuid "text-eeprom-title")
+  )
+
+  (text "93LC56B or similar:\n• 2Kbit (256 x 8)\n• 3-wire serial interface\n• Stores USB VID/PID, strings\n• LCSC: C7559\n\nCan be programmed via\nFTDI FT_PROG utility.\n\nIf omitted, default FTDI\nVID/PID will be used."
+    (exclude_from_sim no)
+    (at 177.8 116.84 0)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "text-eeprom-note")
+  )
+
+  ;; ============================================
+  ;; JTAG CONNECTOR
+  ;; ============================================
+
+  (text "JTAG/SWD Connection"
+    (exclude_from_sim no)
+    (at 25.4 170.18 0)
+    (effects (font (size 2 2) bold) (justify left))
+    (uuid "text-jtag-title")
+  )
+
+  (text "JTAG to STM32G4:\n\nFrom FT4232 → STM32\n• ADBUS0 (TCK) → PA14/SWCLK\n• ADBUS1 (TDI) → PA15/JTDI\n• ADBUS2 (TDO) → PB3/JTDO\n• ADBUS3 (TMS) → PA13/SWDIO\n• BDBUS0-3  → Reserved\n\nSeries resistors (33Ω) on all\nJTAG lines for protection.\nLCSC: C25105 (Basic)"
+    (exclude_from_sim no)
+    (at 25.4 185.42 0)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "text-jtag-note")
+  )
+
+  ;; JTAG series resistors
+  (symbol
+    (lib_id "Device:R")
+    (at 114.3 182.88 90)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "r-tck")
+    (property "Reference" "R72"
+      (at 114.3 177.8 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "33R"
+      (at 114.3 180.34 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+      (at 114.3 182.88 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C25105"
+      (at 114.3 182.88 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 114.3 182.88 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Device:R")
+    (at 114.3 193.04 90)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "r-tms")
+    (property "Reference" "R73"
+      (at 114.3 187.96 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "33R"
+      (at 114.3 190.5 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+      (at 114.3 193.04 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C25105"
+      (at 114.3 193.04 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 114.3 193.04 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Device:R")
+    (at 114.3 203.2 90)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "r-tdi")
+    (property "Reference" "R74"
+      (at 114.3 198.12 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "33R"
+      (at 114.3 200.66 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+      (at 114.3 203.2 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C25105"
+      (at 114.3 203.2 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 114.3 203.2 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Device:R")
+    (at 114.3 213.36 90)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "r-tdo")
+    (property "Reference" "R75"
+      (at 114.3 208.28 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "33R"
+      (at 114.3 210.82 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+      (at 114.3 213.36 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C25105"
+      (at 114.3 213.36 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 114.3 213.36 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  ;; ============================================
+  ;; HIERARCHICAL LABELS
+  ;; ============================================
+
+  (hierarchical_label "+5V"
+    (shape input)
+    (at 20.32 50.8 180)
+    (effects (font (size 1.524 1.524)) (justify right))
+    (uuid "hlabel-dbg-5v")
+  )
+
+  (hierarchical_label "JTAG_TCK"
+    (shape output)
+    (at 139.7 182.88 0)
+    (effects (font (size 1.524 1.524)) (justify left))
+    (uuid "hlabel-jtag-tck")
+  )
+
+  (hierarchical_label "JTAG_TMS"
+    (shape output)
+    (at 139.7 193.04 0)
+    (effects (font (size 1.524 1.524)) (justify left))
+    (uuid "hlabel-jtag-tms")
+  )
+
+  (hierarchical_label "JTAG_TDI"
+    (shape output)
+    (at 139.7 203.2 0)
+    (effects (font (size 1.524 1.524)) (justify left))
+    (uuid "hlabel-jtag-tdi")
+  )
+
+  (hierarchical_label "JTAG_TDO"
+    (shape input)
+    (at 139.7 213.36 0)
+    (effects (font (size 1.524 1.524)) (justify left))
+    (uuid "hlabel-jtag-tdo")
+  )
+
+  (hierarchical_label "USB2_DP"
+    (shape bidirectional)
+    (at 236.22 68.58 0)
+    (effects (font (size 1.524 1.524)) (justify left))
+    (uuid "hlabel-usb2-dp")
+  )
+
+  (hierarchical_label "USB2_DM"
+    (shape bidirectional)
+    (at 236.22 81.28 0)
+    (effects (font (size 1.524 1.524)) (justify left))
+    (uuid "hlabel-usb2-dm")
+  )
+
+)

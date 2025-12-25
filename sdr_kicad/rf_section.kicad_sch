@@ -1,0 +1,389 @@
+(kicad_sch
+  (version 20231120)
+  (generator "eeschema")
+  (generator_version "8.0")
+  (uuid "rf-section-uuid-001")
+  (paper "A3")
+  (title_block
+    (title "RF Section - PA, LPF, T/R Switch")
+    (date "2024-12-24")
+    (rev "1.0")
+    (comment 1 "H-Bridge Class-E PA + 5-Band LPF")
+    (comment 2 "Based on uSDX/truSDX Architecture")
+  )
+
+  (text "H-Bridge Class-E Power Amplifier"
+    (exclude_from_sim no)
+    (at 38.1 30.48 0)
+    (effects (font (size 2.5 2.5) bold) (justify left))
+    (uuid "text-pa-title")
+  )
+
+  (text "uP9636 H-Bridge Driver\n• VIN: 2.5V-25V (VSYS)\n• VCC: 4.5V-13.2V\n• 60A MOSFETs, 5.5mΩ\n\nDiscrete Alternative:\n• 4x Si2302 (C10487)\n• 2x IR2104 driver"
+    (exclude_from_sim no)
+    (at 38.1 45.72 0)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "text-pa-config")
+  )
+
+  (text "5-Band Low Pass Filter"
+    (exclude_from_sim no)
+    (at 38.1 101.6 0)
+    (effects (font (size 2.5 2.5) bold) (justify left))
+    (uuid "text-lpf-title")
+  )
+
+  (text "Latching Relay Switching\n• EC2-3SNU DPDT\n• 3V coil, 10ms pulse\n• Zero standby current\n• LCSC: C132490\n\nDriver: 2N7002 (C8545)"
+    (exclude_from_sim no)
+    (at 38.1 116.84 0)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "text-lpf-config")
+  )
+
+  (text "LPF VALUES\n Band  |Cutoff| L1=L3 | L2   |C1=C3 | C2\n 80m   |4.5MHz| 2.4uH |2.9uH |1200pF|1500pF\n 40m   |8MHz  | 1.2uH |1.5uH | 680pF| 820pF\n 30/20m|15MHz | 680nH |820nH | 390pF| 470pF\n 17/15m|22MHz | 470nH |560nH | 270pF| 330pF\n 12/10m|30MHz | 330nH |390nH | 180pF| 220pF"
+    (exclude_from_sim no)
+    (at 38.1 165.1 0)
+    (effects (font (size 1.1 1.1)) (justify left))
+    (uuid "text-lpf-table")
+  )
+
+  (text "Quadrature Sampling Detector"
+    (exclude_from_sim no)
+    (at 203.2 101.6 0)
+    (effects (font (size 2 2) bold) (justify left))
+    (uuid "text-qsd-title")
+  )
+
+  (text "FST3253 Tayloe Detector\n• LCSC: C55736\n• Driven by Si5351 CLK0/1\n\nAnti-alias LPF:\n• R: 10k (C25744)\n• C: 4.7nF (C1538)\n• Fc: ~3.4kHz"
+    (exclude_from_sim no)
+    (at 203.2 116.84 0)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "text-qsd-note")
+  )
+
+  (text "SWR Bridge"
+    (exclude_from_sim no)
+    (at 203.2 30.48 0)
+    (effects (font (size 2 2) bold) (justify left))
+    (uuid "text-swr-title")
+  )
+
+  (text "Tandem Match:\n• FT50-43 toroid\n• 1T primary, 10T secondary\n• 1N5711 detectors"
+    (exclude_from_sim no)
+    (at 203.2 45.72 0)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "text-swr-note")
+  )
+
+  (symbol
+    (lib_id "Transistor_FET:2N7002")
+    (at 152.4 127 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "q-relay1")
+    (property "Reference" "Q1"
+      (at 157.48 124.46 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "2N7002"
+      (at 157.48 127 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+      (at 152.4 127 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C8545"
+      (at 152.4 127 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 152.4 127 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Device:R")
+    (at 137.16 127 90)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "r-gate1")
+    (property "Reference" "R30"
+      (at 137.16 121.92 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "1k"
+      (at 137.16 124.46 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+      (at 137.16 127 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C11702"
+      (at 137.16 127 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 137.16 127 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Device:R")
+    (at 279.4 127 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "r-aa-i")
+    (property "Reference" "R40"
+      (at 281.94 124.46 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "10k"
+      (at 281.94 127 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+      (at 279.4 127 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C25744"
+      (at 279.4 127 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 279.4 127 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Device:R")
+    (at 279.4 144.78 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "r-aa-q")
+    (property "Reference" "R41"
+      (at 281.94 142.24 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "10k"
+      (at 281.94 144.78 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+      (at 279.4 144.78 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C25744"
+      (at 279.4 144.78 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 279.4 144.78 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Device:C")
+    (at 297.18 134.62 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "c-aa-i")
+    (property "Reference" "C40"
+      (at 299.72 132.08 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "4.7nF"
+      (at 299.72 134.62 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+      (at 297.18 134.62 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C1538"
+      (at 297.18 134.62 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 297.18 134.62 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Device:C")
+    (at 297.18 152.4 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "c-aa-q")
+    (property "Reference" "C41"
+      (at 299.72 149.86 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "4.7nF"
+      (at 299.72 152.4 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+      (at 297.18 152.4 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C1538"
+      (at 297.18 152.4 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 297.18 152.4 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Device:C")
+    (at 88.9 55.88 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "c-boot")
+    (property "Reference" "C30"
+      (at 91.44 53.34 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "100nF"
+      (at 91.44 55.88 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+      (at 88.9 55.88 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C1525"
+      (at 88.9 55.88 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 88.9 55.88 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Device:C")
+    (at 101.6 55.88 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "c-vin-pa")
+    (property "Reference" "C31"
+      (at 104.14 53.34 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "22uF"
+      (at 104.14 55.88 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+      (at 101.6 55.88 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C45783"
+      (at 101.6 55.88 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 101.6 55.88 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (hierarchical_label "VSYS"
+    (shape input)
+    (at 25.4 50.8 180)
+    (effects (font (size 1.524 1.524)) (justify right))
+    (uuid "hlabel-rf-vsys")
+  )
+
+  (hierarchical_label "PWM_IN"
+    (shape input)
+    (at 25.4 63.5 180)
+    (effects (font (size 1.524 1.524)) (justify right))
+    (uuid "hlabel-rf-pwm")
+  )
+
+  (hierarchical_label "BAND_SEL[0..4]"
+    (shape input)
+    (at 25.4 76.2 180)
+    (effects (font (size 1.524 1.524)) (justify right))
+    (uuid "hlabel-rf-band")
+  )
+
+  (hierarchical_label "CLK_I"
+    (shape input)
+    (at 254 127 180)
+    (effects (font (size 1.524 1.524)) (justify right))
+    (uuid "hlabel-rf-clki")
+  )
+
+  (hierarchical_label "CLK_Q"
+    (shape input)
+    (at 254 144.78 180)
+    (effects (font (size 1.524 1.524)) (justify right))
+    (uuid "hlabel-rf-clkq")
+  )
+
+  (hierarchical_label "ANT"
+    (shape bidirectional)
+    (at 330.2 50.8 0)
+    (effects (font (size 1.524 1.524)) (justify left))
+    (uuid "hlabel-rf-ant")
+  )
+
+  (hierarchical_label "RX_I"
+    (shape output)
+    (at 330.2 127 0)
+    (effects (font (size 1.524 1.524)) (justify left))
+    (uuid "hlabel-rf-rxi")
+  )
+
+  (hierarchical_label "RX_Q"
+    (shape output)
+    (at 330.2 144.78 0)
+    (effects (font (size 1.524 1.524)) (justify left))
+    (uuid "hlabel-rf-rxq")
+  )
+
+  (hierarchical_label "TX_EN"
+    (shape input)
+    (at 25.4 88.9 180)
+    (effects (font (size 1.524 1.524)) (justify right))
+    (uuid "hlabel-rf-txen")
+  )
+
+)

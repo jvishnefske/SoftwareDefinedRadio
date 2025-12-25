@@ -1,0 +1,540 @@
+(kicad_sch
+  (version 20231120)
+  (generator "eeschema")
+  (generator_version "8.0")
+  (uuid "a0b1c2d3-e4f5-6789-abcd-ef0123456789")
+  (paper "A3")
+  (title_block
+    (title "SDR Transceiver - Main")
+    (date "2024-12-24")
+    (rev "1.0")
+    (company "")
+    (comment 1 "Based on uSDX/truSDX Architecture")
+    (comment 2 "STM32G4 + USB-C PD + 3S Battery")
+  )
+
+  ;; Power symbols
+  (symbol
+    (lib_id "power:GND")
+    (at 50.8 177.8 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "gnd-main-1")
+    (property "Reference" "#PWR0101"
+      (at 50.8 184.15 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "GND"
+      (at 50.8 181.61 0)
+      (effects (font (size 1.27 1.27)))
+    )
+  )
+
+  ;; Title text
+  (text "SDR TRANSCEIVER - TOP LEVEL"
+    (exclude_from_sim no)
+    (at 148.59 25.4 0)
+    (effects
+      (font (size 5 5) bold)
+      (justify left)
+    )
+    (uuid "title-text-1")
+  )
+
+  (text "Hierarchical Design:\n- Power Management (USB-C PD, Battery, Regulators)\n- MCU (STM32G474 + Peripherals)\n- Clock Generation (Si5351A)\n- RF Section (H-Bridge PA, LPF, T/R Switch)\n- Debug Interface (FT4232H)"
+    (exclude_from_sim no)
+    (at 25.4 45.72 0)
+    (effects
+      (font (size 2 2))
+      (justify left)
+    )
+    (uuid "desc-text-1")
+  )
+
+  ;; Sheet: Power Management
+  (sheet
+    (at 25.4 88.9)
+    (size 50.8 25.4)
+    (fields_autoplaced yes)
+    (stroke
+      (width 0.1524)
+      (type solid)
+    )
+    (fill
+      (color 255 255 194 1.0)
+    )
+    (uuid "sheet-power-1")
+    (property "Sheetname" "Power_Management"
+      (at 25.4 88.1394 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify left bottom)
+      )
+    )
+    (property "Sheetfile" "power_management.kicad_sch"
+      (at 25.4 114.9146 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify left top)
+      )
+    )
+    (pin "VBUS" input
+      (at 76.2 93.98 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-vbus-1")
+    )
+    (pin "VSYS" output
+      (at 76.2 99.06 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-vsys-1")
+    )
+    (pin "+5V" output
+      (at 76.2 104.14 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-5v-1")
+    )
+    (pin "+3V3" output
+      (at 76.2 109.22 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-3v3-1")
+    )
+  )
+
+  ;; Sheet: MCU
+  (sheet
+    (at 101.6 88.9)
+    (size 50.8 38.1)
+    (fields_autoplaced yes)
+    (stroke
+      (width 0.1524)
+      (type solid)
+    )
+    (fill
+      (color 194 255 194 1.0)
+    )
+    (uuid "sheet-mcu-1")
+    (property "Sheetname" "MCU_STM32G4"
+      (at 101.6 88.1394 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify left bottom)
+      )
+    )
+    (property "Sheetfile" "mcu_stm32g4.kicad_sch"
+      (at 101.6 127.6146 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify left top)
+      )
+    )
+    (pin "+3V3" input
+      (at 101.6 93.98 180)
+      (effects
+        (font (size 1.524 1.524))
+        (justify left)
+      )
+      (uuid "pin-mcu-3v3-1")
+    )
+    (pin "I2C_SCL" bidirectional
+      (at 152.4 93.98 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-i2c-scl-1")
+    )
+    (pin "I2C_SDA" bidirectional
+      (at 152.4 99.06 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-i2c-sda-1")
+    )
+    (pin "PWM_PA" output
+      (at 152.4 104.14 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-pwm-pa-1")
+    )
+    (pin "BAND_SEL[0..4]" output
+      (at 152.4 109.22 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-band-sel-1")
+    )
+    (pin "USB_DP" bidirectional
+      (at 152.4 114.3 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-usb-dp-1")
+    )
+    (pin "USB_DM" bidirectional
+      (at 152.4 119.38 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-usb-dm-1")
+    )
+  )
+
+  ;; Sheet: Clock Generator
+  (sheet
+    (at 177.8 88.9)
+    (size 38.1 25.4)
+    (fields_autoplaced yes)
+    (stroke
+      (width 0.1524)
+      (type solid)
+    )
+    (fill
+      (color 194 194 255 1.0)
+    )
+    (uuid "sheet-clock-1")
+    (property "Sheetname" "Clock_Si5351"
+      (at 177.8 88.1394 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify left bottom)
+      )
+    )
+    (property "Sheetfile" "clock_si5351.kicad_sch"
+      (at 177.8 114.9146 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify left top)
+      )
+    )
+    (pin "I2C_SCL" input
+      (at 177.8 93.98 180)
+      (effects
+        (font (size 1.524 1.524))
+        (justify left)
+      )
+      (uuid "pin-clk-scl-1")
+    )
+    (pin "I2C_SDA" bidirectional
+      (at 177.8 99.06 180)
+      (effects
+        (font (size 1.524 1.524))
+        (justify left)
+      )
+      (uuid "pin-clk-sda-1")
+    )
+    (pin "CLK0" output
+      (at 215.9 93.98 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-clk0-1")
+    )
+    (pin "CLK1" output
+      (at 215.9 99.06 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-clk1-1")
+    )
+    (pin "CLK2" output
+      (at 215.9 104.14 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-clk2-1")
+    )
+  )
+
+  ;; Sheet: RF Section
+  (sheet
+    (at 25.4 139.7)
+    (size 63.5 38.1)
+    (fields_autoplaced yes)
+    (stroke
+      (width 0.1524)
+      (type solid)
+    )
+    (fill
+      (color 255 194 194 1.0)
+    )
+    (uuid "sheet-rf-1")
+    (property "Sheetname" "RF_Section"
+      (at 25.4 138.9394 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify left bottom)
+      )
+    )
+    (property "Sheetfile" "rf_section.kicad_sch"
+      (at 25.4 178.4146 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify left top)
+      )
+    )
+    (pin "VSYS" input
+      (at 25.4 144.78 180)
+      (effects
+        (font (size 1.524 1.524))
+        (justify left)
+      )
+      (uuid "pin-rf-vsys-1")
+    )
+    (pin "PWM_IN" input
+      (at 25.4 149.86 180)
+      (effects
+        (font (size 1.524 1.524))
+        (justify left)
+      )
+      (uuid "pin-rf-pwm-1")
+    )
+    (pin "BAND_SEL[0..4]" input
+      (at 25.4 154.94 180)
+      (effects
+        (font (size 1.524 1.524))
+        (justify left)
+      )
+      (uuid "pin-rf-band-1")
+    )
+    (pin "CLK_I" input
+      (at 25.4 160.02 180)
+      (effects
+        (font (size 1.524 1.524))
+        (justify left)
+      )
+      (uuid "pin-rf-clki-1")
+    )
+    (pin "CLK_Q" input
+      (at 25.4 165.1 180)
+      (effects
+        (font (size 1.524 1.524))
+        (justify left)
+      )
+      (uuid "pin-rf-clkq-1")
+    )
+    (pin "ANT" bidirectional
+      (at 88.9 152.4 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-rf-ant-1")
+    )
+    (pin "RX_I" output
+      (at 88.9 160.02 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-rf-rxi-1")
+    )
+    (pin "RX_Q" output
+      (at 88.9 165.1 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-rf-rxq-1")
+    )
+  )
+
+  ;; Sheet: Debug Interface
+  (sheet
+    (at 114.3 139.7)
+    (size 38.1 25.4)
+    (fields_autoplaced yes)
+    (stroke
+      (width 0.1524)
+      (type solid)
+    )
+    (fill
+      (color 255 255 255 1.0)
+    )
+    (uuid "sheet-debug-1")
+    (property "Sheetname" "Debug_FT4232"
+      (at 114.3 138.9394 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify left bottom)
+      )
+    )
+    (property "Sheetfile" "debug_ft4232.kicad_sch"
+      (at 114.3 165.7146 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify left top)
+      )
+    )
+    (pin "+5V" input
+      (at 114.3 144.78 180)
+      (effects
+        (font (size 1.524 1.524))
+        (justify left)
+      )
+      (uuid "pin-dbg-5v-1")
+    )
+    (pin "JTAG_TCK" output
+      (at 152.4 144.78 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-jtag-tck-1")
+    )
+    (pin "JTAG_TMS" output
+      (at 152.4 149.86 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-jtag-tms-1")
+    )
+    (pin "JTAG_TDI" output
+      (at 152.4 154.94 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-jtag-tdi-1")
+    )
+    (pin "JTAG_TDO" input
+      (at 152.4 160.02 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-jtag-tdo-1")
+    )
+  )
+
+  ;; Sheet: USB Connectors
+  (sheet
+    (at 177.8 139.7)
+    (size 38.1 38.1)
+    (fields_autoplaced yes)
+    (stroke
+      (width 0.1524)
+      (type solid)
+    )
+    (fill
+      (color 255 230 200 1.0)
+    )
+    (uuid "sheet-usb-1")
+    (property "Sheetname" "USB_Connectors"
+      (at 177.8 138.9394 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify left bottom)
+      )
+    )
+    (property "Sheetfile" "usb_connectors.kicad_sch"
+      (at 177.8 178.4146 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify left top)
+      )
+    )
+    (pin "VBUS_OUT" output
+      (at 215.9 144.78 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-usb-vbus-out-1")
+    )
+    (pin "CC1" bidirectional
+      (at 215.9 149.86 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-usb-cc1-1")
+    )
+    (pin "CC2" bidirectional
+      (at 215.9 154.94 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-usb-cc2-1")
+    )
+    (pin "USB1_DP" bidirectional
+      (at 215.9 160.02 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-usb1-dp-1")
+    )
+    (pin "USB1_DM" bidirectional
+      (at 215.9 165.1 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-usb1-dm-1")
+    )
+    (pin "USB2_DP" bidirectional
+      (at 215.9 170.18 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-usb2-dp-1")
+    )
+    (pin "USB2_DM" bidirectional
+      (at 215.9 175.26 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-usb2-dm-1")
+    )
+  )
+
+  ;; Notes
+  (text "JLCPCB Part Selection Notes:\n\n• Basic parts used where possible (0402/0603 R/C)\n• STM32G474RET6 - Extended part (C481410)\n• Si5351A-B-GT - Extended part\n• AMS1117-3.3 - Basic part (C6186)\n• Common MOSFETs: 2N7002 (C8545), SI2302 (C10487)\n• ESD protection: USBLC6-2SC6 (C7519)\n• Crystals: 8MHz HC-49S (C32160), 25MHz (C255909)"
+    (exclude_from_sim no)
+    (at 241.3 88.9 0)
+    (effects
+      (font (size 1.5 1.5))
+      (justify left)
+    )
+    (uuid "notes-jlcpcb-1")
+  )
+
+  (text "Power Rails:\n• VBUS: 5-20V (USB-C PD)\n• VSYS: 9-14V (Battery/Charger)\n• +5V: Logic, FT4232, Si5351 VDDO\n• +3V3: MCU, Si5351 core"
+    (exclude_from_sim no)
+    (at 241.3 139.7 0)
+    (effects
+      (font (size 1.5 1.5))
+      (justify left)
+    )
+    (uuid "notes-power-1")
+  )
+
+)

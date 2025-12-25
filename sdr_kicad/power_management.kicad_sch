@@ -1,0 +1,509 @@
+(kicad_sch
+  (version 20231120)
+  (generator "eeschema")
+  (generator_version "8.0")
+  (uuid "power-mgmt-uuid-001")
+  (paper "A3")
+  (title_block
+    (title "Power Management")
+    (date "2024-12-24")
+    (rev "1.0")
+    (comment 1 "USB-C PD + BQ25713 Charger + Battery AFE")
+    (comment 2 "JLCPCB Basic Parts Where Possible")
+  )
+
+  ;; ============================================
+  ;; USB-C PORT PROTECTION - TCPP03-M20
+  ;; ============================================
+  
+  (text "USB-C Port Protection (TCPP03-M20)"
+    (exclude_from_sim no)
+    (at 38.1 30.48 0)
+    (effects (font (size 2.5 2.5) bold) (justify left))
+    (uuid "text-tcpp-title")
+  )
+
+  ;; TCPP03-M20 Symbol (simplified representation)
+  (symbol
+    (lib_id "Device:R")
+    (at 50.8 50.8 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "r-cc1-rd")
+    (property "Reference" "R1"
+      (at 53.34 50.8 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "5.1k"
+      (at 53.34 53.34 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+      (at 50.8 50.8 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C25905"
+      (at 50.8 50.8 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 50.8 50.8 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (symbol
+    (lib_id "Device:R")
+    (at 63.5 50.8 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "r-cc2-rd")
+    (property "Reference" "R2"
+      (at 66.04 50.8 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "5.1k"
+      (at 66.04 53.34 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+      (at 63.5 50.8 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C25905"
+      (at 63.5 50.8 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 63.5 50.8 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  (text "Note: TCPP03-M20 (LCSC: C2682766)\nProvides CC protection, VBUS control,\nand dead battery support.\nConnects to STM32G4 UCPD pins."
+    (exclude_from_sim no)
+    (at 38.1 68.58 0)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "text-tcpp-note")
+  )
+
+  ;; ============================================
+  ;; BATTERY CHARGER - BQ25713
+  ;; ============================================
+
+  (text "Buck-Boost Battery Charger (BQ25713RSNR)"
+    (exclude_from_sim no)
+    (at 127 30.48 0)
+    (effects (font (size 2.5 2.5) bold) (justify left))
+    (uuid "text-bq25713-title")
+  )
+
+  (text "BQ25713 Configuration:\n• 1-4S Li-Ion/LiPo Charger\n• Buck-Boost Topology (NVDC)\n• I2C Interface (Addr: 0x6B)\n• USB PD 3.0 Compatible\n• Input: 3.5V - 24V\n• Charge Current: Up to 8A\n\nKey External Components:\n• Input Cap: 22uF/25V (C1)\n• Output Cap: 22uF/25V (C2)\n• Inductor: 2.2uH/5A (L1)\n• Sense Resistor: 10mOhm (R_SNS)"
+    (exclude_from_sim no)
+    (at 127 45.72 0)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "text-bq25713-config")
+  )
+
+  ;; BQ25713 Input Capacitor
+  (symbol
+    (lib_id "Device:C")
+    (at 139.7 101.6 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "c-bq-input")
+    (property "Reference" "C1"
+      (at 142.24 99.06 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "22uF/25V"
+      (at 142.24 101.6 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+      (at 139.7 101.6 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C45783"
+      (at 139.7 101.6 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 139.7 101.6 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  ;; BQ25713 Output/Battery Capacitor
+  (symbol
+    (lib_id "Device:C")
+    (at 215.9 101.6 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "c-bq-output")
+    (property "Reference" "C2"
+      (at 218.44 99.06 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "22uF/25V"
+      (at 218.44 101.6 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+      (at 215.9 101.6 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C45783"
+      (at 215.9 101.6 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 215.9 101.6 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  ;; Power Inductor
+  (symbol
+    (lib_id "Device:L")
+    (at 177.8 88.9 90)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "l-bq-main")
+    (property "Reference" "L1"
+      (at 177.8 83.82 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "2.2uH/5A"
+      (at 177.8 86.36 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Inductor_SMD:L_Bourns_SRN6045"
+      (at 177.8 88.9 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C408412"
+      (at 177.8 88.9 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  ;; Current Sense Resistor
+  (symbol
+    (lib_id "Device:R")
+    (at 228.6 101.6 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "r-sense")
+    (property "Reference" "R3"
+      (at 231.14 99.06 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "10mR/1W"
+      (at 231.14 101.6 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Resistor_SMD:R_2512_6332Metric"
+      (at 228.6 101.6 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C21190"
+      (at 228.6 101.6 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  ;; ============================================
+  ;; BATTERY AFE - BQ76920
+  ;; ============================================
+
+  (text "Battery Monitor AFE (BQ76920)"
+    (exclude_from_sim no)
+    (at 38.1 127 0)
+    (effects (font (size 2.5 2.5) bold) (justify left))
+    (uuid "text-bq76920-title")
+  )
+
+  (text "BQ76920 Features:\n• 3-5 Series Cell Support\n• Integrated Cell Balancing\n• Coulomb Counter\n• I2C Interface (Addr: 0x08)\n• OVP/UVP/OCP/SCP Protection\n\nLCSC Part: C82092\n\nProtection Thresholds:\n• OV: 4.25V/cell\n• UV: 2.8V/cell\n• OCD: 10A\n• SCD: 50A"
+    (exclude_from_sim no)
+    (at 38.1 142.24 0)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "text-bq76920-config")
+  )
+
+  ;; NTC Thermistor for battery temp
+  (symbol
+    (lib_id "Device:Thermistor_NTC")
+    (at 101.6 165.1 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "ntc-batt")
+    (property "Reference" "TH1"
+      (at 104.14 162.56 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "10k NTC"
+      (at 104.14 165.1 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+      (at 101.6 165.1 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C72050"
+      (at 101.6 165.1 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  ;; ============================================
+  ;; 5V BUCK REGULATOR - TPS62160
+  ;; ============================================
+
+  (text "5V Buck Regulator (TPS62160 or XL1509)"
+    (exclude_from_sim no)
+    (at 177.8 127 0)
+    (effects (font (size 2.5 2.5) bold) (justify left))
+    (uuid "text-5v-title")
+  )
+
+  (text "Alternative JLCPCB Basic:\nXL1509-5.0E1 (C61063)\n• Fixed 5V Output\n• 2A Output Current\n• Input: 4.5V-40V\n\nComponents:\n• Cin: 22uF/25V\n• Cout: 22uF/10V\n• L: 68uH\n• D: SS34 Schottky"
+    (exclude_from_sim no)
+    (at 177.8 142.24 0)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "text-5v-config")
+  )
+
+  ;; 5V Output Cap
+  (symbol
+    (lib_id "Device:C")
+    (at 241.3 152.4 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "c-5v-out")
+    (property "Reference" "C5"
+      (at 243.84 149.86 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "22uF/10V"
+      (at 243.84 152.4 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+      (at 241.3 152.4 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C45783"
+      (at 241.3 152.4 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 241.3 152.4 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  ;; Schottky Diode
+  (symbol
+    (lib_id "Device:D_Schottky")
+    (at 220.98 139.7 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "d-5v-schottky")
+    (property "Reference" "D1"
+      (at 220.98 134.62 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "SS34"
+      (at 220.98 137.16 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Diode_SMD:D_SMA"
+      (at 220.98 139.7 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C8678"
+      (at 220.98 139.7 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 220.98 139.7 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  ;; ============================================
+  ;; 3.3V LDO - AMS1117-3.3
+  ;; ============================================
+
+  (text "3.3V LDO Regulator (AMS1117-3.3)"
+    (exclude_from_sim no)
+    (at 38.1 193.04 0)
+    (effects (font (size 2.5 2.5) bold) (justify left))
+    (uuid "text-3v3-title")
+  )
+
+  (text "AMS1117-3.3 (JLCPCB Basic)\nLCSC: C6186\n• Fixed 3.3V Output\n• 1A Output Current\n• Input: 4.5V-15V\n• SOT-223 Package\n\nCapacitors:\n• Cin: 10uF ceramic\n• Cout: 22uF ceramic"
+    (exclude_from_sim no)
+    (at 38.1 208.28 0)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "text-3v3-config")
+  )
+
+  ;; AMS1117-3.3 Input Cap
+  (symbol
+    (lib_id "Device:C")
+    (at 76.2 218.44 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "c-3v3-in")
+    (property "Reference" "C6"
+      (at 78.74 215.9 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "10uF"
+      (at 78.74 218.44 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+      (at 76.2 218.44 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C19702"
+      (at 76.2 218.44 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 76.2 218.44 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  ;; AMS1117-3.3 Output Cap
+  (symbol
+    (lib_id "Device:C")
+    (at 127 218.44 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "c-3v3-out")
+    (property "Reference" "C7"
+      (at 129.54 215.9 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "22uF"
+      (at 129.54 218.44 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+      (at 127 218.44 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C45783"
+      (at 127 218.44 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "JLC_Basic" "Yes"
+      (at 127 218.44 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+  )
+
+  ;; ============================================
+  ;; POWER DISTRIBUTION NOTES
+  ;; ============================================
+
+  (text "POWER DISTRIBUTION SUMMARY\n\nVBUS (USB-C): 5-20V from PD negotiation\n  └─► BQ25713 Input\n\nVSYS (9-14V): Output from BQ25713 NVDC\n  ├─► H-Bridge PA (uP9636)\n  ├─► 5V Buck Input\n  └─► 3.3V LDO Input (if VSYS < 15V)\n\nVBAT (9.6-12.6V): 3S Li-Ion Pack\n  ├─► BQ76920 Cell Monitoring\n  └─► BQ25713 Battery Port\n\n+5V (5.0V): From Buck Regulator\n  ├─► FT4232H\n  ├─► Si5351A VDDO\n  └─► Relay Driver Supply\n\n+3V3 (3.3V): From AMS1117-3.3\n  ├─► STM32G474\n  ├─► Si5351A VDD Core\n  └─► Misc Logic"
+    (exclude_from_sim no)
+    (at 177.8 193.04 0)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "text-power-summary")
+  )
+
+  ;; ============================================
+  ;; JLCPCB PART NUMBER REFERENCE TABLE
+  ;; ============================================
+
+  (text "JLCPCB PART NUMBERS (Basic = B, Extended = E)\n\nPassives:\n• 0402 10k: C25744 (B)\n• 0402 5.1k: C25905 (B)\n• 0402 100nF: C1525 (B)\n• 0603 10uF: C19702 (B)\n• 0805 22uF: C45783 (B)\n• 0402 4.7uF: C23733 (B)\n\nSemiconductors:\n• AMS1117-3.3: C6186 (B)\n• SS34 Schottky: C8678 (B)\n• 2N7002: C8545 (B)\n• SI2302: C10487 (B)\n\nICs (Extended):\n• STM32G474RET6: C481410\n• BQ25713RSNR: C134263\n• BQ76920PW: C82092\n• Si5351A-B-GT: C506891\n• FT4232HL: C2688064\n• TCPP03-M20: C2682766"
+    (exclude_from_sim no)
+    (at 292.1 30.48 0)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "text-jlcpcb-parts")
+  )
+
+  ;; Hierarchical labels for connection to main sheet
+  (hierarchical_label "VBUS"
+    (shape input)
+    (at 25.4 45.72 180)
+    (effects (font (size 1.524 1.524)) (justify right))
+    (uuid "hlabel-vbus")
+  )
+
+  (hierarchical_label "VSYS"
+    (shape output)
+    (at 266.7 88.9 0)
+    (effects (font (size 1.524 1.524)) (justify left))
+    (uuid "hlabel-vsys")
+  )
+
+  (hierarchical_label "+5V"
+    (shape output)
+    (at 266.7 139.7 0)
+    (effects (font (size 1.524 1.524)) (justify left))
+    (uuid "hlabel-5v")
+  )
+
+  (hierarchical_label "+3V3"
+    (shape output)
+    (at 152.4 208.28 0)
+    (effects (font (size 1.524 1.524)) (justify left))
+    (uuid "hlabel-3v3")
+  )
+
+  (hierarchical_label "I2C_SCL"
+    (shape bidirectional)
+    (at 25.4 96.52 180)
+    (effects (font (size 1.524 1.524)) (justify right))
+    (uuid "hlabel-i2c-scl")
+  )
+
+  (hierarchical_label "I2C_SDA"
+    (shape bidirectional)
+    (at 25.4 101.6 180)
+    (effects (font (size 1.524 1.524)) (justify right))
+    (uuid "hlabel-i2c-sda")
+  )
+
+)
