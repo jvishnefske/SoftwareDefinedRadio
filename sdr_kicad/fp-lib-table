@@ -1,0 +1,5 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "footprint")(type "KiCad")(uri "/home/j/Downloads/sdr_kicad_project/custom_lib/footprint")(options "")(descr "Custom JLCPCB footprints"))
+  (lib (name "sdr_footprints")(type "KiCad")(uri "/home/j/Downloads/sdr_kicad_project/jlc_lib/sdr_footprints")(options "")(descr "JLC2KiCadLib generated footprints"))
+)
