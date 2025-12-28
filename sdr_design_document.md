@@ -48,42 +48,42 @@ The design targets HF amateur radio bands (80m-10m) with QRP power levels (0.5-5
 │                           SDR TRANSCEIVER SYSTEM                            │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
-│  ┌──────────────┐     ┌──────────────────────────────────────────────────┐ │
-│  │  USB-C #1    │     │              POWER MANAGEMENT                    │ │
-│  │  (Power+Data)│────►│  TPS25750D (Standalone USB-PD) ──► BQ25798      │ │
-│  │  Up to 20V   │     │  (I2CM autonomous charger control)     │        │ │
-│  └──────────────┘     │                                        ▼        │ │
-│                       │                              4S Li-Ion Pack      │ │
-│                       │                              (12.8-16.8V)        │ │
-│                       │                                    │             │ │
-│                       │                              BQ76920 AFE         │ │
-│                       │                              (Battery Monitor)   │ │
-│                       └──────────────────────────────────────────────────┘ │
+│  ┌──────────────┐     ┌──────────────────────────────────────────────────┐  │
+│  │  USB-C #1    │     │              POWER MANAGEMENT                    │  │
+│  │  (Power+Data)│────►│  TPS25750D (Standalone USB-PD) ──► BQ25798       │  │
+│  │  Up to 20V   │     │  (I2CM autonomous charger control)     │         │  │
+│  └──────────────┘     │                                        ▼         │  │
+│                       │                              4S Li-Ion Pack      │  │
+│                       │                              (12.8-16.8V)        │  │
+│                       │                                    │             │  │
+│                       │                              BQ76920 AFE         │  │
+│                       │                              (Battery Monitor)   │  │
+│                       └──────────────────────────────────────────────────┘  │
 │                                         │                                   │
 │                                         ▼                                   │
-│  ┌──────────────┐     ┌──────────────────────────────────────────────────┐ │
-│  │  USB-C #2    │     │              DIGITAL SUBSYSTEM                   │ │
-│  │  (Debug)     │────►│  FT4232H ◄──► STM32G474 ◄──► Si5351A            │ │
-│  │  JTAG+Serial │     │  (JTAG/UART)  (Main MCU)     (Clock Synth)       │ │
-│  └──────────────┘     └──────────────────────────────────────────────────┘ │
+│  ┌──────────────┐     ┌──────────────────────────────────────────────────┐  │
+│  │  USB-C #2    │     │              DIGITAL SUBSYSTEM                   │  │
+│  │  (Debug)     │────►│  FT4232H ◄──► STM32G474 ◄──► Si5351A             │  │
+│  │  JTAG+Serial │     │  (JTAG/UART)  (Main MCU)     (Clock Synth)       │  │
+│  └──────────────┘     └──────────────────────────────────────────────────┘  │
 │                                         │                                   │
 │                                         ▼                                   │
-│                       ┌──────────────────────────────────────────────────┐ │
-│                       │              RF SUBSYSTEM                         │ │
-│                       │                                                   │ │
-│                       │  ┌─────────┐   ┌─────────┐   ┌─────────────────┐ │ │
-│                       │  │Quadrature│   │ H-Bridge│   │  LPF Bank       │ │ │
-│                       │  │Sampling │◄─►│ PA      │──►│  (5 bands)      │ │ │
-│                       │  │Detector │   │ uP9636  │   │  Relay/MOSFET   │ │ │
-│                       │  └─────────┘   └─────────┘   └────────┬────────┘ │ │
-│                       │       │                               │          │ │
-│                       │       │         ┌─────────────────────┘          │ │
-│                       │       ▼         ▼                                │ │
-│                       │  ┌─────────────────────┐                         │ │
-│                       │  │    SWR Bridge       │──────► ANT              │ │
-│                       │  │  (Power/SWR Meter)  │                         │ │
-│                       │  └─────────────────────┘                         │ │
-│                       └──────────────────────────────────────────────────┘ │
+│                       ┌──────────────────────────────────────────────────┐  │
+│                       │              RF SUBSYSTEM                        │  │
+│                       │                                                  │  │
+│                       │  ┌─────────┐   ┌─────────┐   ┌─────────────────┐ │  │
+│                       │  │Quadrature   │ H-Bridge│   │  LPF Bank       │ │  │
+│                       │  │Sampling │◄─►│ PA      │──►│  (5 bands)      │ │  │
+│                       │  │Detector │   │ uP9636  │   │  Relay/MOSFET   │ │  │
+│                       │  └─────────┘   └─────────┘   └────────┬────────┘ │  │
+│                       │       │                               │          │  │
+│                       │       │         ┌─────────────────────┘          │  │
+│                       │       ▼         ▼                                │  │
+│                       │  ┌─────────────────────┐                         │  │
+│                       │  │    SWR Bridge       │──────► ANT              │  │
+│                       │  │  (Power/SWR Meter)  │                         │  │
+│                       │  └─────────────────────┘                         │  │
+│                       └──────────────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -221,15 +221,15 @@ The Si5351 uses a 25/27 MHz crystal and dual PLLs to generate all required frequ
 ```
                                     ┌─────────────────────────────────────────┐
 USB-C VBUS ─────────────────────────┤           TPS25750D                     │
-(5-20V from PD)                     │    Standalone USB-PD Controller        │
+(5-20V from PD)                     │    Standalone USB-PD Controller         │
         │                           │                                         │
-        │                           │  • Integrated 28V/7A power switch      │
-        │                           │  • Integrated CC protection            │
-        │   ┌───────────────────────┤  • Dead battery boot support           │
-        │   │                       │  • I2CM port: autonomous BQ25798 ctrl  │
-        │   │                       │  • I2CS port: STM32 monitoring         │
+        │                           │  • Integrated 28V/7A power switch       │
+        │                           │  • Integrated CC protection             │
+        │   ┌───────────────────────┤  • Dead battery boot support            │
+        │   │                       │  • I2CM port: autonomous BQ25798 ctrl   │
+        │   │                       │  • I2CS port: STM32 monitoring          │
         │   │                       │                                         │
-        │   │                       │ PP_HV ──────────────────────┐          │
+        │   │                       │ PP_HV ──────────────────────┐           │
         │   │                       └─────────────────────────────┼──────────┘
         │   │                                                     │
         │   │                                                     ▼
@@ -237,13 +237,13 @@ USB-C VBUS ───────────────────────
         │   │                       │           BQ25798                       │
         │   │                       │    1-4S Buck-Boost Charger              │
         │   │                       │                                         │
-        │   │                       │ VAC1 ◄── PP_HV from TPS25750D          │
+        │   │                       │ VAC1 ◄── PP_HV from TPS25750D           │
         │   │                       │                                         │
-        │   │                       │ SYS ─────────────────────► VSYS        │
-        │   │                       │                            (12-18V)    │
-        │   │                       │ BAT ◄────────────────┐                 │
-        │   │                       │                      │                 │
-        │   │                       │ I2C ◄─── TPS25750D I2CM (autonomous)   │
+        │   │                       │ SYS ─────────────────────► VSYS         │
+        │   │                       │                            (12-18V)     │
+        │   │                       │ BAT ◄────────────────┐                  │
+        │   │                       │                      │                  │
+        │   │                       │ I2C ◄─── TPS25750D I2CM (autonomous)    │
         │   │                       └──────────────────────┼─────────────────┘
         │   │                                              │
         │   │                                              ▼
@@ -251,10 +251,10 @@ USB-C VBUS ───────────────────────
         │   │                           │    4S Li-Ion Pack       │
         │   │                           │   (12.8V - 16.8V)       │
         │   │                           │                         │
-        │   │                           │  Cell 1 ─┬─ 3.2-4.2V   │
-        │   │                           │  Cell 2 ─┼─ 3.2-4.2V   │
-        │   │                           │  Cell 3 ─┼─ 3.2-4.2V   │
-        │   │                           │  Cell 4 ─┴─ 3.2-4.2V   │
+        │   │                           │  Cell 1 ─┬─ 3.2-4.2V    │
+        │   │                           │  Cell 2 ─┼─ 3.2-4.2V    │
+        │   │                           │  Cell 3 ─┼─ 3.2-4.2V    │
+        │   │                           │  Cell 4 ─┴─ 3.2-4.2V    │
         │   │                           └─────────┬───────────────┘
         │   │                                     │
         │   │                                     ▼
@@ -274,15 +274,15 @@ USB-C VBUS ───────────────────────
 │                        POWER DISTRIBUTION                         │
 ├───────────────────────────────────────────────────────────────────┤
 │                                                                   │
-│   VSYS (12-18V) ─┬──► H-Bridge PA (uP9636)                       │
+│   VSYS (12-18V) ─┬──► H-Bridge PA (uP9636)                        │
 │                  │                                                │
-│                  └──► 5V Buck ──┬──► FT4232H                     │
+│                  └──► 5V Buck ──┬──► FT4232H                      │
 │                      (XL1509)   │                                 │
 │                                 ├──► Si5351A (VDDO)               │
 │                                 │                                 │
 │                                 ├──► USB VBUS (OTG mode)          │
 │                                 │                                 │
-│                                 └──► 3.3V LDO ──┬──► STM32G4     │
+│                                 └──► 3.3V LDO ──┬──► STM32G4      │
 │                                     (AMS1117)   │                 │
 │                                                 ├──► Si5351A VDD  │
 │                                                 │                 │
@@ -589,45 +589,45 @@ EEPROM configured for:
 │  1. USB-C Connected OR Battery Present                                  │
 │     │                                                                   │
 │     ▼                                                                   │
-│  2. TPS25750D enables power path (autonomous)                          │
+│  2. TPS25750D enables power path (autonomous)                           │
 │     │                                                                   │
-│     ├── If USB: TPS25750D negotiates PD, enables PP_HV                 │
-│     │           Configures BQ25798 via I2CM (no MCU needed)            │
+│     ├── If USB: TPS25750D negotiates PD, enables PP_HV                  │
+│     │           Configures BQ25798 via I2CM (no MCU needed)             │
 │     │                                                                   │
-│     └── If battery only: BQ25798 provides VSYS from battery            │
-│     │                                                                   │
-│     ▼                                                                   │
-│  3. XL1509 provides 5V → AMS1117 provides 3.3V → STM32G4 boots         │
+│     └── If battery only: BQ25798 provides VSYS from battery             │
 │     │                                                                   │
 │     ▼                                                                   │
-│  4. STM32 initializes I2C1 peripheral                                  │
+│  3. XL1509 provides 5V → AMS1117 provides 3.3V → STM32G4 boots          │
 │     │                                                                   │
-│     ├── Read TPS25750D status (PD contract info)                       │
+│     ▼                                                                   │
+│  4. STM32 initializes I2C1 peripheral                                   │
 │     │                                                                   │
-│     ├── Read BQ25798 status (charging state)                           │
+│     ├── Read TPS25750D status (PD contract info)                        │
 │     │                                                                   │
-│     └── Read BQ76920 for SOC                                           │
+│     ├── Read BQ25798 status (charging state)                            │
+│     │                                                                   │
+│     └── Read BQ76920 for SOC                                            │
 │         │                                                               │
 │         ▼                                                               │
-│         If SOC < 10%: Display low battery warning                      │
+│         If SOC < 10%: Display low battery warning                       │
 │     │                                                                   │
 │     ▼                                                                   │
-│  5. Initialize Si5351A clock synthesizer                               │
+│  5. Initialize Si5351A clock synthesizer                                │
 │     │                                                                   │
 │     ▼                                                                   │
-│  6. Load last-used frequency and mode from flash                       │
+│  6. Load last-used frequency and mode from flash                        │
 │     │                                                                   │
 │     ▼                                                                   │
-│  7. Select appropriate LPF (pulse latching relay)                      │
+│  7. Select appropriate LPF (pulse latching relay)                       │
 │     │                                                                   │
 │     ▼                                                                   │
-│  8. Enable receiver, begin audio processing                            │
+│  8. Enable receiver, begin audio processing                             │
 │     │                                                                   │
 │     ▼                                                                   │
-│  9. OPERATIONAL - Ready for RX/TX                                      │
+│  9. OPERATIONAL - Ready for RX/TX                                       │
 │                                                                         │
-│  Note: PD negotiation and charger config happen BEFORE MCU boots.      │
-│        MCU only monitors - no USB-PD firmware stack required.          │
+│  Note: PD negotiation and charger config happen BEFORE MCU boots.       │
+│        MCU only monitors - no USB-PD firmware stack required.           │
 │                                                                         │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
@@ -642,37 +642,37 @@ EEPROM configured for:
 │  RF Signal at Antenna                                                   │
 │     │                                                                   │
 │     ▼                                                                   │
-│  T/R Switch (in RX position)                                           │
+│  T/R Switch (in RX position)                                            │
 │     │                                                                   │
 │     ▼                                                                   │
-│  Band-Pass Filter (selected for current band)                          │
+│  Band-Pass Filter (selected for current band)                           │
 │     │                                                                   │
 │     ▼                                                                   │
-│  Quadrature Sampling Detector                                          │
+│  Quadrature Sampling Detector                                           │
 │     │                                                                   │
-│     ├──► I Channel ──► Anti-alias LPF ──► STM32 ADC1                   │
+│     ├──► I Channel ──► Anti-alias LPF ──► STM32 ADC1                    │
 │     │                                                                   │
-│     └──► Q Channel ──► Anti-alias LPF ──► STM32 ADC2                   │
+│     └──► Q Channel ──► Anti-alias LPF ──► STM32 ADC2                    │
 │                                           │                             │
 │                                           ▼                             │
-│                              ┌─────────────────────────┐               │
-│                              │    DSP Processing       │               │
-│                              │                         │               │
-│                              │  • Hilbert transform    │               │
-│                              │  • SSB demodulation     │               │
-│                              │  • CW filtering         │               │
-│                              │  • AGC                  │               │
-│                              │  • Noise reduction      │               │
-│                              └───────────┬─────────────┘               │
+│                              ┌─────────────────────────┐                │
+│                              │    DSP Processing       │                │
+│                              │                         │                │
+│                              │  • Hilbert transform    │                │
+│                              │  • SSB demodulation     │                │
+│                              │  • CW filtering         │                │
+│                              │  • AGC                  │                │
+│                              │  • Noise reduction      │                │
+│                              └───────────┬─────────────┘                │
 │                                          │                              │
 │                                          ▼                              │
 │                              DAC ──► Audio Amplifier ──► Speaker        │
 │                                                                         │
 │  Concurrent Tasks:                                                      │
-│  • S-meter calculation from AGC level                                  │
-│  • Spectrum display update (optional)                                  │
-│  • Frequency display update                                            │
-│  • Battery SOC monitoring                                              │
+│  • S-meter calculation from AGC level                                   │
+│  • Spectrum display update (optional)                                   │
+│  • Frequency display update                                             │
+│  • Battery SOC monitoring                                               │
 │                                                                         │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
@@ -684,62 +684,62 @@ EEPROM configured for:
 │                         TRANSMIT OPERATION                              │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│  PTT Asserted (hardware interrupt)                                     │
+│  PTT Asserted (hardware interrupt)                                      │
 │     │                                                                   │
 │     ▼                                                                   │
 │  TX Sequence Start                                                      │
 │     │                                                                   │
-│     ├─► 1. Disable receiver audio output (mute)                        │
+│     ├─► 1. Disable receiver audio output (mute)                         │
 │     │                                                                   │
-│     ├─► 2. Switch T/R relay to TX (if not using QSK)                   │
+│     ├─► 2. Switch T/R relay to TX (if not using QSK)                    │
 │     │                                                                   │
-│     ├─► 3. Configure Si5351 for TX frequency                           │
-│     │      (may include RIT/XIT offset)                                │
+│     ├─► 3. Configure Si5351 for TX frequency                            │
+│     │      (may include RIT/XIT offset)                                 │
 │     │                                                                   │
-│     ├─► 4. Enable PA bias (soft start)                                 │
+│     ├─► 4. Enable PA bias (soft start)                                  │
 │     │                                                                   │
-│     ├─► 5. Begin audio sampling and modulation                         │
+│     ├─► 5. Begin audio sampling and modulation                          │
 │     │                                                                   │
-│     └─► 6. Monitor SWR continuously                                    │
+│     └─► 6. Monitor SWR continuously                                     │
 │            │                                                            │
-│            ├── If SWR > 3:1: Reduce power                              │
-│            └── If SWR > 5:1: Disable TX, alert user                    │
+│            ├── If SWR > 3:1: Reduce power                               │
+│            └── If SWR > 5:1: Disable TX, alert user                     │
 │                                                                         │
 │  During TX:                                                             │
 │     │                                                                   │
 │     ▼                                                                   │
-│  ┌─────────────────────────────────────────────────────────────────┐   │
-│  │                    MODULATION MODES                              │   │
-│  ├─────────────────────────────────────────────────────────────────┤   │
-│  │                                                                  │   │
-│  │  CW Mode:                                                        │   │
-│  │    Key input ──► PWM gate ──► H-Bridge ──► LPF ──► ANT          │   │
-│  │    (shaped envelope for click-free keying)                       │   │
-│  │                                                                  │   │
-│  │  SSB Mode:                                                       │   │
-│  │    Mic ──► ADC ──► DSP (Hilbert/Weaver) ──► PWM ──► H-Bridge    │   │
-│  │    (amplitude modulation of Class E PA)                          │   │
-│  │                                                                  │   │
-│  │  Digital Mode:                                                   │   │
-│  │    USB Audio ──► ADC ──► PWM ──► H-Bridge ──► LPF ──► ANT       │   │
-│  │    (constant carrier, audio modulation)                          │   │
-│  │                                                                  │   │
-│  └─────────────────────────────────────────────────────────────────┘   │
+│  ┌─────────────────────────────────────────────────────────────────┐    │
+│  │                    MODULATION MODES                             │    │
+│  ├─────────────────────────────────────────────────────────────────┤    │
+│  │                                                                 │    │
+│  │  CW Mode:                                                       │    │
+│  │    Key input ──► PWM gate ──► H-Bridge ──► LPF ──► ANT          │    │
+│  │    (shaped envelope for click-free keying)                      │    │
+│  │                                                                 │    │
+│  │  SSB Mode:                                                      │    │
+│  │    Mic ──► ADC ──► DSP (Hilbert/Weaver) ──► PWM ──► H-Bridge    │    │
+│  │    (amplitude modulation of Class E PA)                         │    │
+│  │                                                                 │    │
+│  │  Digital Mode:                                                  │    │
+│  │    USB Audio ──► ADC ──► PWM ──► H-Bridge ──► LPF ──► ANT       │    │
+│  │    (constant carrier, audio modulation)                         │    │
+│  │                                                                 │    │
+│  └─────────────────────────────────────────────────────────────────┘    │
 │                                                                         │
 │  PTT Released                                                           │
 │     │                                                                   │
 │     ▼                                                                   │
 │  TX Sequence End                                                        │
 │     │                                                                   │
-│     ├─► 1. Ramp down PA (soft stop)                                    │
+│     ├─► 1. Ramp down PA (soft stop)                                     │
 │     │                                                                   │
-│     ├─► 2. Disable PA bias                                             │
+│     ├─► 2. Disable PA bias                                              │
 │     │                                                                   │
-│     ├─► 3. Switch T/R relay to RX                                      │
+│     ├─► 3. Switch T/R relay to RX                                       │
 │     │                                                                   │
-│     ├─► 4. Restore RX frequency (remove RIT/XIT)                       │
+│     ├─► 4. Restore RX frequency (remove RIT/XIT)                        │
 │     │                                                                   │
-│     └─► 5. Re-enable receiver audio                                    │
+│     └─► 5. Re-enable receiver audio                                     │
 │                                                                         │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
@@ -751,46 +751,46 @@ EEPROM configured for:
 │                         BAND CHANGE SEQUENCE                            │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│  User requests band change (encoder/button/CAT)                        │
+│  User requests band change (encoder/button/CAT)                         │
 │     │                                                                   │
 │     ▼                                                                   │
-│  1. Verify not in TX mode (abort if PTT active)                        │
+│  1. Verify not in TX mode (abort if PTT active)                         │
 │     │                                                                   │
 │     ▼                                                                   │
-│  2. Save current frequency to band memory                              │
+│  2. Save current frequency to band memory                               │
 │     │                                                                   │
 │     ▼                                                                   │
-│  3. Mute audio output                                                  │
+│  3. Mute audio output                                                   │
 │     │                                                                   │
 │     ▼                                                                   │
-│  4. Determine new LPF required                                         │
+│  4. Determine new LPF required                                          │
 │     │                                                                   │
-│     ├── If same LPF: Skip to step 7                                    │
+│     ├── If same LPF: Skip to step 7                                     │
 │     │                                                                   │
-│     └── If different LPF:                                              │
+│     └── If different LPF:                                               │
 │         │                                                               │
 │         ▼                                                               │
-│  5. Pulse RESET on current relay (opens current LPF)                   │
+│  5. Pulse RESET on current relay (opens current LPF)                    │
 │     │                                                                   │
 │     ▼                                                                   │
-│  6. Pulse SET on new relay (closes new LPF)                            │
+│  6. Pulse SET on new relay (closes new LPF)                             │
 │     │                                                                   │
 │     ▼                                                                   │
-│  7. Update Si5351 to new frequency                                     │
+│  7. Update Si5351 to new frequency                                      │
 │     │                                                                   │
 │     ▼                                                                   │
-│  8. Load saved frequency for new band (or band edge)                   │
+│  8. Load saved frequency for new band (or band edge)                    │
 │     │                                                                   │
 │     ▼                                                                   │
-│  9. Update display                                                     │
+│  9. Update display                                                      │
 │     │                                                                   │
 │     ▼                                                                   │
-│  10. Un-mute audio                                                     │
+│  10. Un-mute audio                                                      │
 │     │                                                                   │
 │     ▼                                                                   │
-│  Complete - Now receiving on new band                                  │
+│  Complete - Now receiving on new band                                   │
 │                                                                         │
-│  Timing: ~20ms total (dominated by relay settling)                     │
+│  Timing: ~20ms total (dominated by relay settling)                      │
 │                                                                         │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
@@ -803,66 +803,66 @@ EEPROM configured for:
 │                   (TPS25750D Autonomous Operation)                      │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│  EVENT: USB-C Cable Connected                                          │
+│  EVENT: USB-C Cable Connected                                           │
 │     │                                                                   │
 │     ▼                                                                   │
-│  TPS25750D detects CC connection (autonomous - no MCU needed)          │
+│  TPS25750D detects CC connection (autonomous - no MCU needed)           │
 │     │                                                                   │
 │     ▼                                                                   │
-│  TPS25750D negotiates PD contract (highest available PDO)              │
+│  TPS25750D negotiates PD contract (highest available PDO)               │
 │     │                                                                   │
 │     ▼                                                                   │
-│  TPS25750D enables PP_HV output with negotiated voltage                │
+│  TPS25750D enables PP_HV output with negotiated voltage                 │
 │     │                                                                   │
 │     ▼                                                                   │
-│  TPS25750D configures BQ25798 via I2CM:                                │
-│     • Set input voltage limit based on negotiated PDO                  │
-│     • Set charge current based on power budget                         │
-│     • Enable charging if battery < 16.8V                               │
+│  TPS25750D configures BQ25798 via I2CM:                                 │
+│     • Set input voltage limit based on negotiated PDO                   │
+│     • Set charge current based on power budget                          │
+│     • Enable charging if battery < 16.8V                                │
 │     │                                                                   │
 │     ▼                                                                   │
-│  TPS25750D asserts INT to notify STM32 (optional)                      │
+│  TPS25750D asserts INT to notify STM32 (optional)                       │
 │     │                                                                   │
 │     ▼                                                                   │
-│  STM32 reads status via I2CS, updates UI                               │
+│  STM32 reads status via I2CS, updates UI                                │
 │                                                                         │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│  EVENT: USB-C Cable Disconnected                                       │
+│  EVENT: USB-C Cable Disconnected                                        │
 │     │                                                                   │
 │     ▼                                                                   │
-│  TPS25750D detects CC disconnect                                       │
+│  TPS25750D detects CC disconnect                                        │
 │     │                                                                   │
 │     ▼                                                                   │
-│  TPS25750D disables PP_HV output                                       │
+│  TPS25750D disables PP_HV output                                        │
 │     │                                                                   │
 │     ▼                                                                   │
-│  BQ25798 automatically switches to battery power (NVDC)                │
+│  BQ25798 automatically switches to battery power (NVDC)                 │
 │     │                                                                   │
 │     ▼                                                                   │
-│  STM32 checks battery SOC via BQ76920                                  │
+│  STM32 checks battery SOC via BQ76920                                   │
 │     │                                                                   │
-│     ├── If SOC > 20%: Continue normal operation                        │
+│     ├── If SOC > 20%: Continue normal operation                         │
 │     │                                                                   │
-│     └── If SOC < 20%: Display battery warning                          │
+│     └── If SOC < 20%: Display battery warning                           │
 │         │                                                               │
-│         └── If SOC < 5%: Initiate graceful shutdown                    │
+│         └── If SOC < 5%: Initiate graceful shutdown                     │
 │                                                                         │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│  EVENT: Hard Reset / Power Source Change                               │
+│  EVENT: Hard Reset / Power Source Change                                │
 │     │                                                                   │
 │     ▼                                                                   │
-│  TPS25750D handles protocol-level reset autonomously                   │
+│  TPS25750D handles protocol-level reset autonomously                    │
 │     │                                                                   │
 │     ▼                                                                   │
-│  BQ25798 maintains VSYS from battery (seamless NVDC)                   │
+│  BQ25798 maintains VSYS from battery (seamless NVDC)                    │
 │     │                                                                   │
 │     ▼                                                                   │
-│  TPS25750D re-negotiates when source ready                             │
+│  TPS25750D re-negotiates when source ready                              │
 │                                                                         │
-│  Note: STM32 firmware never involved in PD negotiation.                │
-│        All power events handled by TPS25750D hardware.                 │
+│  Note: STM32 firmware never involved in PD negotiation.                 │
+│        All power events handled by TPS25750D hardware.                  │
 │                                                                         │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
@@ -874,38 +874,38 @@ EEPROM configured for:
 │                         LOW POWER OPERATION                             │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│  Trigger: No user activity for configurable timeout (default 5 min)    │
+│  Trigger: No user activity for configurable timeout (default 5 min)     │
 │                                                                         │
 │  SLEEP ENTRY:                                                           │
 │     │                                                                   │
-│     ├─► Disable Si5351 clock outputs                                   │
+│     ├─► Disable Si5351 clock outputs                                    │
 │     │                                                                   │
-│     ├─► Power down audio amplifier                                     │
+│     ├─► Power down audio amplifier                                      │
 │     │                                                                   │
-│     ├─► Disable OLED (or reduce brightness)                            │
+│     ├─► Disable OLED (or reduce brightness)                             │
 │     │                                                                   │
-│     ├─► STM32 enters STOP2 mode                                        │
+│     ├─► STM32 enters STOP2 mode                                         │
 │     │                                                                   │
-│     └─► TPS25750D + BQ25798 continue charging autonomously             │
+│     └─► TPS25750D + BQ25798 continue charging autonomously              │
 │                                                                         │
 │  Wake Sources:                                                          │
-│     • PTT input (GPIO EXTI)                                            │
+│     • PTT input (GPIO EXTI)                                             │
 │     • Encoder rotation                                                  │
-│     • TPS25750D INT (USB-C power event)                                │
-│     • RTC alarm (periodic battery check)                               │
+│     • TPS25750D INT (USB-C power event)                                 │
+│     • RTC alarm (periodic battery check)                                │
 │                                                                         │
 │  SLEEP CURRENT BUDGET:                                                  │
 │     │                                                                   │
-│     ├── STM32 STOP2: ~2 µA                                             │
-│     ├── TPS25750D standby: ~15 µA                                      │
-│     ├── BQ25798 standby: ~10 µA                                        │
-│     ├── BQ76920 ship mode: ~2 µA                                       │
-│     ├── Si5351 disabled: ~1 µA                                         │
-│     └── Relay leakage: ~0 µA (latching, no holding current)            │
-│         ─────────────────────                                          │
+│     ├── STM32 STOP2: ~2 µA                                              │
+│     ├── TPS25750D standby: ~15 µA                                       │
+│     ├── BQ25798 standby: ~10 µA                                         │
+│     ├── BQ76920 ship mode: ~2 µA                                        │
+│     ├── Si5351 disabled: ~1 µA                                          │
+│     └── Relay leakage: ~0 µA (latching, no holding current)             │
+│         ─────────────────────                                           │
 │         Total: ~30 µA                                                   │
 │                                                                         │
-│  Battery Life (sleep): 3000mAh / 0.030mA = ~11 years (theoretical)     │
+│  Battery Life (sleep): 3000mAh / 0.030mA = ~11 years (theoretical)      │
 │                                                                         │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
@@ -1027,30 +1027,30 @@ Separating power/data from debug provides cleaner design, easier development, an
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                         APPLICATION LAYER                               │
 ├─────────────────────────────────────────────────────────────────────────┤
-│  ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐ │
-│  │   Radio   │ │   Power   │ │    UI     │ │    CAT    │ │  Config   │ │
-│  │  Control  │ │  Monitor  │ │  Manager  │ │  Handler  │ │  Storage  │ │
-│  └─────┬─────┘ └─────┬─────┘ └─────┬─────┘ └─────┬─────┘ └─────┬─────┘ │
+│  ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐  │
+│  │   Radio   │ │   Power   │ │    UI     │ │    CAT    │ │  Config   │  │
+│  │  Control  │ │  Monitor  │ │  Manager  │ │  Handler  │ │  Storage  │  │
+│  └─────┬─────┘ └─────┬─────┘ └─────┬─────┘ └─────┬─────┘ └─────┬─────┘  │
 │        │             │             │             │             │        │
 ├────────┴─────────────┴─────────────┴─────────────┴─────────────┴────────┤
 │                         MIDDLEWARE LAYER                                │
 ├─────────────────────────────────────────────────────────────────────────┤
-│  ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐               │
-│  │   I2C     │ │   Audio   │ │   DSP     │ │  Embassy  │               │
-│  │  Drivers  │ │  Codec    │ │  Library  │ │async RTOS │               │
-│  │(TPS/BQ/SI)│ │           │ │  (CMSIS)  │ │           │               │
-│  └─────┬─────┘ └─────┬─────┘ └─────┬─────┘ └─────┬─────┘               │
+│  ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐                │
+│  │   I2C     │ │   Audio   │ │   DSP     │ │  Embassy  │                │
+│  │  Drivers  │ │  Codec    │ │  Library  │ │async RTOS │                │
+│  │(TPS/BQ/SI)│ │           │ │  (CMSIS)  │ │           │                │
+│  └─────┬─────┘ └─────┬─────┘ └─────┬─────┘ └─────┬─────┘                │
 │        │             │             │             │                      │
 ├────────┴─────────────┴─────────────┴─────────────┴──────────────────────┤
 │                           HAL LAYER (Rust)                              │
 ├─────────────────────────────────────────────────────────────────────────┤
-│  ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐              │
-│  │ ADC │ │ DAC │ │HRTIM│ │ I2C │ │ SPI │ │ USB │ │GPIO │              │
-│  └──┬──┘ └──┬──┘ └──┬──┘ └──┬──┘ └──┬──┘ └──┬──┘ └──┬──┘              │
-│     │       │       │       │       │       │       │                  │
+│  ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐                │
+│  │ ADC │ │ DAC │ │HRTIM│ │ I2C │ │ SPI │ │ USB │ │GPIO │                │
+│  └──┬──┘ └──┬──┘ └──┬──┘ └──┬──┘ └──┬──┘ └──┬──┘ └──┬──┘                │
+│     │       │       │       │       │       │       │                   │
 ├─────┴───────┴───────┴───────┴───────┴───────┴───────┴──────────────────┤
 │                         HARDWARE                                        │
-│  Note: USB-PD handled entirely by TPS25750D - no firmware required     │
+│  Note: USB-PD handled entirely by TPS25750D - no firmware required      │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
 
