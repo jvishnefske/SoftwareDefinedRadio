@@ -72,7 +72,7 @@ The design targets HF amateur radio bands (80m-10m) with QRP power levels (0.5-5
 │                       │              RF SUBSYSTEM                      │  │
 │                       │                                                │  │
 │                       │  ┌──────────┐  ┌──────────┐  ┌───────────────┐ │  │
-│                       │  │Quadrature│   H-Bridge │  │  LPF Bank     │ │  │
+│                       │  │Quadrature│   H-Bridge │  │  LPF Bank      │ │  │
 │                       │  │Sampling  │◄►│ PA       │─►│  (5 bands)    │ │  │
 │                       │  │Detector  │  │ uP9636   │  │  Relay/MOSFET │ │  │
 │                       │  └──────────┘  └──────────┘  └───────┬───────┘ │  │
