@@ -32,59 +32,59 @@
           (stroke (width 0) (type default))
           (fill (type background))
         )
-        (pin unspecified line (at -11.43 13.97 0) (length 2.54)
+        (pin passive line (at -11.43 13.97 0) (length 2.54)
           (name "GND" (effects (font (size 1 1))))
           (number "1" (effects (font (size 1 1))))
         )
-        (pin unspecified line (at -11.43 11.43 0) (length 2.54)
+        (pin passive line (at -11.43 11.43 0) (length 2.54)
           (name "VBUS" (effects (font (size 1 1))))
           (number "2" (effects (font (size 1 1))))
         )
-        (pin unspecified line (at -11.43 8.89 0) (length 2.54)
+        (pin passive line (at -11.43 8.89 0) (length 2.54)
           (name "SBU2" (effects (font (size 1 1))))
           (number "3" (effects (font (size 1 1))))
         )
-        (pin unspecified line (at -11.43 6.35 0) (length 2.54)
+        (pin passive line (at -11.43 6.35 0) (length 2.54)
           (name "CC1" (effects (font (size 1 1))))
           (number "4" (effects (font (size 1 1))))
         )
-        (pin unspecified line (at -11.43 3.81 0) (length 2.54)
+        (pin passive line (at -11.43 3.81 0) (length 2.54)
           (name "DN2" (effects (font (size 1 1))))
           (number "5" (effects (font (size 1 1))))
         )
-        (pin unspecified line (at -11.43 1.27 0) (length 2.54)
+        (pin passive line (at -11.43 1.27 0) (length 2.54)
           (name "DP1" (effects (font (size 1 1))))
           (number "6" (effects (font (size 1 1))))
         )
-        (pin unspecified line (at -11.43 -1.27 0) (length 2.54)
+        (pin passive line (at -11.43 -1.27 0) (length 2.54)
           (name "DN1" (effects (font (size 1 1))))
           (number "7" (effects (font (size 1 1))))
         )
-        (pin unspecified line (at -11.43 -3.81 0) (length 2.54)
+        (pin passive line (at -11.43 -3.81 0) (length 2.54)
           (name "DP2" (effects (font (size 1 1))))
           (number "8" (effects (font (size 1 1))))
         )
-        (pin unspecified line (at -11.43 -6.35 0) (length 2.54)
+        (pin passive line (at -11.43 -6.35 0) (length 2.54)
           (name "SBU1" (effects (font (size 1 1))))
           (number "9" (effects (font (size 1 1))))
         )
-        (pin unspecified line (at -11.43 -8.89 0) (length 2.54)
+        (pin passive line (at -11.43 -8.89 0) (length 2.54)
           (name "CC2" (effects (font (size 1 1))))
           (number "10" (effects (font (size 1 1))))
         )
-        (pin unspecified line (at -11.43 -11.43 0) (length 2.54)
+        (pin passive line (at -11.43 -11.43 0) (length 2.54)
           (name "VBUS" (effects (font (size 1 1))))
           (number "11" (effects (font (size 1 1))))
         )
-        (pin unspecified line (at -11.43 -13.97 0) (length 2.54)
+        (pin passive line (at -11.43 -13.97 0) (length 2.54)
           (name "GND" (effects (font (size 1 1))))
           (number "12" (effects (font (size 1 1))))
         )
-        (pin unspecified line (at 10.16 -13.97 180) (length 2.54)
+        (pin passive line (at 10.16 -13.97 180) (length 2.54)
           (name "SHELL" (effects (font (size 1 1))))
           (number "13" (effects (font (size 1 1))))
         )
-        (pin unspecified line (at 10.16 13.97 180) (length 2.54)
+        (pin passive line (at 10.16 13.97 180) (length 2.54)
           (name "SHELL" (effects (font (size 1 1))))
           (number "14" (effects (font (size 1 1))))
         )
@@ -266,16 +266,42 @@
         )
       )
     )
+    (symbol "power:PWR_FLAG" (power) (pin_names (offset 0)) (in_bom yes) (on_board yes)
+      (property "Reference" "#FLG" (at 0 1.905 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "Value" "PWR_FLAG" (at 0 3.81 0)
+        (effects (font (size 1.27 1.27)))
+      )
+      (property "Footprint" "" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "Datasheet" "~" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (symbol "PWR_FLAG_0_0"
+        (pin power_out line (at 0 0 90) (length 0)
+          (name "pwr" (effects (font (size 1.27 1.27))))
+          (number "1" (effects (font (size 1.27 1.27))))
+        )
+      )
+      (symbol "PWR_FLAG_0_1"
+        (polyline
+          (pts (xy 0 0) (xy 0 1.27) (xy -1.016 1.905) (xy 0 2.54) (xy 1.016 1.905) (xy 0 1.27))
+          (stroke (width 0) (type default))
+          (fill (type none))
+        )
+      )
+    )
   )
 
   (title_block
     (title "USB-C Connectors")
-    (date "2024-12-24")
-    (rev "2.0")
+    (date "2024-12-27")
+    (rev "2.2")
     (comment 1 "Dual USB-C: Power/Data + Debug")
     (comment 2 "TPS25750D Standalone PD + ESD Protection")
   )
-
 
   (text "USB-C #1: Power + MCU Data"
     (exclude_from_sim no)
@@ -284,11 +310,11 @@
     (uuid "text-usbc1-title")
   )
 
-  (text "USB-C Receptacle:\n16-pin mid-mount type\nLCSC: C2765186 or similar\n\nConnections (TPS25750D Architecture):\n• VBUS → TPS25750D VBUS (direct)\n• CC1/CC2 → TPS25750D CC1/CC2 (direct)\n  (NO external Rd resistors - TPS25750D has internal)\n• D+/D- → STM32 USB (via ESD)\n• SBU1/SBU2 → NC (reserved)\n• Shield → GND via 1M + 4.7nF\n\nNote: TPS25750D provides:\n• Integrated CC protection\n• Integrated VBUS switch (28V/7A)\n• Dead battery boot support\n• No TCPP03 or STM32 UCPD needed\n\nESD Protection:\nUSBLC6-2SC6 (C7519) - Basic\nProtects D+/D- lines only"
+  (text "USB-C #2: Debug Interface"
     (exclude_from_sim no)
-    (at 25.4 40.64 0)
-    (effects (font (size 1.27 1.27)) (justify left))
-    (uuid "text-usbc1-note")
+    (at 25.4 139.7 0)
+    (effects (font (size 2.5 2.5) bold) (justify left))
+    (uuid "text-usbc2-title")
   )
 
   (text "USBLC6-2SC6 (ESD Protect)"
@@ -297,215 +323,6 @@
     (effects (font (size 2 2) bold) (justify left))
     (uuid "text-esd-title")
   )
-
-  (text "USBLC6-2SC6:\n• SOT-23-6 package\n• ESD: ±15kV (air), ±8kV (contact)\n• Low capacitance: 2pF typ\n• LCSC: C7519 (Basic part)\n\nPinout:\n1: I/O1 (D+)\n2: GND\n3: I/O2 (D-)\n4: I/O2 (D-)\n5: VBUS (clamp ref)\n6: I/O1 (D+)\n\nNote: CC lines protected by\nTPS25750D integrated ESD"
-    (exclude_from_sim no)
-    (at 165.1 40.64 0)
-    (effects (font (size 1.27 1.27)) (justify left))
-    (uuid "text-esd-note")
-  )
-
-  (symbol
-    (lib_id "Device:R")
-    (at 76.2 114.3 0)
-    (unit 1)
-    (exclude_from_sim no)
-    (in_bom yes)
-    (on_board yes)
-    (dnp no)
-    (uuid "r-shield1")
-    (property "Reference" "R60"
-      (at 78.74 111.76 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "1M"
-      (at 78.74 114.3 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-      (at 76.2 114.3 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "LCSC" "C26083"
-      (at 76.2 114.3 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "JLC_Basic" "Yes"
-      (at 76.2 114.3 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
-
-  (symbol
-    (lib_id "Device:C")
-    (at 88.9 114.3 0)
-    (unit 1)
-    (exclude_from_sim no)
-    (in_bom yes)
-    (on_board yes)
-    (dnp no)
-    (uuid "c-shield1")
-    (property "Reference" "C60"
-      (at 91.44 111.76 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "4.7nF"
-      (at 91.44 114.3 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-      (at 88.9 114.3 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "LCSC" "C1538"
-      (at 88.9 114.3 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "JLC_Basic" "Yes"
-      (at 88.9 114.3 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
-
-
-  (text "USB-C #2: Debug Interface"
-    (exclude_from_sim no)
-    (at 25.4 139.7 0)
-    (effects (font (size 2.5 2.5) bold) (justify left))
-    (uuid "text-usbc2-title")
-  )
-
-  (text "USB-C Receptacle:\n16-pin mid-mount type\nSame part as USB-C #1\n\nConnections:\n• VBUS → 5V input for FT4232H\n• CC1/CC2 → 5.1k to GND (sink)\n• D+/D- → FT4232H USB\n• SBU1/SBU2 → NC\n\nNo PD negotiation needed.\nSimple 5V sink configuration."
-    (exclude_from_sim no)
-    (at 25.4 154.94 0)
-    (effects (font (size 1.27 1.27)) (justify left))
-    (uuid "text-usbc2-note")
-  )
-
-  (symbol
-    (lib_id "Device:R")
-    (at 101.6 165.1 0)
-    (unit 1)
-    (exclude_from_sim no)
-    (in_bom yes)
-    (on_board yes)
-    (dnp no)
-    (uuid "r-cc1-sink")
-    (property "Reference" "R61"
-      (at 104.14 162.56 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "5.1k"
-      (at 104.14 165.1 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-      (at 101.6 165.1 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "LCSC" "C25905"
-      (at 101.6 165.1 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "JLC_Basic" "Yes"
-      (at 101.6 165.1 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
-
-  (symbol
-    (lib_id "Device:R")
-    (at 114.3 165.1 0)
-    (unit 1)
-    (exclude_from_sim no)
-    (in_bom yes)
-    (on_board yes)
-    (dnp no)
-    (uuid "r-cc2-sink")
-    (property "Reference" "R62"
-      (at 116.84 162.56 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "5.1k"
-      (at 116.84 165.1 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-      (at 114.3 165.1 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "LCSC" "C25905"
-      (at 114.3 165.1 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "JLC_Basic" "Yes"
-      (at 114.3 165.1 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
-
-  (symbol
-    (lib_id "Device:R")
-    (at 76.2 182.88 0)
-    (unit 1)
-    (exclude_from_sim no)
-    (in_bom yes)
-    (on_board yes)
-    (dnp no)
-    (uuid "r-shield2")
-    (property "Reference" "R63"
-      (at 78.74 180.34 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "1M"
-      (at 78.74 182.88 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-      (at 76.2 182.88 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "LCSC" "C26083"
-      (at 76.2 182.88 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "JLC_Basic" "Yes"
-      (at 76.2 182.88 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
-
-  (symbol
-    (lib_id "Device:C")
-    (at 88.9 182.88 0)
-    (unit 1)
-    (exclude_from_sim no)
-    (in_bom yes)
-    (on_board yes)
-    (dnp no)
-    (uuid "c-shield2")
-    (property "Reference" "C61"
-      (at 91.44 180.34 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "4.7nF"
-      (at 91.44 182.88 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-      (at 88.9 182.88 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "LCSC" "C1538"
-      (at 88.9 182.88 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "JLC_Basic" "Yes"
-      (at 88.9 182.88 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
-
 
   (symbol
     (lib_id "USB-C-16PIN:TYPE-C_16PIN_2MD_073")
@@ -532,37 +349,20 @@
       (at 50.8 63.5 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-  )
-
-  (symbol
-    (lib_id "USBLC6:USBLC6-2SC6")
-    (at 165.1 76.2 0)
-    (unit 1)
-    (exclude_from_sim no)
-    (in_bom yes)
-    (on_board yes)
-    (dnp no)
-    (uuid "u10-esd1")
-    (property "Reference" "U10"
-      (at 165.1 63.5 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "USBLC6-2SC6"
-      (at 165.1 66.04 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Package_TO_SOT_SMD:SOT-23-6"
-      (at 165.1 76.2 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "LCSC" "C7519"
-      (at 165.1 76.2 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "JLC_Basic" "Yes"
-      (at 165.1 76.2 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
+    (pin "1" (uuid "j1-pin1"))
+    (pin "2" (uuid "j1-pin2"))
+    (pin "3" (uuid "j1-pin3"))
+    (pin "4" (uuid "j1-pin4"))
+    (pin "5" (uuid "j1-pin5"))
+    (pin "6" (uuid "j1-pin6"))
+    (pin "7" (uuid "j1-pin7"))
+    (pin "8" (uuid "j1-pin8"))
+    (pin "9" (uuid "j1-pin9"))
+    (pin "10" (uuid "j1-pin10"))
+    (pin "11" (uuid "j1-pin11"))
+    (pin "12" (uuid "j1-pin12"))
+    (pin "13" (uuid "j1-pin13"))
+    (pin "14" (uuid "j1-pin14"))
   )
 
   (symbol
@@ -590,6 +390,53 @@
       (at 50.8 152.4 0)
       (effects (font (size 1.27 1.27)) hide)
     )
+    (pin "1" (uuid "j2-pin1"))
+    (pin "2" (uuid "j2-pin2"))
+    (pin "3" (uuid "j2-pin3"))
+    (pin "4" (uuid "j2-pin4"))
+    (pin "5" (uuid "j2-pin5"))
+    (pin "6" (uuid "j2-pin6"))
+    (pin "7" (uuid "j2-pin7"))
+    (pin "8" (uuid "j2-pin8"))
+    (pin "9" (uuid "j2-pin9"))
+    (pin "10" (uuid "j2-pin10"))
+    (pin "11" (uuid "j2-pin11"))
+    (pin "12" (uuid "j2-pin12"))
+    (pin "13" (uuid "j2-pin13"))
+    (pin "14" (uuid "j2-pin14"))
+  )
+
+  (symbol
+    (lib_id "USBLC6:USBLC6-2SC6")
+    (at 165.1 76.2 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "u10-esd1")
+    (property "Reference" "U10"
+      (at 165.1 60.96 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "USBLC6-2SC6"
+      (at 165.1 63.5 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23-6"
+      (at 165.1 76.2 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C7519"
+      (at 165.1 76.2 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid "u10-pin1"))
+    (pin "2" (uuid "u10-pin2"))
+    (pin "3" (uuid "u10-pin3"))
+    (pin "4" (uuid "u10-pin4"))
+    (pin "5" (uuid "u10-pin5"))
+    (pin "6" (uuid "u10-pin6"))
   )
 
   (symbol
@@ -602,11 +449,11 @@
     (dnp no)
     (uuid "u11-esd2")
     (property "Reference" "U11"
-      (at 165.1 152.4 0)
+      (at 165.1 149.86 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "USBLC6-2SC6"
-      (at 165.1 154.94 0)
+      (at 165.1 152.4 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Footprint" "Package_TO_SOT_SMD:SOT-23-6"
@@ -617,117 +464,191 @@
       (at 165.1 165.1 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "JLC_Basic" "Yes"
-      (at 165.1 165.1 0)
+    (pin "1" (uuid "u11-pin1"))
+    (pin "2" (uuid "u11-pin2"))
+    (pin "3" (uuid "u11-pin3"))
+    (pin "4" (uuid "u11-pin4"))
+    (pin "5" (uuid "u11-pin5"))
+    (pin "6" (uuid "u11-pin6"))
+  )
+
+  (symbol
+    (lib_id "Device:R")
+    (at 76.2 100.33 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "r-shield1")
+    (property "Reference" "R60"
+      (at 78.74 97.79 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "1M"
+      (at 78.74 100.33 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+      (at 76.2 100.33 0)
       (effects (font (size 1.27 1.27)) hide)
     )
+    (property "LCSC" "C26083"
+      (at 76.2 100.33 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid "r60-pin1"))
+    (pin "2" (uuid "r60-pin2"))
   )
 
-  (hierarchical_label "VBUS"
-    (shape output)
-    (at 228.6 38.1 0)
-    (effects (font (size 1.524 1.524)) (justify left))
-    (uuid "hlabel-vbus")
+  (symbol
+    (lib_id "Device:C")
+    (at 88.9 100.33 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "c-shield1")
+    (property "Reference" "C60"
+      (at 91.44 97.79 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "4.7nF"
+      (at 91.44 100.33 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+      (at 88.9 100.33 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C1538"
+      (at 88.9 100.33 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid "c60-pin1"))
+    (pin "2" (uuid "c60-pin2"))
   )
 
-  (hierarchical_label "CC1"
-    (shape bidirectional)
-    (at 228.6 50.8 0)
-    (effects (font (size 1.524 1.524)) (justify left))
-    (uuid "hlabel-cc1")
+  (symbol
+    (lib_id "Device:R")
+    (at 76.2 189.23 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "r-shield2")
+    (property "Reference" "R63"
+      (at 78.74 186.69 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "1M"
+      (at 78.74 189.23 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+      (at 76.2 189.23 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C26083"
+      (at 76.2 189.23 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid "r63-pin1"))
+    (pin "2" (uuid "r63-pin2"))
   )
 
-  (hierarchical_label "CC2"
-    (shape bidirectional)
-    (at 228.6 63.5 0)
-    (effects (font (size 1.524 1.524)) (justify left))
-    (uuid "hlabel-cc2")
+  (symbol
+    (lib_id "Device:C")
+    (at 88.9 189.23 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "c-shield2")
+    (property "Reference" "C61"
+      (at 91.44 186.69 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "4.7nF"
+      (at 91.44 189.23 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+      (at 88.9 189.23 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C1538"
+      (at 88.9 189.23 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid "c61-pin1"))
+    (pin "2" (uuid "c61-pin2"))
   )
 
-  (hierarchical_label "USB1_DP"
-    (shape bidirectional)
-    (at 228.6 76.2 0)
-    (effects (font (size 1.524 1.524)) (justify left))
-    (uuid "hlabel-usb1-dp")
+  (symbol
+    (lib_id "Device:R")
+    (at 101.6 165.1 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "r-cc1-sink")
+    (property "Reference" "R61"
+      (at 104.14 162.56 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "5.1k"
+      (at 104.14 165.1 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+      (at 101.6 165.1 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C25905"
+      (at 101.6 165.1 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid "r61-pin1"))
+    (pin "2" (uuid "r61-pin2"))
   )
 
-  (hierarchical_label "USB1_DM"
-    (shape bidirectional)
-    (at 228.6 88.9 0)
-    (effects (font (size 1.524 1.524)) (justify left))
-    (uuid "hlabel-usb1-dm")
+  (symbol
+    (lib_id "Device:R")
+    (at 114.3 165.1 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "r-cc2-sink")
+    (property "Reference" "R62"
+      (at 116.84 162.56 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "5.1k"
+      (at 116.84 165.1 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+      (at 114.3 165.1 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "LCSC" "C25905"
+      (at 114.3 165.1 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid "r62-pin1"))
+    (pin "2" (uuid "r62-pin2"))
   )
-
-  (hierarchical_label "USB2_DP"
-    (shape bidirectional)
-    (at 228.6 152.4 0)
-    (effects (font (size 1.524 1.524)) (justify left))
-    (uuid "hlabel-usb2-dp")
-  )
-
-  (hierarchical_label "USB2_DM"
-    (shape bidirectional)
-    (at 228.6 165.1 0)
-    (effects (font (size 1.524 1.524)) (justify left))
-    (uuid "hlabel-usb2-dm")
-  )
-
-  (wire (pts (xy 63.5 48.26) (xy 100 48.26)) (uuid "wire-j1-vbus-1"))
-  (wire (pts (xy 100 48.26) (xy 100 38.1)) (uuid "wire-j1-vbus-2"))
-  (wire (pts (xy 100 38.1) (xy 228.6 38.1)) (uuid "wire-j1-vbus-3"))
-
-  (wire (pts (xy 63.5 55.88) (xy 105 55.88)) (uuid "wire-j1-cc1-1"))
-  (wire (pts (xy 105 55.88) (xy 105 50.8)) (uuid "wire-j1-cc1-2"))
-  (wire (pts (xy 105 50.8) (xy 228.6 50.8)) (uuid "wire-j1-cc1-3"))
-
-  (wire (pts (xy 63.5 58.42) (xy 110 58.42)) (uuid "wire-j1-cc2-1"))
-  (wire (pts (xy 110 58.42) (xy 110 63.5)) (uuid "wire-j1-cc2-2"))
-  (wire (pts (xy 110 63.5) (xy 228.6 63.5)) (uuid "wire-j1-cc2-3"))
-
-  (wire (pts (xy 63.5 68.58) (xy 130 68.58)) (uuid "wire-j1-dp-1"))
-  (wire (pts (xy 130 68.58) (xy 130 71.12)) (uuid "wire-j1-dp-2"))
-  (wire (pts (xy 130 71.12) (xy 152.4 71.12)) (uuid "wire-j1-dp-3"))
-
-  (wire (pts (xy 63.5 73.66) (xy 125 73.66)) (uuid "wire-j1-dm-1"))
-  (wire (pts (xy 125 73.66) (xy 125 81.28)) (uuid "wire-j1-dm-2"))
-  (wire (pts (xy 125 81.28) (xy 152.4 81.28)) (uuid "wire-j1-dm-3"))
-
-  (wire (pts (xy 177.8 71.12) (xy 200 71.12)) (uuid "wire-esd1-dp-out-1"))
-  (wire (pts (xy 200 71.12) (xy 200 76.2)) (uuid "wire-esd1-dp-out-2"))
-  (wire (pts (xy 200 76.2) (xy 228.6 76.2)) (uuid "wire-esd1-dp-out-3"))
-
-  (wire (pts (xy 177.8 81.28) (xy 205 81.28)) (uuid "wire-esd1-dm-out-1"))
-  (wire (pts (xy 205 81.28) (xy 205 88.9)) (uuid "wire-esd1-dm-out-2"))
-  (wire (pts (xy 205 88.9) (xy 228.6 88.9)) (uuid "wire-esd1-dm-out-3"))
-
-  (wire (pts (xy 63.5 137.16) (xy 130 137.16)) (uuid "wire-j2-dp-1"))
-  (wire (pts (xy 130 137.16) (xy 130 160.02)) (uuid "wire-j2-dp-2"))
-  (wire (pts (xy 130 160.02) (xy 152.4 160.02)) (uuid "wire-j2-dp-3"))
-
-  (wire (pts (xy 63.5 142.24) (xy 125 142.24)) (uuid "wire-j2-dm-1"))
-  (wire (pts (xy 125 142.24) (xy 125 170.18)) (uuid "wire-j2-dm-2"))
-  (wire (pts (xy 125 170.18) (xy 152.4 170.18)) (uuid "wire-j2-dm-3"))
-
-  (wire (pts (xy 177.8 160.02) (xy 200 160.02)) (uuid "wire-esd2-dp-out-1"))
-  (wire (pts (xy 200 160.02) (xy 200 152.4)) (uuid "wire-esd2-dp-out-2"))
-  (wire (pts (xy 200 152.4) (xy 228.6 152.4)) (uuid "wire-esd2-dp-out-3"))
-
-  (wire (pts (xy 177.8 170.18) (xy 205 170.18)) (uuid "wire-esd2-dm-out-1"))
-  (wire (pts (xy 205 170.18) (xy 205 165.1)) (uuid "wire-esd2-dm-out-2"))
-  (wire (pts (xy 205 165.1) (xy 228.6 165.1)) (uuid "wire-esd2-dm-out-3"))
-
-  (wire (pts (xy 63.5 86.36) (xy 76.2 86.36)) (uuid "wire-j1-shield-1"))
-  (wire (pts (xy 76.2 86.36) (xy 76.2 106.68)) (uuid "wire-j1-shield-2"))
-  (wire (pts (xy 76.2 121.92) (xy 76.2 127)) (uuid "wire-j1-shield-3"))
-  (wire (pts (xy 76.2 127) (xy 88.9 127)) (uuid "wire-j1-shield-4"))
-  (wire (pts (xy 88.9 106.68) (xy 88.9 127)) (uuid "wire-j1-shield-5"))
-
-  (wire (pts (xy 63.5 175.26) (xy 76.2 175.26)) (uuid "wire-j2-shield-1"))
-  (wire (pts (xy 76.2 175.26) (xy 76.2 175.26)) (uuid "wire-j2-shield-2"))
 
   (symbol
     (lib_id "power:GND")
-    (at 76.2 127 0)
+    (at 82.55 111.76 0)
     (unit 1)
     (exclude_from_sim no)
     (in_bom no)
@@ -735,18 +656,19 @@
     (dnp no)
     (uuid "pwr-gnd-usb1")
     (property "Reference" "#PWR010"
-      (at 76.2 133.35 0)
+      (at 82.55 118.11 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND"
-      (at 76.2 130.81 0)
+      (at 82.55 115.57 0)
       (effects (font (size 1.27 1.27)))
     )
+    (pin "1" (uuid "pwr-gnd-usb1-pin1"))
   )
 
   (symbol
     (lib_id "power:GND")
-    (at 76.2 195.58 0)
+    (at 82.55 200.66 0)
     (unit 1)
     (exclude_from_sim no)
     (in_bom no)
@@ -754,18 +676,19 @@
     (dnp no)
     (uuid "pwr-gnd-usb2")
     (property "Reference" "#PWR011"
-      (at 76.2 201.93 0)
+      (at 82.55 207.01 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND"
-      (at 76.2 199.39 0)
+      (at 82.55 204.47 0)
       (effects (font (size 1.27 1.27)))
     )
+    (pin "1" (uuid "pwr-gnd-usb2-pin1"))
   )
 
   (symbol
     (lib_id "power:GND")
-    (at 165.1 88.9 0)
+    (at 140.97 76.2 0)
     (unit 1)
     (exclude_from_sim no)
     (in_bom no)
@@ -773,18 +696,19 @@
     (dnp no)
     (uuid "pwr-gnd-esd1")
     (property "Reference" "#PWR012"
-      (at 165.1 95.25 0)
+      (at 140.97 82.55 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND"
-      (at 165.1 92.71 0)
+      (at 140.97 80.01 0)
       (effects (font (size 1.27 1.27)))
     )
+    (pin "1" (uuid "pwr-gnd-esd1-pin1"))
   )
 
   (symbol
     (lib_id "power:GND")
-    (at 165.1 177.8 0)
+    (at 140.97 165.1 0)
     (unit 1)
     (exclude_from_sim no)
     (in_bom no)
@@ -792,18 +716,19 @@
     (dnp no)
     (uuid "pwr-gnd-esd2")
     (property "Reference" "#PWR013"
-      (at 165.1 184.15 0)
+      (at 140.97 171.45 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND"
-      (at 165.1 181.61 0)
+      (at 140.97 168.91 0)
       (effects (font (size 1.27 1.27)))
     )
+    (pin "1" (uuid "pwr-gnd-esd2-pin1"))
   )
 
   (symbol
     (lib_id "power:+5V")
-    (at 165.1 63.5 0)
+    (at 189.23 76.2 0)
     (unit 1)
     (exclude_from_sim no)
     (in_bom no)
@@ -811,18 +736,19 @@
     (dnp no)
     (uuid "pwr-5v-esd1")
     (property "Reference" "#PWR014"
-      (at 165.1 67.31 0)
+      (at 189.23 80.01 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V"
-      (at 165.1 59.69 0)
+      (at 189.23 72.39 0)
       (effects (font (size 1.27 1.27)))
     )
+    (pin "1" (uuid "pwr-5v-esd1-pin1"))
   )
 
   (symbol
     (lib_id "power:+5V")
-    (at 165.1 152.4 0)
+    (at 189.23 165.1 0)
     (unit 1)
     (exclude_from_sim no)
     (in_bom no)
@@ -830,23 +756,19 @@
     (dnp no)
     (uuid "pwr-5v-esd2")
     (property "Reference" "#PWR015"
-      (at 165.1 156.21 0)
+      (at 189.23 168.91 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V"
-      (at 165.1 148.59 0)
+      (at 189.23 161.29 0)
       (effects (font (size 1.27 1.27)))
     )
+    (pin "1" (uuid "pwr-5v-esd2-pin1"))
   )
-
-  (wire (pts (xy 101.6 157.48) (xy 101.6 175.26)) (uuid "wire-cc1-sink-gnd"))
-  (wire (pts (xy 114.3 157.48) (xy 114.3 175.26)) (uuid "wire-cc2-sink-gnd"))
-  (wire (pts (xy 101.6 175.26) (xy 114.3 175.26)) (uuid "wire-cc-sink-gnd-bus"))
-  (wire (pts (xy 114.3 175.26) (xy 130 175.26)) (uuid "wire-cc-sink-gnd-ext"))
 
   (symbol
     (lib_id "power:GND")
-    (at 130 175.26 0)
+    (at 107.95 175.26 0)
     (unit 1)
     (exclude_from_sim no)
     (in_bom no)
@@ -854,27 +776,238 @@
     (dnp no)
     (uuid "pwr-gnd-cc-sink")
     (property "Reference" "#PWR016"
-      (at 130 181.61 0)
+      (at 107.95 181.61 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND"
-      (at 130 179.07 0)
+      (at 107.95 179.07 0)
       (effects (font (size 1.27 1.27)))
     )
+    (pin "1" (uuid "pwr-gnd-cc-sink-pin1"))
   )
 
-  (wire (pts (xy 63.5 144.78) (xy 101.6 144.78)) (uuid "wire-j2-cc1"))
-  (wire (pts (xy 101.6 144.78) (xy 101.6 157.48)) (uuid "wire-j2-cc1-sink"))
-  (wire (pts (xy 63.5 147.32) (xy 114.3 147.32)) (uuid "wire-j2-cc2"))
-  (wire (pts (xy 114.3 147.32) (xy 114.3 157.48)) (uuid "wire-j2-cc2-sink"))
+  (symbol
+    (lib_id "power:GND")
+    (at 31.75 63.5 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom no)
+    (on_board yes)
+    (dnp no)
+    (uuid "pwr-gnd-j1-main")
+    (property "Reference" "#PWR017"
+      (at 31.75 69.85 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "GND"
+      (at 31.75 67.31 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (pin "1" (uuid "pwr-gnd-j1-main-pin1"))
+  )
 
-  (junction (at 101.6 175.26) (uuid "jct-cc-sink-1"))
-  (junction (at 114.3 175.26) (uuid "jct-cc-sink-2"))
+  (symbol
+    (lib_id "power:GND")
+    (at 31.75 152.4 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom no)
+    (on_board yes)
+    (dnp no)
+    (uuid "pwr-gnd-j2-main")
+    (property "Reference" "#PWR018"
+      (at 31.75 158.75 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "GND"
+      (at 31.75 156.21 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (pin "1" (uuid "pwr-gnd-j2-main-pin1"))
+  )
 
-  (wire (pts (xy 76.2 190.5) (xy 76.2 195.58)) (uuid "wire-j2-shield-gnd"))
-  (wire (pts (xy 88.9 190.5) (xy 88.9 195.58)) (uuid "wire-j2-cap-gnd"))
-  (wire (pts (xy 76.2 195.58) (xy 88.9 195.58)) (uuid "wire-j2-shield-bus"))
+  (symbol
+    (lib_id "power:PWR_FLAG")
+    (at 100.33 49.53 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom no)
+    (on_board yes)
+    (dnp no)
+    (uuid "pwr-flag-vbus")
+    (property "Reference" "#FLG01"
+      (at 100.33 47.625 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "PWR_FLAG"
+      (at 100.33 44.45 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (pin "1" (uuid "pwr-flag-vbus-pin1"))
+  )
 
-  (junction (at 76.2 195.58) (uuid "jct-gnd-usb2"))
+  (hierarchical_label "VBUS"
+    (shape output)
+    (at 228.6 52.07 0)
+    (effects (font (size 1.524 1.524)) (justify left))
+    (uuid "hlabel-vbus")
+  )
+
+  (hierarchical_label "CC1"
+    (shape bidirectional)
+    (at 228.6 57.15 0)
+    (effects (font (size 1.524 1.524)) (justify left))
+    (uuid "hlabel-cc1")
+  )
+
+  (hierarchical_label "CC2"
+    (shape bidirectional)
+    (at 228.6 72.39 0)
+    (effects (font (size 1.524 1.524)) (justify left))
+    (uuid "hlabel-cc2")
+  )
+
+  (hierarchical_label "USB1_DP"
+    (shape bidirectional)
+    (at 228.6 68.58 0)
+    (effects (font (size 1.524 1.524)) (justify left))
+    (uuid "hlabel-usb1-dp")
+  )
+
+  (hierarchical_label "USB1_DM"
+    (shape bidirectional)
+    (at 228.6 83.82 0)
+    (effects (font (size 1.524 1.524)) (justify left))
+    (uuid "hlabel-usb1-dm")
+  )
+
+  (hierarchical_label "USB2_DP"
+    (shape bidirectional)
+    (at 228.6 157.48 0)
+    (effects (font (size 1.524 1.524)) (justify left))
+    (uuid "hlabel-usb2-dp")
+  )
+
+  (hierarchical_label "USB2_DM"
+    (shape bidirectional)
+    (at 228.6 172.72 0)
+    (effects (font (size 1.524 1.524)) (justify left))
+    (uuid "hlabel-usb2-dm")
+  )
+
+  (hierarchical_label "USB2_VBUS"
+    (shape output)
+    (at 228.6 140.97 0)
+    (effects (font (size 1.524 1.524)) (justify left))
+    (uuid "hlabel-usb2-vbus")
+  )
+
+  (no_connect (at 39.37 54.61) (uuid "nc-j1-sbu2"))
+  (no_connect (at 39.37 69.85) (uuid "nc-j1-sbu1"))
+  (no_connect (at 39.37 143.51) (uuid "nc-j2-sbu2"))
+  (no_connect (at 39.37 158.75) (uuid "nc-j2-sbu1"))
+
+  (wire (pts (xy 39.37 49.53) (xy 31.75 49.53)) (stroke (width 0) (type default)) (uuid "wire-j1-gnd1-a"))
+  (wire (pts (xy 31.75 49.53) (xy 31.75 63.5)) (stroke (width 0) (type default)) (uuid "wire-j1-gnd1-b"))
+  (wire (pts (xy 39.37 77.47) (xy 31.75 77.47)) (stroke (width 0) (type default)) (uuid "wire-j1-gnd12-a"))
+  (wire (pts (xy 31.75 77.47) (xy 31.75 63.5)) (stroke (width 0) (type default)) (uuid "wire-j1-gnd12-b"))
+
+  (wire (pts (xy 39.37 52.07) (xy 100.33 52.07)) (stroke (width 0) (type default)) (uuid "wire-j1-vbus2-a"))
+  (wire (pts (xy 100.33 52.07) (xy 228.6 52.07)) (stroke (width 0) (type default)) (uuid "wire-j1-vbus2-b"))
+  (wire (pts (xy 39.37 74.93) (xy 100.33 74.93)) (stroke (width 0) (type default)) (uuid "wire-j1-vbus11-a"))
+  (wire (pts (xy 100.33 74.93) (xy 100.33 52.07)) (stroke (width 0) (type default)) (uuid "wire-j1-vbus11-b"))
+  (wire (pts (xy 100.33 49.53) (xy 100.33 52.07)) (stroke (width 0) (type default)) (uuid "wire-pwr-flag-vbus"))
+
+  (wire (pts (xy 39.37 57.15) (xy 228.6 57.15)) (stroke (width 0) (type default)) (uuid "wire-j1-cc1"))
+  (wire (pts (xy 39.37 72.39) (xy 228.6 72.39)) (stroke (width 0) (type default)) (uuid "wire-j1-cc2"))
+
+  (wire (pts (xy 39.37 62.23) (xy 68.58 62.23)) (stroke (width 0) (type default)) (uuid "wire-j1-dp1-a"))
+  (wire (pts (xy 39.37 67.31) (xy 68.58 67.31)) (stroke (width 0) (type default)) (uuid "wire-j1-dp2-a"))
+  (wire (pts (xy 68.58 62.23) (xy 68.58 68.58)) (stroke (width 0) (type default)) (uuid "wire-j1-dp-join"))
+  (wire (pts (xy 68.58 68.58) (xy 148.59 68.58)) (stroke (width 0) (type default)) (uuid "wire-j1-dp-to-esd"))
+
+  (wire (pts (xy 39.37 64.77) (xy 63.5 64.77)) (stroke (width 0) (type default)) (uuid "wire-j1-dn1-a"))
+  (wire (pts (xy 39.37 59.69) (xy 63.5 59.69)) (stroke (width 0) (type default)) (uuid "wire-j1-dn2-a"))
+  (wire (pts (xy 63.5 59.69) (xy 63.5 83.82)) (stroke (width 0) (type default)) (uuid "wire-j1-dn-join"))
+  (wire (pts (xy 63.5 83.82) (xy 148.59 83.82)) (stroke (width 0) (type default)) (uuid "wire-j1-dm-to-esd"))
+
+  (wire (pts (xy 60.96 77.47) (xy 60.96 49.53)) (stroke (width 0) (type default)) (uuid "wire-j1-shell-join"))
+  (wire (pts (xy 60.96 63.5) (xy 76.2 63.5)) (stroke (width 0) (type default)) (uuid "wire-j1-shell-to-r"))
+  (wire (pts (xy 76.2 63.5) (xy 76.2 96.52)) (stroke (width 0) (type default)) (uuid "wire-j1-shell-r-in"))
+
+  (wire (pts (xy 76.2 96.52) (xy 88.9 96.52)) (stroke (width 0) (type default)) (uuid "wire-rc1-top"))
+  (wire (pts (xy 76.2 104.14) (xy 82.55 104.14)) (stroke (width 0) (type default)) (uuid "wire-r60-to-gnd"))
+  (wire (pts (xy 82.55 104.14) (xy 88.9 104.14)) (stroke (width 0) (type default)) (uuid "wire-c60-to-gnd"))
+  (wire (pts (xy 82.55 104.14) (xy 82.55 111.76)) (stroke (width 0) (type default)) (uuid "wire-j1-rc-gnd"))
+
+  (wire (pts (xy 148.59 76.2) (xy 140.97 76.2)) (stroke (width 0) (type default)) (uuid "wire-u10-gnd"))
+  (wire (pts (xy 181.61 76.2) (xy 189.23 76.2)) (stroke (width 0) (type default)) (uuid "wire-u10-vbus"))
+  (wire (pts (xy 181.61 68.58) (xy 228.6 68.58)) (stroke (width 0) (type default)) (uuid "wire-u10-dp-out"))
+  (wire (pts (xy 181.61 83.82) (xy 228.6 83.82)) (stroke (width 0) (type default)) (uuid "wire-u10-dm-out"))
+
+  (wire (pts (xy 39.37 138.43) (xy 31.75 138.43)) (stroke (width 0) (type default)) (uuid "wire-j2-gnd1-a"))
+  (wire (pts (xy 31.75 138.43) (xy 31.75 152.4)) (stroke (width 0) (type default)) (uuid "wire-j2-gnd1-b"))
+  (wire (pts (xy 39.37 166.37) (xy 31.75 166.37)) (stroke (width 0) (type default)) (uuid "wire-j2-gnd12-a"))
+  (wire (pts (xy 31.75 166.37) (xy 31.75 152.4)) (stroke (width 0) (type default)) (uuid "wire-j2-gnd12-b"))
+
+  (wire (pts (xy 39.37 140.97) (xy 80.01 140.97)) (stroke (width 0) (type default)) (uuid "wire-j2-vbus2-a"))
+  (wire (pts (xy 80.01 140.97) (xy 228.6 140.97)) (stroke (width 0) (type default)) (uuid "wire-j2-vbus2-b"))
+  (wire (pts (xy 39.37 163.83) (xy 80.01 163.83)) (stroke (width 0) (type default)) (uuid "wire-j2-vbus11-a"))
+  (wire (pts (xy 80.01 163.83) (xy 80.01 140.97)) (stroke (width 0) (type default)) (uuid "wire-j2-vbus11-b"))
+
+  (wire (pts (xy 39.37 146.05) (xy 101.6 146.05)) (stroke (width 0) (type default)) (uuid "wire-j2-cc1-a"))
+  (wire (pts (xy 101.6 146.05) (xy 101.6 161.29)) (stroke (width 0) (type default)) (uuid "wire-j2-cc1-b"))
+  (wire (pts (xy 39.37 161.29) (xy 93.98 161.29)) (stroke (width 0) (type default)) (uuid "wire-j2-cc2-a"))
+  (wire (pts (xy 93.98 161.29) (xy 114.3 161.29)) (stroke (width 0) (type default)) (uuid "wire-j2-cc2-b"))
+
+  (wire (pts (xy 101.6 168.91) (xy 101.6 172.72)) (stroke (width 0) (type default)) (uuid "wire-r61-gnd-a"))
+  (wire (pts (xy 114.3 168.91) (xy 114.3 172.72)) (stroke (width 0) (type default)) (uuid "wire-r62-gnd-a"))
+  (wire (pts (xy 101.6 172.72) (xy 107.95 172.72)) (stroke (width 0) (type default)) (uuid "wire-cc-gnd-bus-a"))
+  (wire (pts (xy 107.95 172.72) (xy 114.3 172.72)) (stroke (width 0) (type default)) (uuid "wire-cc-gnd-bus-b"))
+  (wire (pts (xy 107.95 172.72) (xy 107.95 175.26)) (stroke (width 0) (type default)) (uuid "wire-cc-gnd-sym"))
+
+  (wire (pts (xy 39.37 151.13) (xy 68.58 151.13)) (stroke (width 0) (type default)) (uuid "wire-j2-dp1-a"))
+  (wire (pts (xy 39.37 156.21) (xy 68.58 156.21)) (stroke (width 0) (type default)) (uuid "wire-j2-dp2-a"))
+  (wire (pts (xy 68.58 151.13) (xy 68.58 157.48)) (stroke (width 0) (type default)) (uuid "wire-j2-dp-join"))
+  (wire (pts (xy 68.58 157.48) (xy 148.59 157.48)) (stroke (width 0) (type default)) (uuid "wire-j2-dp-to-esd"))
+
+  (wire (pts (xy 39.37 153.67) (xy 57.15 153.67)) (stroke (width 0) (type default)) (uuid "wire-j2-dn1-a"))
+  (wire (pts (xy 39.37 148.59) (xy 57.15 148.59)) (stroke (width 0) (type default)) (uuid "wire-j2-dn2-a"))
+  (wire (pts (xy 57.15 148.59) (xy 57.15 172.72)) (stroke (width 0) (type default)) (uuid "wire-j2-dn-join"))
+  (wire (pts (xy 57.15 172.72) (xy 148.59 172.72)) (stroke (width 0) (type default)) (uuid "wire-j2-dm-to-esd"))
+
+  (wire (pts (xy 60.96 166.37) (xy 60.96 138.43)) (stroke (width 0) (type default)) (uuid "wire-j2-shell-join"))
+  (wire (pts (xy 60.96 152.4) (xy 76.2 152.4)) (stroke (width 0) (type default)) (uuid "wire-j2-shell-to-r"))
+  (wire (pts (xy 76.2 152.4) (xy 76.2 185.42)) (stroke (width 0) (type default)) (uuid "wire-j2-shell-r-in"))
+
+  (wire (pts (xy 76.2 185.42) (xy 88.9 185.42)) (stroke (width 0) (type default)) (uuid "wire-rc2-top"))
+  (wire (pts (xy 76.2 193.04) (xy 82.55 193.04)) (stroke (width 0) (type default)) (uuid "wire-r63-to-gnd"))
+  (wire (pts (xy 82.55 193.04) (xy 88.9 193.04)) (stroke (width 0) (type default)) (uuid "wire-c61-to-gnd"))
+  (wire (pts (xy 82.55 193.04) (xy 82.55 200.66)) (stroke (width 0) (type default)) (uuid "wire-j2-rc-gnd"))
+
+  (wire (pts (xy 148.59 165.1) (xy 140.97 165.1)) (stroke (width 0) (type default)) (uuid "wire-u11-gnd"))
+  (wire (pts (xy 181.61 165.1) (xy 189.23 165.1)) (stroke (width 0) (type default)) (uuid "wire-u11-vbus"))
+  (wire (pts (xy 181.61 157.48) (xy 228.6 157.48)) (stroke (width 0) (type default)) (uuid "wire-u11-dp-out"))
+  (wire (pts (xy 181.61 172.72) (xy 228.6 172.72)) (stroke (width 0) (type default)) (uuid "wire-u11-dm-out"))
+
+  (junction (at 31.75 63.5) (diameter 0) (color 0 0 0 0) (uuid "jct-j1-gnd"))
+  (junction (at 100.33 52.07) (diameter 0) (color 0 0 0 0) (uuid "jct-j1-vbus"))
+  (junction (at 68.58 62.23) (diameter 0) (color 0 0 0 0) (uuid "jct-j1-dp1"))
+  (junction (at 68.58 67.31) (diameter 0) (color 0 0 0 0) (uuid "jct-j1-dp2"))
+  (junction (at 63.5 59.69) (diameter 0) (color 0 0 0 0) (uuid "jct-j1-dn1"))
+  (junction (at 63.5 64.77) (diameter 0) (color 0 0 0 0) (uuid "jct-j1-dn2"))
+  (junction (at 60.96 63.5) (diameter 0) (color 0 0 0 0) (uuid "jct-j1-shell"))
+  (junction (at 82.55 104.14) (diameter 0) (color 0 0 0 0) (uuid "jct-j1-rc"))
+  (junction (at 31.75 152.4) (diameter 0) (color 0 0 0 0) (uuid "jct-j2-gnd"))
+  (junction (at 80.01 140.97) (diameter 0) (color 0 0 0 0) (uuid "jct-j2-vbus"))
+  (junction (at 68.58 151.13) (diameter 0) (color 0 0 0 0) (uuid "jct-j2-dp1"))
+  (junction (at 68.58 156.21) (diameter 0) (color 0 0 0 0) (uuid "jct-j2-dp2"))
+  (junction (at 57.15 148.59) (diameter 0) (color 0 0 0 0) (uuid "jct-j2-dn1"))
+  (junction (at 57.15 153.67) (diameter 0) (color 0 0 0 0) (uuid "jct-j2-dn2"))
+  (junction (at 60.96 152.4) (diameter 0) (color 0 0 0 0) (uuid "jct-j2-shell"))
+  (junction (at 82.55 193.04) (diameter 0) (color 0 0 0 0) (uuid "jct-j2-rc"))
+  (junction (at 107.95 172.72) (diameter 0) (color 0 0 0 0) (uuid "jct-cc-gnd"))
+  (junction (at 76.2 96.52) (diameter 0) (color 0 0 0 0) (uuid "jct-rc1-top"))
+  (junction (at 76.2 185.42) (diameter 0) (color 0 0 0 0) (uuid "jct-rc2-top"))
 
 )

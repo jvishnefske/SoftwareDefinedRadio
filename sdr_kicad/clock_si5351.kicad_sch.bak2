@@ -7,9 +7,9 @@
   (title_block
     (title "Clock Generator - Si5351A")
     (date "2024-12-25")
-    (rev "2.0")
+    (rev "3.0")
     (comment 1 "I2C Programmable Clock Synthesizer")
-    (comment 2 "Quadrature Clocks for QSD")
+    (comment 2 "Net labels for cleaner routing")
   )
 
   (lib_symbols
@@ -28,10 +28,6 @@
       )
       (symbol "SI5351A-B-GT_0_1"
         (rectangle (start -7.62 7.62) (end 7.62 -7.62)
-          (stroke (width 0) (type default))
-          (fill (type background))
-        )
-        (circle (center -6.35 6.35) (radius 0.381)
           (stroke (width 0) (type default))
           (fill (type background))
         )
@@ -415,14 +411,9 @@
     (pin "2" (uuid "pin-y1-2"))
   )
 
-  (wire (pts (xy 72.39 99.06) (xy 91.44 99.06)) (uuid "wire-xa"))
-  (wire (pts (xy 64.77 99.06) (xy 60.96 99.06)) (uuid "wire-xb-1"))
-  (wire (pts (xy 60.96 99.06) (xy 60.96 101.6)) (uuid "wire-xb-2"))
-  (wire (pts (xy 60.96 101.6) (xy 91.44 101.6)) (uuid "wire-xb-3"))
-
   (symbol
     (lib_id "Device:C")
-    (at 121.92 104.14 90)
+    (at 129.54 101.6 0)
     (unit 1)
     (exclude_from_sim no)
     (in_bom yes)
@@ -430,51 +421,28 @@
     (dnp no)
     (uuid "c15-decap")
     (property "Reference" "C15"
-      (at 121.92 99.06 90)
-      (effects (font (size 1.27 1.27)))
+      (at 132.08 100.33 0)
+      (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "100n"
-      (at 121.92 101.6 90)
-      (effects (font (size 1.27 1.27)))
+      (at 132.08 102.87 0)
+      (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-      (at 121.92 104.14 0)
+      (at 129.54 101.6 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "LCSC" "C1525"
-      (at 121.92 104.14 0)
+      (at 129.54 101.6 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid "pin-c15-1"))
     (pin "2" (uuid "pin-c15-2"))
   )
 
-  (wire (pts (xy 111.76 104.14) (xy 118.11 104.14)) (uuid "wire-vddo-c15"))
-
-  (symbol
-    (lib_id "power:GND")
-    (at 129.54 104.14 90)
-    (unit 1)
-    (exclude_from_sim no)
-    (in_bom no)
-    (on_board yes)
-    (dnp no)
-    (uuid "gnd-c15")
-    (property "Reference" "#PWR01"
-      (at 135.89 104.14 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Value" "GND"
-      (at 133.35 104.14 90)
-      (effects (font (size 1.27 1.27)))
-    )
-    (pin "1" (uuid "pin-gnd-c15"))
-  )
-  (wire (pts (xy 125.73 104.14) (xy 129.54 104.14)) (uuid "wire-c15-gnd"))
-
   (symbol
     (lib_id "Device:D")
-    (at 121.92 78.74 270)
+    (at 149.86 78.74 270)
     (unit 1)
     (exclude_from_sim no)
     (in_bom yes)
@@ -482,19 +450,19 @@
     (dnp no)
     (uuid "d1-1n4148")
     (property "Reference" "D1"
-      (at 127 78.74 90)
-      (effects (font (size 1.27 1.27)))
+      (at 152.4 77.47 0)
+      (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "1N4148"
-      (at 124.46 78.74 90)
-      (effects (font (size 1.27 1.27)))
+      (at 152.4 80.01 0)
+      (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Diode_SMD:D_SOD-323"
-      (at 121.92 78.74 0)
+      (at 149.86 78.74 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "LCSC" "C81598"
-      (at 121.92 78.74 0)
+      (at 149.86 78.74 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid "pin-d1-1"))
@@ -503,7 +471,7 @@
 
   (symbol
     (lib_id "Device:D")
-    (at 121.92 88.9 270)
+    (at 149.86 88.9 270)
     (unit 1)
     (exclude_from_sim no)
     (in_bom yes)
@@ -511,69 +479,24 @@
     (dnp no)
     (uuid "d2-1n4148")
     (property "Reference" "D2"
-      (at 127 88.9 90)
-      (effects (font (size 1.27 1.27)))
+      (at 152.4 87.63 0)
+      (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "1N4148"
-      (at 124.46 88.9 90)
-      (effects (font (size 1.27 1.27)))
+      (at 152.4 91.44 0)
+      (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Diode_SMD:D_SOD-323"
-      (at 121.92 88.9 0)
+      (at 149.86 88.9 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "LCSC" "C81598"
-      (at 121.92 88.9 0)
+      (at 149.86 88.9 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid "pin-d2-1"))
     (pin "2" (uuid "pin-d2-2"))
   )
-
-  (symbol
-    (lib_id "power:+5V")
-    (at 121.92 71.12 0)
-    (unit 1)
-    (exclude_from_sim no)
-    (in_bom no)
-    (on_board yes)
-    (dnp no)
-    (uuid "pwr-5v-d1")
-    (property "Reference" "#PWR02"
-      (at 121.92 74.93 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Value" "+5V"
-      (at 121.92 67.31 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (pin "1" (uuid "pin-pwr-5v"))
-  )
-  (wire (pts (xy 121.92 71.12) (xy 121.92 74.93)) (uuid "wire-5v-d1"))
-  (wire (pts (xy 121.92 82.55) (xy 121.92 85.09)) (uuid "wire-d1-d2"))
-
-  (symbol
-    (lib_id "power:+3V3")
-    (at 116.84 88.9 90)
-    (unit 1)
-    (exclude_from_sim no)
-    (in_bom no)
-    (on_board yes)
-    (dnp no)
-    (uuid "pwr-3v3-d2")
-    (property "Reference" "#PWR03"
-      (at 113.03 88.9 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Value" "+3V3"
-      (at 111.76 88.9 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (pin "1" (uuid "pin-pwr-3v3-d2"))
-  )
-  (wire (pts (xy 116.84 88.9) (xy 121.92 88.9)) (uuid "wire-3v3-d2-jct"))
-  (wire (pts (xy 121.92 92.71) (xy 121.92 104.14)) (uuid "wire-d2-vddo"))
-  (junction (at 121.92 104.14) (uuid "jct-vddo"))
 
   (symbol
     (lib_id "Device:R")
@@ -585,12 +508,12 @@
     (dnp no)
     (uuid "r4-pullup")
     (property "Reference" "R4"
-      (at 81.28 91.44 90)
-      (effects (font (size 1.27 1.27)))
+      (at 80.01 90.17 0)
+      (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "1k"
-      (at 78.74 91.44 90)
-      (effects (font (size 1.27 1.27)))
+      (at 80.01 92.71 0)
+      (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
       (at 78.74 91.44 0)
@@ -614,12 +537,12 @@
     (dnp no)
     (uuid "r5-pullup")
     (property "Reference" "R5"
-      (at 73.66 91.44 90)
-      (effects (font (size 1.27 1.27)))
+      (at 72.39 90.17 0)
+      (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "1k"
-      (at 71.12 91.44 90)
-      (effects (font (size 1.27 1.27)))
+      (at 72.39 92.71 0)
+      (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
       (at 71.12 91.44 0)
@@ -635,7 +558,7 @@
 
   (symbol
     (lib_id "power:+3V3")
-    (at 78.74 83.82 0)
+    (at 78.74 86.36 0)
     (unit 1)
     (exclude_from_sim no)
     (in_bom no)
@@ -643,20 +566,19 @@
     (dnp no)
     (uuid "pwr-3v3-r4")
     (property "Reference" "#PWR04"
-      (at 78.74 87.63 0)
+      (at 78.74 90.17 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+3V3"
-      (at 78.74 80.01 0)
+      (at 78.74 82.55 0)
       (effects (font (size 1.27 1.27)))
     )
     (pin "1" (uuid "pin-pwr-3v3-r4"))
   )
-  (wire (pts (xy 78.74 83.82) (xy 78.74 87.63)) (uuid "wire-3v3-r4"))
 
   (symbol
     (lib_id "power:+3V3")
-    (at 71.12 83.82 0)
+    (at 71.12 86.36 0)
     (unit 1)
     (exclude_from_sim no)
     (in_bom no)
@@ -664,26 +586,19 @@
     (dnp no)
     (uuid "pwr-3v3-r5")
     (property "Reference" "#PWR05"
-      (at 71.12 87.63 0)
+      (at 71.12 90.17 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+3V3"
-      (at 71.12 80.01 0)
+      (at 71.12 82.55 0)
       (effects (font (size 1.27 1.27)))
     )
     (pin "1" (uuid "pin-pwr-3v3-r5"))
   )
-  (wire (pts (xy 71.12 83.82) (xy 71.12 87.63)) (uuid "wire-3v3-r5"))
-
-  (wire (pts (xy 78.74 95.25) (xy 78.74 104.14)) (uuid "wire-r4-scl-1"))
-  (wire (pts (xy 78.74 104.14) (xy 91.44 104.14)) (uuid "wire-r4-scl-2"))
-
-  (wire (pts (xy 71.12 95.25) (xy 71.12 106.68)) (uuid "wire-r5-sda-1"))
-  (wire (pts (xy 71.12 106.68) (xy 91.44 106.68)) (uuid "wire-r5-sda-2"))
 
   (symbol
     (lib_id "power:+3V3")
-    (at 91.44 88.9 0)
+    (at 86.36 96.52 0)
     (unit 1)
     (exclude_from_sim no)
     (in_bom no)
@@ -691,20 +606,19 @@
     (dnp no)
     (uuid "pwr-3v3-vdd")
     (property "Reference" "#PWR06"
-      (at 91.44 92.71 0)
+      (at 86.36 100.33 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+3V3"
-      (at 91.44 85.09 0)
+      (at 86.36 92.71 0)
       (effects (font (size 1.27 1.27)))
     )
     (pin "1" (uuid "pin-pwr-3v3-vdd"))
   )
-  (wire (pts (xy 91.44 88.9) (xy 91.44 96.52)) (uuid "wire-3v3-vdd"))
 
   (symbol
     (lib_id "power:GND")
-    (at 119.38 101.6 90)
+    (at 116.84 101.6 90)
     (unit 1)
     (exclude_from_sim no)
     (in_bom no)
@@ -712,16 +626,171 @@
     (dnp no)
     (uuid "gnd-u3")
     (property "Reference" "#PWR07"
-      (at 125.73 101.6 0)
+      (at 120.65 101.6 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND"
-      (at 123.19 101.6 90)
-      (effects (font (size 1.27 1.27)))
+      (at 121.92 101.6 0)
+      (effects (font (size 1.27 1.27)) (justify left))
     )
     (pin "1" (uuid "pin-gnd-u3"))
   )
-  (wire (pts (xy 111.76 101.6) (xy 119.38 101.6)) (uuid "wire-gnd-u3"))
+
+  (symbol
+    (lib_id "power:+5V")
+    (at 149.86 71.12 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom no)
+    (on_board yes)
+    (dnp no)
+    (uuid "pwr-5v-d1")
+    (property "Reference" "#PWR02"
+      (at 149.86 74.93 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "+5V"
+      (at 149.86 67.31 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (pin "1" (uuid "pin-pwr-5v"))
+  )
+
+  (symbol
+    (lib_id "power:+3V3")
+    (at 144.78 88.9 90)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom no)
+    (on_board yes)
+    (dnp no)
+    (uuid "pwr-3v3-d2")
+    (property "Reference" "#PWR03"
+      (at 140.97 88.9 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "+3V3"
+      (at 139.7 88.9 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (pin "1" (uuid "pin-pwr-3v3-d2"))
+  )
+
+  (symbol
+    (lib_id "power:GND")
+    (at 129.54 106.68 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom no)
+    (on_board yes)
+    (dnp no)
+    (uuid "gnd-c15")
+    (property "Reference" "#PWR01"
+      (at 129.54 113.03 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "GND"
+      (at 129.54 110.49 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (pin "1" (uuid "pin-gnd-c15"))
+  )
+
+  (symbol
+    (lib_id "power:PWR_FLAG")
+    (at 83.82 96.52 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom no)
+    (on_board yes)
+    (dnp no)
+    (uuid "pwrflag-3v3")
+    (property "Reference" "#FLG01"
+      (at 83.82 94.615 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "PWR_FLAG"
+      (at 83.82 91.44 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (pin "1" (uuid "pin-flg-1"))
+  )
+
+  (symbol
+    (lib_id "power:PWR_FLAG")
+    (at 147.32 71.12 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom no)
+    (on_board yes)
+    (dnp no)
+    (uuid "pwrflag-5v")
+    (property "Reference" "#FLG02"
+      (at 147.32 69.215 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "PWR_FLAG"
+      (at 147.32 66.04 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (pin "1" (uuid "pin-flg-2"))
+  )
+
+  (symbol
+    (lib_id "power:PWR_FLAG")
+    (at 129.54 109.22 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom no)
+    (on_board yes)
+    (dnp no)
+    (uuid "pwrflag-gnd")
+    (property "Reference" "#FLG03"
+      (at 129.54 107.315 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "PWR_FLAG"
+      (at 129.54 113.03 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (pin "1" (uuid "pin-flg-3"))
+  )
+
+  (wire (pts (xy 78.74 86.36) (xy 78.74 87.63)) (uuid "wire-3v3-r4"))
+  (wire (pts (xy 71.12 86.36) (xy 71.12 87.63)) (uuid "wire-3v3-r5"))
+
+  (wire (pts (xy 72.39 99.06) (xy 91.44 99.06)) (uuid "wire-xa"))
+  (wire (pts (xy 64.77 99.06) (xy 60.96 99.06)) (uuid "wire-xb-1"))
+  (wire (pts (xy 60.96 99.06) (xy 60.96 101.6)) (uuid "wire-xb-2"))
+  (wire (pts (xy 60.96 101.6) (xy 91.44 101.6)) (uuid "wire-xb-3"))
+
+  (wire (pts (xy 86.36 96.52) (xy 91.44 96.52)) (uuid "wire-3v3-vdd"))
+  (wire (pts (xy 83.82 96.52) (xy 86.36 96.52)) (uuid "wire-pwrflag-3v3"))
+  (junction (at 86.36 96.52) (uuid "jct-3v3-vdd"))
+
+  (wire (pts (xy 111.76 101.6) (xy 116.84 101.6)) (uuid "wire-gnd-u3"))
+
+  (wire (pts (xy 111.76 104.14) (xy 129.54 104.14)) (uuid "wire-vddo-c15"))
+  (wire (pts (xy 129.54 104.14) (xy 129.54 97.79)) (uuid "wire-c15-top"))
+  (wire (pts (xy 129.54 105.41) (xy 129.54 106.68)) (uuid "wire-c15-gnd"))
+  (wire (pts (xy 129.54 106.68) (xy 129.54 109.22)) (uuid "wire-pwrflag-gnd"))
+  (junction (at 129.54 106.68) (uuid "jct-gnd-c15"))
+  (junction (at 129.54 104.14) (uuid "jct-vddo"))
+
+  (wire (pts (xy 149.86 71.12) (xy 149.86 74.93)) (uuid "wire-5v-d1"))
+  (wire (pts (xy 147.32 71.12) (xy 149.86 71.12)) (uuid "wire-pwrflag-5v"))
+  (junction (at 149.86 71.12) (uuid "jct-5v"))
+  (wire (pts (xy 149.86 82.55) (xy 149.86 85.09)) (uuid "wire-d1-d2"))
+  (wire (pts (xy 144.78 88.9) (xy 149.86 88.9)) (uuid "wire-3v3-d2-jct"))
+  (junction (at 149.86 88.9) (uuid "jct-d2-mid"))
+  (wire (pts (xy 149.86 92.71) (xy 149.86 104.14)) (uuid "wire-d2-vddo"))
+  (wire (pts (xy 149.86 104.14) (xy 129.54 104.14)) (uuid "wire-vddo-d2"))
+
+  (wire (pts (xy 78.74 95.25) (xy 78.74 104.14)) (uuid "wire-r4-scl-1"))
+  (wire (pts (xy 78.74 104.14) (xy 91.44 104.14)) (uuid "wire-r4-scl-2"))
+
+  (wire (pts (xy 71.12 95.25) (xy 71.12 106.68)) (uuid "wire-r5-sda-1"))
+  (wire (pts (xy 71.12 106.68) (xy 91.44 106.68)) (uuid "wire-r5-sda-2"))
 
   (hierarchical_label "CLK0"
     (shape output)
@@ -765,51 +834,25 @@
   (wire (pts (xy 50.8 106.68) (xy 71.12 106.68)) (uuid "wire-sda-label"))
   (junction (at 71.12 106.68) (uuid "jct-sda"))
 
-  (symbol
-    (lib_id "power:PWR_FLAG")
-    (at 88.9 88.9 0)
-    (unit 1)
-    (exclude_from_sim no)
-    (in_bom no)
-    (on_board yes)
-    (dnp no)
-    (uuid "pwrflag-3v3")
-    (property "Reference" "#FLG01"
-      (at 88.9 86.995 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Value" "PWR_FLAG"
-      (at 88.9 83.82 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (pin "1" (uuid "pin-flg-1"))
+  (hierarchical_label "+3V3"
+    (shape input)
+    (at 50.8 96.52 180)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "hlabel-3v3")
   )
-  (wire (pts (xy 88.9 88.9) (xy 91.44 88.9)) (uuid "wire-pwrflag-3v3"))
-  (junction (at 91.44 88.9) (uuid "jct-3v3-pwrflag"))
+  (wire (pts (xy 50.8 96.52) (xy 86.36 96.52)) (uuid "wire-3v3-label"))
+  (junction (at 86.36 96.52) (uuid "jct-3v3"))
 
-  (symbol
-    (lib_id "power:PWR_FLAG")
-    (at 119.38 71.12 0)
-    (unit 1)
-    (exclude_from_sim no)
-    (in_bom no)
-    (on_board yes)
-    (dnp no)
-    (uuid "pwrflag-5v")
-    (property "Reference" "#FLG02"
-      (at 119.38 69.215 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Value" "PWR_FLAG"
-      (at 119.38 66.04 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (pin "1" (uuid "pin-flg-2"))
+  (hierarchical_label "+5V"
+    (shape input)
+    (at 50.8 71.12 180)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "hlabel-5v")
   )
-  (wire (pts (xy 119.38 71.12) (xy 121.92 71.12)) (uuid "wire-pwrflag-5v"))
-  (junction (at 121.92 71.12) (uuid "jct-5v-pwrflag"))
+  (wire (pts (xy 50.8 71.12) (xy 149.86 71.12)) (uuid "wire-5v-label"))
+  (junction (at 149.86 71.12) (uuid "jct-5v"))
 
-  (text "Si5351A Clock Generator\nI2C Address: 0x60\n27MHz Crystal Reference"
+  (text "Si5351A Clock Generator\nI2C Address: 0x60\n27MHz Crystal Reference\n\nVDDO Protection:\n+5V clamp via D1/D2 series\nto +3V3 rail"
     (exclude_from_sim no)
     (at 40.64 68.58 0)
     (effects (font (size 1.27 1.27)) (justify left))

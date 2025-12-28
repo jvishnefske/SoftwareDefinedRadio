@@ -400,7 +400,7 @@
   )
 
   (symbol
-    (lib_id "Device:Ferrite_Bead")
+    (lib_id "Ferrite_Bead:SDFL2012S100KTF")
     (at 190.5 50.8 90)
     (unit 1)
     (exclude_from_sim no)

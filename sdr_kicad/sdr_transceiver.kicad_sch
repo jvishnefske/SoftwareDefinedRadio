@@ -142,43 +142,11 @@
       )
       (uuid "pin-pwr-i2c-sda-1")
     )
-    (pin "TPS_INT" output
-      (at 76.2 114.3 0)
-      (effects
-        (font (size 1.524 1.524))
-        (justify right)
-      )
-      (uuid "pin-pwr-tps-int-1")
-    )
-    (pin "VBAT+" bidirectional
-      (at 25.4 114.3 180)
-      (effects
-        (font (size 1.524 1.524))
-        (justify left)
-      )
-      (uuid "pin-pwr-vbat-1")
-    )
-    (pin "TPS_I2CM_SCL" output
-      (at 76.2 119.38 0)
-      (effects
-        (font (size 1.524 1.524))
-        (justify right)
-      )
-      (uuid "pin-pwr-tps-i2cm-scl-1")
-    )
-    (pin "TPS_I2CM_SDA" bidirectional
-      (at 76.2 124.46 0)
-      (effects
-        (font (size 1.524 1.524))
-        (justify right)
-      )
-      (uuid "pin-pwr-tps-i2cm-sda-1")
-    )
   )
 
   (sheet
     (at 101.6 88.9)
-    (size 50.8 38.1)
+    (size 50.8 40.64)
     (fields_autoplaced yes)
     (stroke
       (width 0.1524)
@@ -196,7 +164,7 @@
       )
     )
     (property "Sheetfile" "mcu_stm32g4.kicad_sch"
-      (at 101.6 127.6146 0)
+      (at 101.6 130.1546 0)
       (effects
         (font (size 1.524 1.524))
         (justify left top)
@@ -225,14 +193,6 @@
         (justify right)
       )
       (uuid "pin-i2c1-sda-1")
-    )
-    (pin "TPS_INT" input
-      (at 101.6 99.06 180)
-      (effects
-        (font (size 1.524 1.524))
-        (justify left)
-      )
-      (uuid "pin-tps-int-1")
     )
     (pin "PWM_PA" output
       (at 152.4 104.14 0)
@@ -265,6 +225,14 @@
         (justify right)
       )
       (uuid "pin-usb-dm-1")
+    )
+    (pin "TX_EN" output
+      (at 152.4 124.46 0)
+      (effects
+        (font (size 1.524 1.524))
+        (justify right)
+      )
+      (uuid "pin-mcu-txen-1")
     )
   )
 
@@ -333,22 +301,6 @@
         (justify right)
       )
       (uuid "pin-clk2-1")
-    )
-    (pin "+3V3" input
-      (at 177.8 104.14 180)
-      (effects
-        (font (size 1.524 1.524))
-        (justify left)
-      )
-      (uuid "pin-clk-3v3-1")
-    )
-    (pin "+5V" input
-      (at 177.8 109.22 180)
-      (effects
-        (font (size 1.524 1.524))
-        (justify left)
-      )
-      (uuid "pin-clk-5v-1")
     )
   )
 
@@ -621,441 +573,496 @@
   )
 
   (wire
-    (pts (xy 215.9 144.78) (xy 230 144.78))
-    (uuid "wire-root-vbus1")
+    (pts (xy 215.9 144.78) (xy 228.6 144.78))
+    (stroke (width 0) (type default))
+    (uuid "wire-vbus-1")
   )
   (wire
-    (pts (xy 230 144.78) (xy 230 93.98))
-    (uuid "wire-root-vbus2")
+    (pts (xy 228.6 144.78) (xy 228.6 81.28))
+    (stroke (width 0) (type default))
+    (uuid "wire-vbus-2")
   )
   (wire
-    (pts (xy 230 93.98) (xy 76.2 93.98))
-    (uuid "wire-root-vbus3")
-  )
-
-  (wire
-    (pts (xy 215.9 149.86) (xy 235 149.86))
-    (uuid "wire-root-cc1-1")
+    (pts (xy 228.6 81.28) (xy 76.2 81.28))
+    (stroke (width 0) (type default))
+    (uuid "wire-vbus-3")
   )
   (wire
-    (pts (xy 235 149.86) (xy 235 93.98))
-    (uuid "wire-root-cc1-2")
-  )
-  (wire
-    (pts (xy 235 93.98) (xy 240 93.98))
-    (uuid "wire-root-cc1-3")
-  )
-  (wire
-    (pts (xy 240 93.98) (xy 240 80))
-    (uuid "wire-root-cc1-4")
-  )
-  (wire
-    (pts (xy 240 80) (xy 15 80))
-    (uuid "wire-root-cc1-5")
-  )
-  (wire
-    (pts (xy 15 80) (xy 15 93.98))
-    (uuid "wire-root-cc1-6")
-  )
-  (wire
-    (pts (xy 15 93.98) (xy 25.4 93.98))
-    (uuid "wire-root-cc1-7")
+    (pts (xy 76.2 81.28) (xy 76.2 93.98))
+    (stroke (width 0) (type default))
+    (uuid "wire-vbus-4")
   )
 
   (wire
-    (pts (xy 215.9 154.94) (xy 237 154.94))
-    (uuid "wire-root-cc2-1")
+    (pts (xy 215.9 149.86) (xy 231.14 149.86))
+    (stroke (width 0) (type default))
+    (uuid "wire-cc1-1")
   )
   (wire
-    (pts (xy 237 154.94) (xy 237 78))
-    (uuid "wire-root-cc2-2")
+    (pts (xy 231.14 149.86) (xy 231.14 78.74))
+    (stroke (width 0) (type default))
+    (uuid "wire-cc1-2")
   )
   (wire
-    (pts (xy 237 78) (xy 13 78))
-    (uuid "wire-root-cc2-3")
+    (pts (xy 231.14 78.74) (xy 15.24 78.74))
+    (stroke (width 0) (type default))
+    (uuid "wire-cc1-3")
   )
   (wire
-    (pts (xy 13 78) (xy 13 99.06))
-    (uuid "wire-root-cc2-4")
+    (pts (xy 15.24 78.74) (xy 15.24 93.98))
+    (stroke (width 0) (type default))
+    (uuid "wire-cc1-4")
   )
   (wire
-    (pts (xy 13 99.06) (xy 25.4 99.06))
-    (uuid "wire-root-cc2-5")
-  )
-
-  (wire
-    (pts (xy 76.2 109.22) (xy 90 109.22))
-    (uuid "wire-root-3v3-1")
-  )
-  (wire
-    (pts (xy 90 109.22) (xy 90 93.98))
-    (uuid "wire-root-3v3-2")
-  )
-  (wire
-    (pts (xy 90 93.98) (xy 101.6 93.98))
-    (uuid "wire-root-3v3-3")
-  )
-  (wire
-    (pts (xy 90 109.22) (xy 90 130))
-    (uuid "wire-root-3v3-4")
-  )
-  (wire
-    (pts (xy 90 130) (xy 165 130))
-    (uuid "wire-root-3v3-5")
-  )
-  (wire
-    (pts (xy 165 130) (xy 165 104.14))
-    (uuid "wire-root-3v3-6")
-  )
-  (wire
-    (pts (xy 165 104.14) (xy 177.8 104.14))
-    (uuid "wire-root-3v3-7")
-  )
-  (junction (at 90 109.22) (uuid "jct-3v3-1"))
-
-  (wire
-    (pts (xy 76.2 104.14) (xy 85 104.14))
-    (uuid "wire-root-5v-1")
-  )
-  (wire
-    (pts (xy 85 104.14) (xy 85 132))
-    (uuid "wire-root-5v-2")
-  )
-  (wire
-    (pts (xy 85 132) (xy 163 132))
-    (uuid "wire-root-5v-3")
-  )
-  (wire
-    (pts (xy 163 132) (xy 163 109.22))
-    (uuid "wire-root-5v-4")
-  )
-  (wire
-    (pts (xy 163 109.22) (xy 177.8 109.22))
-    (uuid "wire-root-5v-5")
-  )
-  (wire
-    (pts (xy 85 132) (xy 85 144.78))
-    (uuid "wire-root-5v-6")
-  )
-  (wire
-    (pts (xy 85 144.78) (xy 114.3 144.78))
-    (uuid "wire-root-5v-7")
-  )
-  (junction (at 85 132) (uuid "jct-5v-1"))
-
-  (wire
-    (pts (xy 76.2 99.06) (xy 88 99.06))
-    (uuid "wire-root-vsys-1")
-  )
-  (wire
-    (pts (xy 88 99.06) (xy 88 135))
-    (uuid "wire-root-vsys-2")
-  )
-  (wire
-    (pts (xy 88 135) (xy 17 135))
-    (uuid "wire-root-vsys-3")
-  )
-  (wire
-    (pts (xy 17 135) (xy 17 144.78))
-    (uuid "wire-root-vsys-4")
-  )
-  (wire
-    (pts (xy 17 144.78) (xy 25.4 144.78))
-    (uuid "wire-root-vsys-5")
+    (pts (xy 15.24 93.98) (xy 25.4 93.98))
+    (stroke (width 0) (type default))
+    (uuid "wire-cc1-5")
   )
 
   (wire
-    (pts (xy 25.4 104.14) (xy 11 104.14))
-    (uuid "wire-root-i2c-scl-1")
+    (pts (xy 215.9 154.94) (xy 233.68 154.94))
+    (stroke (width 0) (type default))
+    (uuid "wire-cc2-1")
   )
   (wire
-    (pts (xy 11 104.14) (xy 11 134))
-    (uuid "wire-root-i2c-scl-2")
+    (pts (xy 233.68 154.94) (xy 233.68 76.2))
+    (stroke (width 0) (type default))
+    (uuid "wire-cc2-2")
   )
   (wire
-    (pts (xy 11 134) (xy 160 134))
-    (uuid "wire-root-i2c-scl-3")
+    (pts (xy 233.68 76.2) (xy 12.7 76.2))
+    (stroke (width 0) (type default))
+    (uuid "wire-cc2-3")
   )
   (wire
-    (pts (xy 160 134) (xy 160 93.98))
-    (uuid "wire-root-i2c-scl-4")
+    (pts (xy 12.7 76.2) (xy 12.7 99.06))
+    (stroke (width 0) (type default))
+    (uuid "wire-cc2-4")
   )
   (wire
-    (pts (xy 160 93.98) (xy 152.4 93.98))
-    (uuid "wire-root-i2c-scl-5")
-  )
-
-  (wire
-    (pts (xy 25.4 109.22) (xy 9 109.22))
-    (uuid "wire-root-i2c-sda-1")
-  )
-  (wire
-    (pts (xy 9 109.22) (xy 9 136))
-    (uuid "wire-root-i2c-sda-2")
-  )
-  (wire
-    (pts (xy 9 136) (xy 162 136))
-    (uuid "wire-root-i2c-sda-3")
-  )
-  (wire
-    (pts (xy 162 136) (xy 162 99.06))
-    (uuid "wire-root-i2c-sda-4")
-  )
-  (wire
-    (pts (xy 162 99.06) (xy 152.4 99.06))
-    (uuid "wire-root-i2c-sda-5")
+    (pts (xy 12.7 99.06) (xy 25.4 99.06))
+    (stroke (width 0) (type default))
+    (uuid "wire-cc2-5")
   )
 
   (wire
-    (pts (xy 160 93.98) (xy 177.8 93.98))
-    (uuid "wire-root-i2c-clk-scl")
-  )
-  (junction (at 160 93.98) (uuid "jct-i2c-scl-1"))
-  (wire
-    (pts (xy 162 99.06) (xy 177.8 99.06))
-    (uuid "wire-root-i2c-clk-sda")
-  )
-  (junction (at 162 99.06) (uuid "jct-i2c-sda-1"))
-
-  (wire
-    (pts (xy 76.2 114.3) (xy 92 114.3))
-    (uuid "wire-root-tps-int-1")
+    (pts (xy 76.2 109.22) (xy 91.44 109.22))
+    (stroke (width 0) (type default))
+    (uuid "wire-3v3-1")
   )
   (wire
-    (pts (xy 92 114.3) (xy 92 99.06))
-    (uuid "wire-root-tps-int-2")
+    (pts (xy 91.44 109.22) (xy 91.44 93.98))
+    (stroke (width 0) (type default))
+    (uuid "wire-3v3-2")
   )
   (wire
-    (pts (xy 92 99.06) (xy 101.6 99.06))
-    (uuid "wire-root-tps-int-3")
+    (pts (xy 91.44 93.98) (xy 101.6 93.98))
+    (stroke (width 0) (type default))
+    (uuid "wire-3v3-3")
   )
 
   (wire
-    (pts (xy 152.4 104.14) (xy 165 104.14))
-    (uuid "wire-root-pwm-1")
+    (pts (xy 76.2 104.14) (xy 83.82 104.14))
+    (stroke (width 0) (type default))
+    (uuid "wire-5v-1")
   )
   (wire
-    (pts (xy 165 104.14) (xy 165 138))
-    (uuid "wire-root-pwm-2")
+    (pts (xy 83.82 104.14) (xy 83.82 132.08))
+    (stroke (width 0) (type default))
+    (uuid "wire-5v-2")
   )
   (wire
-    (pts (xy 165 138) (xy 19 138))
-    (uuid "wire-root-pwm-3")
+    (pts (xy 83.82 132.08) (xy 106.68 132.08))
+    (stroke (width 0) (type default))
+    (uuid "wire-5v-3")
   )
   (wire
-    (pts (xy 19 138) (xy 19 149.86))
-    (uuid "wire-root-pwm-4")
+    (pts (xy 106.68 132.08) (xy 106.68 144.78))
+    (stroke (width 0) (type default))
+    (uuid "wire-5v-4")
   )
   (wire
-    (pts (xy 19 149.86) (xy 25.4 149.86))
-    (uuid "wire-root-pwm-5")
+    (pts (xy 106.68 144.78) (xy 114.3 144.78))
+    (stroke (width 0) (type default))
+    (uuid "wire-5v-5")
+  )
+
+  (wire
+    (pts (xy 76.2 99.06) (xy 86.36 99.06))
+    (stroke (width 0) (type default))
+    (uuid "wire-vsys-1")
+  )
+  (wire
+    (pts (xy 86.36 99.06) (xy 86.36 127))
+    (stroke (width 0) (type default))
+    (uuid "wire-vsys-2")
+  )
+  (wire
+    (pts (xy 86.36 127) (xy 5.08 127))
+    (stroke (width 0) (type default))
+    (uuid "wire-vsys-3")
+  )
+  (wire
+    (pts (xy 5.08 127) (xy 5.08 144.78))
+    (stroke (width 0) (type default))
+    (uuid "wire-vsys-4")
+  )
+  (wire
+    (pts (xy 5.08 144.78) (xy 25.4 144.78))
+    (stroke (width 0) (type default))
+    (uuid "wire-vsys-5")
+  )
+
+  (wire
+    (pts (xy 25.4 104.14) (xy 10.16 104.14))
+    (stroke (width 0) (type default))
+    (uuid "wire-i2c-scl-1")
+  )
+  (wire
+    (pts (xy 10.16 104.14) (xy 10.16 137.16))
+    (stroke (width 0) (type default))
+    (uuid "wire-i2c-scl-2")
+  )
+  (wire
+    (pts (xy 10.16 137.16) (xy 160.02 137.16))
+    (stroke (width 0) (type default))
+    (uuid "wire-i2c-scl-3")
+  )
+  (wire
+    (pts (xy 160.02 137.16) (xy 160.02 93.98))
+    (stroke (width 0) (type default))
+    (uuid "wire-i2c-scl-4")
+  )
+  (wire
+    (pts (xy 160.02 93.98) (xy 152.4 93.98))
+    (stroke (width 0) (type default))
+    (uuid "wire-i2c-scl-5")
+  )
+  (wire
+    (pts (xy 160.02 93.98) (xy 177.8 93.98))
+    (stroke (width 0) (type default))
+    (uuid "wire-i2c-scl-6")
+  )
+  (junction (at 160.02 93.98) (uuid "jct-i2c-scl-1"))
+
+  (wire
+    (pts (xy 25.4 109.22) (xy 7.62 109.22))
+    (stroke (width 0) (type default))
+    (uuid "wire-i2c-sda-1")
+  )
+  (wire
+    (pts (xy 7.62 109.22) (xy 7.62 139.7))
+    (stroke (width 0) (type default))
+    (uuid "wire-i2c-sda-2")
+  )
+  (wire
+    (pts (xy 7.62 139.7) (xy 162.56 139.7))
+    (stroke (width 0) (type default))
+    (uuid "wire-i2c-sda-3")
+  )
+  (wire
+    (pts (xy 162.56 139.7) (xy 162.56 99.06))
+    (stroke (width 0) (type default))
+    (uuid "wire-i2c-sda-4")
+  )
+  (wire
+    (pts (xy 162.56 99.06) (xy 152.4 99.06))
+    (stroke (width 0) (type default))
+    (uuid "wire-i2c-sda-5")
+  )
+  (wire
+    (pts (xy 162.56 99.06) (xy 177.8 99.06))
+    (stroke (width 0) (type default))
+    (uuid "wire-i2c-sda-6")
+  )
+  (junction (at 162.56 99.06) (uuid "jct-i2c-sda-1"))
+
+  (wire
+    (pts (xy 152.4 104.14) (xy 172.72 104.14))
+    (stroke (width 0) (type default))
+    (uuid "wire-pwm-1")
+  )
+  (wire
+    (pts (xy 172.72 104.14) (xy 172.72 147.32))
+    (stroke (width 0) (type default))
+    (uuid "wire-pwm-2")
+  )
+  (wire
+    (pts (xy 172.72 147.32) (xy 20.32 147.32))
+    (stroke (width 0) (type default))
+    (uuid "wire-pwm-3")
+  )
+  (wire
+    (pts (xy 20.32 147.32) (xy 20.32 149.86))
+    (stroke (width 0) (type default))
+    (uuid "wire-pwm-4")
+  )
+  (wire
+    (pts (xy 20.32 149.86) (xy 25.4 149.86))
+    (stroke (width 0) (type default))
+    (uuid "wire-pwm-5")
   )
 
   (bus
-    (pts (xy 152.4 109.22) (xy 167 109.22))
-    (uuid "bus-root-band-1")
+    (pts (xy 152.4 109.22) (xy 167.64 109.22))
+    (stroke (width 0) (type default))
+    (uuid "bus-band-1")
   )
   (bus
-    (pts (xy 167 109.22) (xy 167 140))
-    (uuid "bus-root-band-2")
+    (pts (xy 167.64 109.22) (xy 167.64 157.48))
+    (stroke (width 0) (type default))
+    (uuid "bus-band-2")
   )
   (bus
-    (pts (xy 167 140) (xy 21 140))
-    (uuid "bus-root-band-3")
+    (pts (xy 167.64 157.48) (xy 20.32 157.48))
+    (stroke (width 0) (type default))
+    (uuid "bus-band-3")
   )
   (bus
-    (pts (xy 21 140) (xy 21 154.94))
-    (uuid "bus-root-band-4")
+    (pts (xy 20.32 157.48) (xy 20.32 154.94))
+    (stroke (width 0) (type default))
+    (uuid "bus-band-4")
   )
   (bus
-    (pts (xy 21 154.94) (xy 25.4 154.94))
-    (uuid "bus-root-band-5")
+    (pts (xy 20.32 154.94) (xy 25.4 154.94))
+    (stroke (width 0) (type default))
+    (uuid "bus-band-5")
   )
 
   (wire
-    (pts (xy 215.9 93.98) (xy 224 93.98))
-    (uuid "wire-root-clk0-1")
+    (pts (xy 152.4 124.46) (xy 170.18 124.46))
+    (stroke (width 0) (type default))
+    (uuid "wire-txen-1")
   )
   (wire
-    (pts (xy 224 93.98) (xy 224 183))
-    (uuid "wire-root-clk0-2")
+    (pts (xy 170.18 124.46) (xy 170.18 180.34))
+    (stroke (width 0) (type default))
+    (uuid "wire-txen-2")
   )
   (wire
-    (pts (xy 224 183) (xy 19 183))
-    (uuid "wire-root-clk0-3")
+    (pts (xy 170.18 180.34) (xy 15.24 180.34))
+    (stroke (width 0) (type default))
+    (uuid "wire-txen-3")
   )
   (wire
-    (pts (xy 19 183) (xy 19 160.02))
-    (uuid "wire-root-clk0-4")
+    (pts (xy 15.24 180.34) (xy 15.24 170.18))
+    (stroke (width 0) (type default))
+    (uuid "wire-txen-4")
   )
   (wire
-    (pts (xy 19 160.02) (xy 25.4 160.02))
-    (uuid "wire-root-clk0-5")
+    (pts (xy 15.24 170.18) (xy 25.4 170.18))
+    (stroke (width 0) (type default))
+    (uuid "wire-txen-5")
   )
 
   (wire
-    (pts (xy 215.9 99.06) (xy 222 99.06))
-    (uuid "wire-root-clk1-1")
+    (pts (xy 215.9 93.98) (xy 223.52 93.98))
+    (stroke (width 0) (type default))
+    (uuid "wire-clk0-1")
   )
   (wire
-    (pts (xy 222 99.06) (xy 222 185))
-    (uuid "wire-root-clk1-2")
+    (pts (xy 223.52 93.98) (xy 223.52 182.88))
+    (stroke (width 0) (type default))
+    (uuid "wire-clk0-2")
   )
   (wire
-    (pts (xy 222 185) (xy 17 185))
-    (uuid "wire-root-clk1-3")
+    (pts (xy 223.52 182.88) (xy 17.78 182.88))
+    (stroke (width 0) (type default))
+    (uuid "wire-clk0-3")
   )
   (wire
-    (pts (xy 17 185) (xy 17 165.1))
-    (uuid "wire-root-clk1-4")
+    (pts (xy 17.78 182.88) (xy 17.78 160.02))
+    (stroke (width 0) (type default))
+    (uuid "wire-clk0-4")
   )
   (wire
-    (pts (xy 17 165.1) (xy 25.4 165.1))
-    (uuid "wire-root-clk1-5")
+    (pts (xy 17.78 160.02) (xy 25.4 160.02))
+    (stroke (width 0) (type default))
+    (uuid "wire-clk0-5")
   )
 
   (wire
-    (pts (xy 215.9 160.02) (xy 226 160.02))
-    (uuid "wire-root-usb1-dp-1")
+    (pts (xy 215.9 99.06) (xy 220.98 99.06))
+    (stroke (width 0) (type default))
+    (uuid "wire-clk1-1")
   )
   (wire
-    (pts (xy 226 160.02) (xy 226 187))
-    (uuid "wire-root-usb1-dp-2")
+    (pts (xy 220.98 99.06) (xy 220.98 185.42))
+    (stroke (width 0) (type default))
+    (uuid "wire-clk1-2")
   )
   (wire
-    (pts (xy 226 187) (xy 156 187))
-    (uuid "wire-root-usb1-dp-3")
+    (pts (xy 220.98 185.42) (xy 15.24 185.42))
+    (stroke (width 0) (type default))
+    (uuid "wire-clk1-3")
   )
   (wire
-    (pts (xy 156 187) (xy 156 114.3))
-    (uuid "wire-root-usb1-dp-4")
+    (pts (xy 15.24 185.42) (xy 15.24 165.1))
+    (stroke (width 0) (type default))
+    (uuid "wire-clk1-4")
   )
   (wire
-    (pts (xy 156 114.3) (xy 152.4 114.3))
-    (uuid "wire-root-usb1-dp-5")
+    (pts (xy 15.24 165.1) (xy 25.4 165.1))
+    (stroke (width 0) (type default))
+    (uuid "wire-clk1-5")
   )
 
   (wire
-    (pts (xy 215.9 165.1) (xy 228 165.1))
-    (uuid "wire-root-usb1-dm-1")
+    (pts (xy 215.9 160.02) (xy 226.06 160.02))
+    (stroke (width 0) (type default))
+    (uuid "wire-usb1dp-1")
   )
   (wire
-    (pts (xy 228 165.1) (xy 228 189))
-    (uuid "wire-root-usb1-dm-2")
+    (pts (xy 226.06 160.02) (xy 226.06 187.96))
+    (stroke (width 0) (type default))
+    (uuid "wire-usb1dp-2")
   )
   (wire
-    (pts (xy 228 189) (xy 158 189))
-    (uuid "wire-root-usb1-dm-3")
+    (pts (xy 226.06 187.96) (xy 154.94 187.96))
+    (stroke (width 0) (type default))
+    (uuid "wire-usb1dp-3")
   )
   (wire
-    (pts (xy 158 189) (xy 158 119.38))
-    (uuid "wire-root-usb1-dm-4")
+    (pts (xy 154.94 187.96) (xy 154.94 114.3))
+    (stroke (width 0) (type default))
+    (uuid "wire-usb1dp-4")
   )
   (wire
-    (pts (xy 158 119.38) (xy 152.4 119.38))
-    (uuid "wire-root-usb1-dm-5")
+    (pts (xy 154.94 114.3) (xy 152.4 114.3))
+    (stroke (width 0) (type default))
+    (uuid "wire-usb1dp-5")
   )
 
   (wire
-    (pts (xy 215.9 170.18) (xy 232 170.18))
-    (uuid "wire-root-usb2-dp-1")
+    (pts (xy 215.9 165.1) (xy 228.6 165.1))
+    (stroke (width 0) (type default))
+    (uuid "wire-usb1dm-1")
   )
   (wire
-    (pts (xy 232 170.18) (xy 232 191))
-    (uuid "wire-root-usb2-dp-2")
+    (pts (xy 228.6 165.1) (xy 228.6 190.5))
+    (stroke (width 0) (type default))
+    (uuid "wire-usb1dm-2")
   )
   (wire
-    (pts (xy 232 191) (xy 106 191))
-    (uuid "wire-root-usb2-dp-3")
+    (pts (xy 228.6 190.5) (xy 157.48 190.5))
+    (stroke (width 0) (type default))
+    (uuid "wire-usb1dm-3")
   )
   (wire
-    (pts (xy 106 191) (xy 106 149.86))
-    (uuid "wire-root-usb2-dp-4")
+    (pts (xy 157.48 190.5) (xy 157.48 119.38))
+    (stroke (width 0) (type default))
+    (uuid "wire-usb1dm-4")
   )
   (wire
-    (pts (xy 106 149.86) (xy 114.3 149.86))
-    (uuid "wire-root-usb2-dp-5")
+    (pts (xy 157.48 119.38) (xy 152.4 119.38))
+    (stroke (width 0) (type default))
+    (uuid "wire-usb1dm-5")
   )
 
   (wire
-    (pts (xy 215.9 175.26) (xy 234 175.26))
-    (uuid "wire-root-usb2-dm-1")
+    (pts (xy 215.9 170.18) (xy 231.14 170.18))
+    (stroke (width 0) (type default))
+    (uuid "wire-usb2dp-1")
   )
   (wire
-    (pts (xy 234 175.26) (xy 234 193))
-    (uuid "wire-root-usb2-dm-2")
+    (pts (xy 231.14 170.18) (xy 231.14 193.04))
+    (stroke (width 0) (type default))
+    (uuid "wire-usb2dp-2")
   )
   (wire
-    (pts (xy 234 193) (xy 104 193))
-    (uuid "wire-root-usb2-dm-3")
+    (pts (xy 231.14 193.04) (xy 106.68 193.04))
+    (stroke (width 0) (type default))
+    (uuid "wire-usb2dp-3")
   )
   (wire
-    (pts (xy 104 193) (xy 104 154.94))
-    (uuid "wire-root-usb2-dm-4")
+    (pts (xy 106.68 193.04) (xy 106.68 149.86))
+    (stroke (width 0) (type default))
+    (uuid "wire-usb2dp-4")
   )
   (wire
-    (pts (xy 104 154.94) (xy 114.3 154.94))
-    (uuid "wire-root-usb2-dm-5")
+    (pts (xy 106.68 149.86) (xy 114.3 149.86))
+    (stroke (width 0) (type default))
+    (uuid "wire-usb2dp-5")
   )
 
-
   (wire
-    (pts (xy 152.4 144.78) (xy 169 144.78))
-    (uuid "wire-root-jtag-tck-1")
+    (pts (xy 215.9 175.26) (xy 233.68 175.26))
+    (stroke (width 0) (type default))
+    (uuid "wire-usb2dm-1")
   )
-  (no_connect (at 169 144.78) (uuid "nc-jtag-tck"))
-
   (wire
-    (pts (xy 152.4 149.86) (xy 171 149.86))
-    (uuid "wire-root-jtag-tms-1")
+    (pts (xy 233.68 175.26) (xy 233.68 195.58))
+    (stroke (width 0) (type default))
+    (uuid "wire-usb2dm-2")
   )
-  (no_connect (at 171 149.86) (uuid "nc-jtag-tms"))
-
   (wire
-    (pts (xy 152.4 154.94) (xy 173 154.94))
-    (uuid "wire-root-jtag-tdi-1")
+    (pts (xy 233.68 195.58) (xy 104.14 195.58))
+    (stroke (width 0) (type default))
+    (uuid "wire-usb2dm-3")
   )
-  (no_connect (at 173 154.94) (uuid "nc-jtag-tdi"))
-
   (wire
-    (pts (xy 152.4 160.02) (xy 175 160.02))
-    (uuid "wire-root-jtag-tdo-1")
+    (pts (xy 104.14 195.58) (xy 104.14 154.94))
+    (stroke (width 0) (type default))
+    (uuid "wire-usb2dm-4")
   )
-  (no_connect (at 175 160.02) (uuid "nc-jtag-tdo"))
-
   (wire
-    (pts (xy 88.9 152.4) (xy 100 152.4))
-    (uuid "wire-root-ant-1")
+    (pts (xy 104.14 154.94) (xy 114.3 154.94))
+    (stroke (width 0) (type default))
+    (uuid "wire-usb2dm-5")
   )
-  (no_connect (at 100 152.4) (uuid "nc-ant"))
-
-  (wire
-    (pts (xy 88.9 160.02) (xy 100 160.02))
-    (uuid "wire-root-rxi-1")
-  )
-  (no_connect (at 100 160.02) (uuid "nc-rxi"))
-
-  (wire
-    (pts (xy 88.9 165.1) (xy 100 165.1))
-    (uuid "wire-root-rxq-1")
-  )
-  (no_connect (at 100 165.1) (uuid "nc-rxq"))
-
-  (wire
-    (pts (xy 25.4 170.18) (xy 15 170.18))
-    (uuid "wire-root-txen-1")
-  )
-  (no_connect (at 15 170.18) (uuid "nc-txen"))
 
   (no_connect (at 215.9 104.14) (uuid "nc-clk2"))
 
-  (no_connect (at 25.4 114.3) (uuid "nc-vbat"))
+  (wire
+    (pts (xy 152.4 144.78) (xy 170.18 144.78))
+    (stroke (width 0) (type default))
+    (uuid "wire-jtag-tck-1")
+  )
+  (no_connect (at 170.18 144.78) (uuid "nc-jtag-tck"))
 
-  (no_connect (at 76.2 119.38) (uuid "nc-tps-i2cm-scl"))
+  (wire
+    (pts (xy 152.4 149.86) (xy 172.72 149.86))
+    (stroke (width 0) (type default))
+    (uuid "wire-jtag-tms-1")
+  )
+  (no_connect (at 172.72 149.86) (uuid "nc-jtag-tms"))
 
-  (no_connect (at 76.2 124.46) (uuid "nc-tps-i2cm-sda"))
+  (wire
+    (pts (xy 152.4 154.94) (xy 175.26 154.94))
+    (stroke (width 0) (type default))
+    (uuid "wire-jtag-tdi-1")
+  )
+  (no_connect (at 175.26 154.94) (uuid "nc-jtag-tdi"))
 
-  (text "JLCPCB Part Selection Notes:\n\n• Basic parts used where possible (0402/0603 R/C)\n• STM32G474RET6 - Extended part (C481410)\n• Si5351A-B-GT - Extended part\n• AMS1117-3.3 - Basic part (C6186)\n• Common MOSFETs: 2N7002 (C8545), SI2302 (C10487)\n• ESD protection: USBLC6-2SC6 (C7519)\n• Crystals: 8MHz HC-49S (C32160), 25MHz (C255909)"
+  (wire
+    (pts (xy 152.4 160.02) (xy 177.8 160.02))
+    (stroke (width 0) (type default))
+    (uuid "wire-jtag-tdo-1")
+  )
+  (no_connect (at 177.8 160.02) (uuid "nc-jtag-tdo"))
+
+  (wire
+    (pts (xy 88.9 152.4) (xy 99.06 152.4))
+    (stroke (width 0) (type default))
+    (uuid "wire-ant-1")
+  )
+  (no_connect (at 99.06 152.4) (uuid "nc-ant"))
+
+  (wire
+    (pts (xy 88.9 160.02) (xy 99.06 160.02))
+    (stroke (width 0) (type default))
+    (uuid "wire-rxi-1")
+  )
+  (no_connect (at 99.06 160.02) (uuid "nc-rxi"))
+
+  (wire
+    (pts (xy 88.9 165.1) (xy 99.06 165.1))
+    (stroke (width 0) (type default))
+    (uuid "wire-rxq-1")
+  )
+  (no_connect (at 99.06 165.1) (uuid "nc-rxq"))
+
+  (text "JLCPCB Part Selection Notes:\n\n- Basic parts used where possible (0402/0603 R/C)\n- STM32G474RET6 - Extended part (C481410)\n- Si5351A-B-GT - Extended part\n- AMS1117-3.3 - Basic part (C6186)\n- Common MOSFETs: 2N7002 (C8545), SI2302 (C10487)\n- ESD protection: USBLC6-2SC6 (C7519)\n- Crystals: 8MHz HC-49S (C32160), 25MHz (C255909)"
     (exclude_from_sim no)
     (at 241.3 88.9 0)
     (effects
@@ -1065,7 +1072,7 @@
     (uuid "notes-jlcpcb-1")
   )
 
-  (text "Power Rails:\n• VBUS: 5-20V (USB-C PD)\n• VSYS: 9-14V (Battery/Charger)\n• +5V: Logic, FT4232, Si5351 VDDO\n• +3V3: MCU, Si5351 core"
+  (text "Power Rails:\n- VBUS: 5-20V (USB-C PD)\n- VSYS: 9-14V (Battery/Charger)\n- +5V: Logic, FT4232, Si5351 VDDO\n- +3V3: MCU, Si5351 core"
     (exclude_from_sim no)
     (at 241.3 139.7 0)
     (effects
