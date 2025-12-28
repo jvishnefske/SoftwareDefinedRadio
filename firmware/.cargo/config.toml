@@ -1,0 +1,19 @@
+[target.thumbv7em-none-eabihf]
+runner = "probe-rs run --chip STM32G474RETx"
+
+[target.'cfg(all(target_arch = "arm", target_os = "none"))']
+rustflags = [
+    "-C", "link-arg=-Tlink.x",
+    "-C", "link-arg=-Tdefmt.x",
+]
+
+[build]
+target = "thumbv7em-none-eabihf"
+
+[env]
+DEFMT_LOG = "trace"
+
+[alias]
+rb = "run --bin sdr-radio --release"
+rr = "run --release"
+rrb = "run --bin sdr-radio --release"
