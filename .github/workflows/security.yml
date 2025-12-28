@@ -1,0 +1,31 @@
+name: Security
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  schedule:
+    - cron: '0 6 * * 1'  # Weekly Monday 6am UTC
+
+jobs:
+  owasp:
+    name: OWASP Dependency-Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: OWASP Dependency-Check
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: 'sdr_transceiver'
+          path: '.'
+          format: 'HTML'
+          args: >
+            --scan firmware/Cargo.lock
+            --scan sdr_frontend/Cargo.lock
+            --enableExperimental
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-check-report
+          path: reports/

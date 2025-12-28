@@ -1,0 +1,41 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/sdr-dsp-core",
+    "crates/sdr-dsp-wasm",
+    "crates/sdr-mode-psk31",
+    "crates/sdr-ui",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/example/sdr-frontend"
+
+[workspace.dependencies]
+# Core dependencies
+micromath = "2.1"
+heapless = "0.8"
+
+# WASM dependencies
+wasm-bindgen = "0.2"
+js-sys = "0.3"
+web-sys = "0.3"
+console_error_panic_hook = "0.1"
+
+# Leptos UI
+leptos = "0.6"
+
+# Internal crates
+sdr-dsp-core = { path = "crates/sdr-dsp-core" }
+sdr-mode-psk31 = { path = "crates/sdr-mode-psk31" }
+
+[profile.release]
+lto = true
+opt-level = 's'
+codegen-units = 1
+
+[profile.release-wasm]
+inherits = "release"
+opt-level = 'z'

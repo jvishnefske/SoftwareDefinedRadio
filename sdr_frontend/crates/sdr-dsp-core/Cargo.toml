@@ -1,0 +1,20 @@
+[package]
+name = "sdr-dsp-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Platform-agnostic DSP primitives for SDR (no_std compatible)"
+
+[lib]
+crate-type = ["rlib"]
+
+[features]
+default = []
+std = []
+
+[dependencies]
+micromath = { workspace = true }
+heapless = { workspace = true }
+
+[dev-dependencies]
+# For testing with std

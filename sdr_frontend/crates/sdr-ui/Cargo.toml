@@ -1,0 +1,64 @@
+[package]
+name = "sdr-ui"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Leptos-based SDR frontend UI"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+default = ["csr"]
+csr = ["leptos/csr"]
+hydrate = ["leptos/hydrate"]
+ssr = ["leptos/ssr"]
+
+[dependencies]
+leptos = { workspace = true }
+wasm-bindgen = { workspace = true }
+js-sys = { workspace = true }
+web-sys = { workspace = true, features = [
+    "AudioContext",
+    "AudioDestinationNode",
+    "AudioNode",
+    "AudioWorklet",
+    "AudioWorkletNode",
+    "AudioWorkletNodeOptions",
+    "BaseAudioContext",
+    "MessagePort",
+    "MessageEvent",
+    "MediaDevices",
+    "MediaStream",
+    "MediaStreamAudioSourceNode",
+    "MediaStreamConstraints",
+    "Window",
+    "Document",
+    "Element",
+    "HtmlCanvasElement",
+    "HtmlTextAreaElement",
+    "CanvasRenderingContext2d",
+    "WebGl2RenderingContext",
+    "WebGlProgram",
+    "WebGlShader",
+    "WebGlTexture",
+    "WebGlUniformLocation",
+    "WebGlVertexArrayObject",
+    "WebGlBuffer",
+    "Navigator",
+    "Serial",
+    "SerialPort",
+    "SerialPortInfo",
+    "SerialOptions",
+    "ReadableStream",
+    "WritableStream",
+    "MouseEvent",
+    "KeyboardEvent",
+    "WheelEvent",
+    "console",
+] }
+wasm-bindgen-futures = "0.4"
+console_error_panic_hook = { workspace = true }
+sdr-dsp-core = { workspace = true }
+
+[dev-dependencies]

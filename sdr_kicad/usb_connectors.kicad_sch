@@ -1010,4 +1010,127 @@
   (junction (at 76.2 96.52) (diameter 0) (color 0 0 0 0) (uuid "jct-rc1-top"))
   (junction (at 76.2 185.42) (diameter 0) (color 0 0 0 0) (uuid "jct-rc2-top"))
 
+  ; J1 missing connections
+  ; GND pins
+  (wire (pts (xy 39.37 45.72) (xy 35 45.72)) (uuid "wire-j1-gnd1-1"))
+  (wire (pts (xy 35 45.72) (xy 35 35)) (uuid "wire-j1-gnd1-2"))
+  (wire (pts (xy 39.37 43.18) (xy 35 43.18)) (uuid "wire-j1-gnd12-1"))
+  (wire (pts (xy 35 43.18) (xy 35 35)) (uuid "wire-j1-gnd12-2"))
+  (junction (at 35 35) (uuid "jct-j1-gnd"))
+
+  (symbol
+    (lib_id "power:GND")
+    (at 35 35 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom no)
+    (on_board yes)
+    (dnp no)
+    (uuid "pwr-gnd-j1")
+    (property "Reference" "#PWR017"
+      (at 35 41.35 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "GND"
+      (at 35 38.81 0)
+      (effects (font (size 1.27 1.27)))
+    )
+  )
+
+  ; VBUS pin 11
+  (wire (pts (xy 39.37 50.80) (xy 30 50.80)) (uuid "wire-j1-vbus11-1"))
+  (wire (pts (xy 30 50.80) (xy 30 38.1)) (uuid "wire-j1-vbus11-2"))
+
+  (symbol
+    (lib_id "power:+5V")
+    (at 30 38.1 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom no)
+    (on_board yes)
+    (dnp no)
+    (uuid "pwr-5v-j1-vbus11")
+    (property "Reference" "#PWR018"
+      (at 30 41.91 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "+5V"
+      (at 30 34.29 0)
+      (effects (font (size 1.27 1.27)))
+    )
+  )
+
+  ; SHELL pin 13
+  (wire (pts (xy 60.96 83.82) (xy 76.2 83.82)) (uuid "wire-j1-shell13-1"))
+  (wire (pts (xy 76.2 83.82) (xy 76.2 86.36)) (uuid "wire-j1-shell13-2"))
+
+  ; No-connect flags for J1
+  (no_connect (at 39.37 53.34) (uuid "nc-j1-sbu2"))
+  (no_connect (at 39.37 60.96) (uuid "nc-j1-dn2"))
+  (no_connect (at 39.37 78.74) (uuid "nc-j1-dp2"))
+  (no_connect (at 39.37 81.28) (uuid "nc-j1-sbu1"))
+
+  ; J2 missing connections
+  ; GND pins
+  (wire (pts (xy 39.37 143.51) (xy 35 143.51)) (uuid "wire-j2-gnd1-1"))
+  (wire (pts (xy 35 143.51) (xy 35 124)) (uuid "wire-j2-gnd1-2"))
+  (wire (pts (xy 39.37 148.17) (xy 35 148.17)) (uuid "wire-j2-gnd12-1"))
+  (wire (pts (xy 35 148.17) (xy 35 124)) (uuid "wire-j2-gnd12-2"))
+  (junction (at 35 124) (uuid "jct-j2-gnd"))
+
+  (symbol
+    (lib_id "power:GND")
+    (at 35 124 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom no)
+    (on_board yes)
+    (dnp no)
+    (uuid "pwr-gnd-j2")
+    (property "Reference" "#PWR019"
+      (at 35 130.35 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "GND"
+      (at 35 127.81 0)
+      (effects (font (size 1.27 1.27)))
+    )
+  )
+
+  ; VBUS pins 2 and 11
+  (wire (pts (xy 39.37 116.84) (xy 30 116.84)) (uuid "wire-j2-vbus2-1"))
+  (wire (pts (xy 30 116.84) (xy 30 127)) (uuid "wire-j2-vbus2-2"))
+  (wire (pts (xy 39.37 162.56) (xy 30 162.56)) (uuid "wire-j2-vbus11-1"))
+  (wire (pts (xy 30 162.56) (xy 30 127)) (uuid "wire-j2-vbus11-2"))
+  (junction (at 30 127) (uuid "jct-j2-vbus"))
+
+  (symbol
+    (lib_id "power:+5V")
+    (at 30 127 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom no)
+    (on_board yes)
+    (dnp no)
+    (uuid "pwr-5v-j2-vbus")
+    (property "Reference" "#PWR020"
+      (at 30 130.81 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "+5V"
+      (at 30 123.19 0)
+      (effects (font (size 1.27 1.27)))
+    )
+  )
+
+  ; SHELL pin 13
+  (wire (pts (xy 60.96 172.72) (xy 76.2 172.72)) (uuid "wire-j2-shell13-1"))
+  (wire (pts (xy 76.2 172.72) (xy 76.2 175.26)) (uuid "wire-j2-shell13-2"))
+
+  ; No-connect flags for J2
+  (no_connect (at 39.37 134.62) (uuid "nc-j2-sbu2"))
+  (no_connect (at 39.37 139.7) (uuid "nc-j2-dn2"))
+  (no_connect (at 39.37 149.86) (uuid "nc-j2-dp2"))
+  (no_connect (at 39.37 154.94) (uuid "nc-j2-sbu1"))
+
 )

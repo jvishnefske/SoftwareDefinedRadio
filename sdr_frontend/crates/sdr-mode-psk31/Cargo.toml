@@ -1,0 +1,20 @@
+[package]
+name = "sdr-mode-psk31"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "PSK31 digital mode decoder/encoder"
+
+[lib]
+crate-type = ["rlib"]
+
+[features]
+default = []
+std = []
+
+[dependencies]
+sdr-dsp-core = { workspace = true }
+heapless = { workspace = true }
+micromath = { workspace = true }
+
+[dev-dependencies]
