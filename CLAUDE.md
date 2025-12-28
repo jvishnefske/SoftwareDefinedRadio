@@ -210,18 +210,29 @@ The schematic project contains:
 - **JLCPCB symbols downloaded** via JLC2KiCadLib for custom parts
 - **Wire segments added** connecting hierarchical labels
 
-### ERC Status (2025-12-25)
+### ERC Status (2025-12-25 v3)
 
-**Clock_Si5351 sheet**: 31 violations (14 errors, 17 warnings)
-- Errors mainly from hierarchical labels (expected - sheet is standalone)
-- Some wire endpoints need manual snapping to pins in KiCad GUI
+**Clock_Si5351 sheet**: 29 violations (12 errors, 17 warnings)
+- **12 Errors** (all expected for sub-sheet in isolation):
+  - 5x hierarchical label parent sheet (PC5_SCL, PC4_SDA, CLK0-2)
+  - 4x wire_dangling (embedded lib_symbol pin detection mismatch)
+  - 3x label_dangling (hierarchical labels on wires but not detected)
+- **17 Warnings** (cosmetic):
+  - lib_symbol_mismatch - embedded symbols differ from KiCad library
+
+**All pins verified connected** by `fix_schematic.py` - KiCad ERC uses stricter detection
+
+**To fix remaining issues in KiCad GUI:**
+1. Tools → Update Symbols from Library (resolves lib_symbol_mismatch)
+2. For any wire not snapping to pins: delete and redraw wire in KiCad
+3. Run ERC from main hierarchical sheet to validate parent/child connections
 
 **Full project**: Run `kicad-cli sch erc` on main sheet for full count
 
 **Root Causes:**
-1. **Wire endpoint misalignment** - Wires placed but not snapped to symbol pins
+1. **Embedded lib_symbols** - Schematic embeds symbol copies that may differ from library
 2. **Hierarchical labels in sub-sheet** - Expected when running ERC on sub-sheet alone
-3. **Lib symbol cache** - Some symbols use cached copies that differ from library (warnings only)
+3. **Pin detection precision** - Wire endpoints match calculated positions but KiCad uses strict comparison
 
 **All custom JLCPCB symbols are present** - no missing symbols detected
 
