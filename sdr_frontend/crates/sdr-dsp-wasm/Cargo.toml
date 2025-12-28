@@ -1,0 +1,23 @@
+[package]
+name = "sdr-dsp-wasm"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "WASM bindings for SDR DSP (AudioWorklet integration)"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+default = ["console_error_panic_hook"]
+console_error_panic_hook = ["dep:console_error_panic_hook"]
+
+[dependencies]
+sdr-dsp-core = { workspace = true }
+sdr-mode-psk31 = { workspace = true }
+wasm-bindgen = { workspace = true }
+console_error_panic_hook = { workspace = true, optional = true }
+
+[profile.release]
+lto = true
+opt-level = 's'

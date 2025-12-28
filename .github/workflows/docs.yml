@@ -1,0 +1,85 @@
+name: Documentation
+
+on:
+  push:
+    branches: [main, master]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: |
+            firmware
+            sdr_frontend
+
+      - name: Build firmware docs
+        run: cargo doc --manifest-path firmware/Cargo.toml --no-default-features --features std --no-deps
+
+      - name: Build frontend docs
+        run: cargo doc --manifest-path sdr_frontend/Cargo.toml --no-deps
+
+      - name: Create index page
+        run: |
+          mkdir -p target/doc
+          cat > target/doc/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset="utf-8">
+            <title>SDR Transceiver Documentation</title>
+            <style>
+              body { font-family: system-ui; max-width: 800px; margin: 2rem auto; padding: 1rem; }
+              a { color: #0066cc; }
+              ul { line-height: 2; }
+            </style>
+          </head>
+          <body>
+            <h1>SDR Transceiver Documentation</h1>
+            <h2>Firmware</h2>
+            <ul>
+              <li><a href="sdr_firmware/index.html">sdr_firmware</a> - Embedded firmware (STM32G474)</li>
+            </ul>
+            <h2>Frontend</h2>
+            <ul>
+              <li><a href="sdr_dsp_core/index.html">sdr_dsp_core</a> - DSP primitives (no_std)</li>
+              <li><a href="sdr_dsp_wasm/index.html">sdr_dsp_wasm</a> - WASM AudioWorklet bindings</li>
+              <li><a href="sdr_mode_psk31/index.html">sdr_mode_psk31</a> - PSK31 digital mode codec</li>
+              <li><a href="sdr_ui/index.html">sdr_ui</a> - Leptos web UI</li>
+            </ul>
+          </body>
+          </html>
+          EOF
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: target/doc
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
