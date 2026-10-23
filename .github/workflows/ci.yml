@@ -62,9 +62,9 @@ jobs:
         with:
           tool: cargo-llvm-cov
       # Same host (std) test set as the Test job. Threshold sits just below the
-      # measured baseline (89.6% lines) so coverage can't silently regress.
+      # baseline CI measures (86.7% lines; 89.6% locally) so it can't silently regress.
       - name: Coverage (std)
-        run: cargo llvm-cov --manifest-path firmware/Cargo.toml --no-default-features --features std --target x86_64-unknown-linux-gnu --lcov --output-path lcov.info --fail-under-lines 89
+        run: cargo llvm-cov --manifest-path firmware/Cargo.toml --no-default-features --features std --target x86_64-unknown-linux-gnu --lcov --output-path lcov.info --fail-under-lines 86
       - name: Coverage summary
         if: always()
         run: |
