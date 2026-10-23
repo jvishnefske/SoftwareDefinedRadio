@@ -43,7 +43,7 @@ pub struct StatusLed<'d> {
 
 impl<'d> StatusLed<'d> {
     /// Create a new status LED (initially off)
-    #[must_use] 
+    #[must_use]
     pub fn new(pin: Output<'d>) -> Self {
         Self {
             pin,
@@ -85,7 +85,7 @@ pub struct PttInput<'d> {
 
 impl<'d> PttInput<'d> {
     /// Create a new PTT input (active low with internal pull-up)
-    #[must_use] 
+    #[must_use]
     pub fn new(pin: Input<'d>) -> Self {
         Self { pin }
     }
@@ -111,7 +111,7 @@ pub struct TrRelay<'d> {
 
 impl<'d> TrRelay<'d> {
     /// Create T/R relay control (starts in RX mode)
-    #[must_use] 
+    #[must_use]
     pub fn new(pin: Output<'d>) -> Self {
         Self { pin, is_tx: false }
     }
@@ -147,7 +147,7 @@ pub struct LpfSelector<'d> {
 
 impl<'d> LpfSelector<'d> {
     /// Create LPF selector (initially selects bank 0)
-    #[must_use] 
+    #[must_use]
     pub fn new(sel0: Output<'d>, sel1: Output<'d>, sel2: Output<'d>) -> Self {
         let mut selector = Self {
             sel0,
@@ -193,11 +193,11 @@ impl<'d> LpfSelector<'d> {
     /// Select bank for frequency
     pub fn select_for_frequency(&mut self, freq_hz: u32) {
         let bank = match freq_hz {
-            0..=5_000_000 => 0,         // 80m
-            5_000_001..=8_000_000 => 1, // 40m
-            8_000_001..=16_000_000 => 2, // 30m/20m
+            0..=5_000_000 => 0,           // 80m
+            5_000_001..=8_000_000 => 1,   // 40m
+            8_000_001..=16_000_000 => 2,  // 30m/20m
             16_000_001..=19_000_000 => 3, // 17m
-            _ => 4,                      // 15m
+            _ => 4,                       // 15m
         };
         self.select(bank);
     }
@@ -234,7 +234,7 @@ impl<'d> EncoderButton<'d> {
     const DEBOUNCE_THRESHOLD: u8 = 3;
 
     /// Create encoder button (active low with pull-up)
-    #[must_use] 
+    #[must_use]
     pub fn new(pin: Input<'d>) -> Self {
         Self {
             pin,

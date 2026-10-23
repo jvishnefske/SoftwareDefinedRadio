@@ -5,8 +5,8 @@
 
 use super::agc::{Agc, AgcConfig, SMeter};
 use super::filter_design::{
-    design_am_filter, design_cw_filter, design_dc_blocker, design_ssb_filter,
-    design_deemphasis_filter, AmBandwidth, Biquad, CwBandwidth, SsbBandwidth,
+    design_am_filter, design_cw_filter, design_dc_blocker, design_deemphasis_filter,
+    design_ssb_filter, AmBandwidth, Biquad, CwBandwidth, SsbBandwidth,
 };
 
 /// Sample rate used by the audio chain

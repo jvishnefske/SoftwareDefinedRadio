@@ -127,7 +127,7 @@ pub struct Display<'d> {
 
 impl<'d> Display<'d> {
     /// Create a new display driver
-    #[must_use] 
+    #[must_use]
     pub fn new(i2c: I2c<'d, Async>) -> Self {
         Self {
             bus: I2cBus::new(i2c),
@@ -249,8 +249,7 @@ impl StatusRenderer {
         core::fmt::write(&mut s, format_args!("{mhz:2}.{khz:03}.{hz:03}")).ok();
 
         let style = MonoTextStyle::new(&FONT_6X10, BinaryColor::On);
-        let _ = Text::with_baseline(&s, Point::new(20, 20), style, Baseline::Top)
-            .draw(buffer);
+        let _ = Text::with_baseline(&s, Point::new(20, 20), style, Baseline::Top).draw(buffer);
     }
 
     /// Render mode indicator
@@ -265,8 +264,8 @@ impl StatusRenderer {
         };
 
         let style = MonoTextStyle::new(&FONT_6X10, BinaryColor::On);
-        let _ = Text::with_baseline(mode_str, Point::new(100, 0), style, Baseline::Top)
-            .draw(buffer);
+        let _ =
+            Text::with_baseline(mode_str, Point::new(100, 0), style, Baseline::Top).draw(buffer);
     }
 
     /// Render band indicator
@@ -282,8 +281,7 @@ impl StatusRenderer {
         };
 
         let style = MonoTextStyle::new(&FONT_6X10, BinaryColor::On);
-        let _ = Text::with_baseline(band_str, Point::new(0, 0), style, Baseline::Top)
-            .draw(buffer);
+        let _ = Text::with_baseline(band_str, Point::new(0, 0), style, Baseline::Top).draw(buffer);
     }
 
     /// Render TX/RX indicator
@@ -302,12 +300,10 @@ impl StatusRenderer {
                 .draw(buffer);
 
             let style = MonoTextStyle::new(&FONT_6X10, BinaryColor::Off);
-            let _ = Text::with_baseline(text, Point::new(52, 1), style, Baseline::Top)
-                .draw(buffer);
+            let _ = Text::with_baseline(text, Point::new(52, 1), style, Baseline::Top).draw(buffer);
         } else {
             let style = MonoTextStyle::new(&FONT_6X10, BinaryColor::On);
-            let _ = Text::with_baseline(text, Point::new(52, 0), style, Baseline::Top)
-                .draw(buffer);
+            let _ = Text::with_baseline(text, Point::new(52, 0), style, Baseline::Top).draw(buffer);
         }
     }
 
@@ -324,8 +320,7 @@ impl StatusRenderer {
         };
 
         let style = MonoTextStyle::new(&FONT_6X10, BinaryColor::On);
-        let _ = Text::with_baseline(step_str, Point::new(0, 54), style, Baseline::Top)
-            .draw(buffer);
+        let _ = Text::with_baseline(step_str, Point::new(0, 54), style, Baseline::Top).draw(buffer);
     }
 
     /// Render S-meter bar
@@ -365,7 +360,6 @@ impl StatusRenderer {
         }
 
         let style = MonoTextStyle::new(&FONT_6X10, BinaryColor::On);
-        let _ = Text::with_baseline(&s, Point::new(70, 54), style, Baseline::Top)
-            .draw(buffer);
+        let _ = Text::with_baseline(&s, Point::new(70, 54), style, Baseline::Top).draw(buffer);
     }
 }

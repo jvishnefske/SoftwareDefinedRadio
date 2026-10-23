@@ -72,8 +72,7 @@ impl NoiseBlanker {
         }
 
         // Check for impulse (sudden spike well above envelope)
-        if abs_input > self.envelope * (1.0 + self.threshold * 10.0) && abs_input > self.threshold
-        {
+        if abs_input > self.envelope * (1.0 + self.threshold * 10.0) && abs_input > self.threshold {
             self.blank_counter = self.blank_samples;
         }
 
@@ -664,11 +663,7 @@ mod tests {
 
         // Strong signal should pass with little attenuation
         let output = snr.process(0.5);
-        assert!(
-            output > 0.3,
-            "Strong signal should mostly pass: {}",
-            output
-        );
+        assert!(output > 0.3, "Strong signal should mostly pass: {}", output);
     }
 
     #[test]

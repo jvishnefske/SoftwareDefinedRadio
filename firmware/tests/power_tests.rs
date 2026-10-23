@@ -47,7 +47,11 @@ fn battery_voltage_percentage_midpoint() {
     // 4S at 14.4V (3.6V per cell) = ~50%
     let batt = BatteryVoltage::from_adc(1624, 11.0, 3.3);
     let pct = batt.percentage(4);
-    assert!(pct >= 40 && pct <= 60, "Midpoint should be ~50%, got {}%", pct);
+    assert!(
+        pct >= 40 && pct <= 60,
+        "Midpoint should be ~50%, got {}%",
+        pct
+    );
 }
 
 #[test]
@@ -192,7 +196,11 @@ fn power_manager_thermal_limiting_ramp() {
     pm.update_pa_temp(temp);
 
     let limit = pm.thermal_limit();
-    assert!(limit < 100 && limit > 0, "Should be ramping, got {}%", limit);
+    assert!(
+        limit < 100 && limit > 0,
+        "Should be ramping, got {}%",
+        limit
+    );
 }
 
 #[test]
@@ -248,7 +256,11 @@ fn power_manager_effective_limit_low_battery() {
     pm.update_battery(batt);
 
     let limit = pm.effective_power_limit();
-    assert!(limit <= 50, "Low battery should limit power, got {}%", limit);
+    assert!(
+        limit <= 50,
+        "Low battery should limit power, got {}%",
+        limit
+    );
 }
 
 #[test]
@@ -263,7 +275,11 @@ fn power_manager_effective_limit_thermal_and_battery() {
     pm.update_pa_temp(temp);
 
     let limit = pm.effective_power_limit();
-    assert!(limit <= 50, "Should take min of thermal and battery limits, got {}%", limit);
+    assert!(
+        limit <= 50,
+        "Should take min of thermal and battery limits, got {}%",
+        limit
+    );
 }
 
 #[test]

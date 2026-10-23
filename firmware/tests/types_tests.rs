@@ -394,7 +394,11 @@ fn test_frequency_cw_qrg() {
 fn test_mode_bfo_offset_cw() {
     // CW typically uses 700-800 Hz offset (can be negative for reversed sideband)
     let offset = Mode::Cw.bfo_offset_hz();
-    assert!(offset.abs() > 600 && offset.abs() < 900, "CW offset should be ~700Hz, got {}", offset);
+    assert!(
+        offset.abs() > 600 && offset.abs() < 900,
+        "CW offset should be ~700Hz, got {}",
+        offset
+    );
 }
 
 #[test]
@@ -404,14 +408,21 @@ fn test_mode_bfo_offset_ssb() {
     let usb_offset = Mode::Usb.bfo_offset_hz();
 
     // LSB and USB should have opposite sign offsets
-    assert!(lsb_offset != usb_offset, "LSB and USB should have different offsets");
+    assert!(
+        lsb_offset != usb_offset,
+        "LSB and USB should have different offsets"
+    );
 }
 
 #[test]
 fn test_mode_bandwidth_cw() {
     let bw = Mode::Cw.bandwidth_hz();
     // CW filter typically 400-800 Hz
-    assert!(bw >= 300 && bw <= 1000, "CW bandwidth should be ~500Hz, got {}", bw);
+    assert!(
+        bw >= 300 && bw <= 1000,
+        "CW bandwidth should be ~500Hz, got {}",
+        bw
+    );
 }
 
 #[test]
@@ -420,7 +431,11 @@ fn test_mode_bandwidth_ssb() {
     let bw_usb = Mode::Usb.bandwidth_hz();
 
     // SSB typically 2.4-3 kHz
-    assert!(bw_lsb >= 2000 && bw_lsb <= 3500, "LSB bandwidth should be ~2.7kHz, got {}", bw_lsb);
+    assert!(
+        bw_lsb >= 2000 && bw_lsb <= 3500,
+        "LSB bandwidth should be ~2.7kHz, got {}",
+        bw_lsb
+    );
     assert_eq!(bw_lsb, bw_usb, "LSB and USB should have same bandwidth");
 }
 
@@ -428,7 +443,11 @@ fn test_mode_bandwidth_ssb() {
 fn test_mode_bandwidth_am() {
     let bw = Mode::Am.bandwidth_hz();
     // AM typically 6-9 kHz (both sidebands)
-    assert!(bw >= 5000 && bw <= 10000, "AM bandwidth should be ~6kHz, got {}", bw);
+    assert!(
+        bw >= 5000 && bw <= 10000,
+        "AM bandwidth should be ~6kHz, got {}",
+        bw
+    );
 }
 
 // =============================================================================

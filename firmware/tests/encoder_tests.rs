@@ -177,7 +177,7 @@ fn decoder_clockwise_full_cycle() {
 
     // CW sequence: 00 -> 01 -> 11 -> 10 -> 00
     assert!(decoder.update(false, true).is_none()); // Start CW
-    assert!(decoder.update(true, true).is_none());  // Next
+    assert!(decoder.update(true, true).is_none()); // Next
     assert!(decoder.update(true, false).is_none()); // Final
     assert_eq!(decoder.update(false, false), Some(Direction::Clockwise)); // Complete
 }
@@ -188,9 +188,12 @@ fn decoder_counter_clockwise_full_cycle() {
 
     // CCW sequence: 00 -> 10 -> 11 -> 01 -> 00
     assert!(decoder.update(true, false).is_none()); // Start CCW
-    assert!(decoder.update(true, true).is_none());  // Next
+    assert!(decoder.update(true, true).is_none()); // Next
     assert!(decoder.update(false, true).is_none()); // Final
-    assert_eq!(decoder.update(false, false), Some(Direction::CounterClockwise)); // Complete
+    assert_eq!(
+        decoder.update(false, false),
+        Some(Direction::CounterClockwise)
+    ); // Complete
 }
 
 #[test]
@@ -236,7 +239,10 @@ fn decoder_direction_change() {
     decoder.update(true, false);
     decoder.update(true, true);
     decoder.update(false, true);
-    assert_eq!(decoder.update(false, false), Some(Direction::CounterClockwise));
+    assert_eq!(
+        decoder.update(false, false),
+        Some(Direction::CounterClockwise)
+    );
 }
 
 #[test]

@@ -2,9 +2,7 @@
 //!
 //! Tests VFO management, state machine, and transmit controller.
 
-use sdr_firmware::radio::state::{
-    apply_event, AgcMode, RadioEvent, RadioState, VfoSelect,
-};
+use sdr_firmware::radio::state::{apply_event, AgcMode, RadioEvent, RadioState, VfoSelect};
 use sdr_firmware::radio::transmit::{TxAction, TxController, TxState, Vox};
 use sdr_firmware::radio::vfo::{MemoryBank, MemoryChannel, VfoManager, VfoSettings};
 use sdr_firmware::types::{Band, Frequency, Mode, PowerLevel, SwrReading, TuningStep, TxRxState};
@@ -206,10 +204,7 @@ fn memory_channel_empty() {
 #[test]
 fn memory_channel_store_recall() {
     let mut ch = MemoryChannel::empty(10);
-    let settings = VfoSettings::new(
-        Frequency::from_hz(14_225_000).unwrap(),
-        Mode::Usb,
-    );
+    let settings = VfoSettings::new(Frequency::from_hz(14_225_000).unwrap(), Mode::Usb);
 
     ch.store(&settings);
     assert!(ch.active);
@@ -262,10 +257,7 @@ fn memory_bank_new() {
 #[test]
 fn memory_bank_store_recall() {
     let mut bank = MemoryBank::new();
-    let settings = VfoSettings::new(
-        Frequency::from_hz(7_150_000).unwrap(),
-        Mode::Lsb,
-    );
+    let settings = VfoSettings::new(Frequency::from_hz(7_150_000).unwrap(), Mode::Lsb);
 
     assert!(bank.store(0, &settings));
     assert_eq!(bank.active_count(), 1);
@@ -854,7 +846,10 @@ fn tx_controller_swr_protection_high() {
     ctrl.update(10000);
 
     // High SWR reading (above 3.0)
-    let swr = SwrReading { forward: 100, reflected: 40 }; // Roughly 3.5:1 SWR
+    let swr = SwrReading {
+        forward: 100,
+        reflected: 40,
+    }; // Roughly 3.5:1 SWR
     ctrl.update_swr(swr);
 
     // Power should be reduced
@@ -873,7 +868,10 @@ fn tx_controller_swr_protection_critical() {
     assert!(ctrl.is_transmitting());
 
     // Critical SWR (above 5.0)
-    let swr = SwrReading { forward: 100, reflected: 70 }; // > 5:1 SWR
+    let swr = SwrReading {
+        forward: 100,
+        reflected: 70,
+    }; // > 5:1 SWR
     ctrl.update_swr(swr);
 
     // Should go to inhibited state
@@ -889,7 +887,10 @@ fn tx_controller_clear_swr_trip() {
     ctrl.set_ptt(true);
     ctrl.update(0);
     ctrl.update(10000);
-    ctrl.update_swr(SwrReading { forward: 100, reflected: 70 });
+    ctrl.update_swr(SwrReading {
+        forward: 100,
+        reflected: 70,
+    });
 
     assert_eq!(ctrl.state(), TxState::Inhibited);
     assert!(ctrl.swr_trip_count() > 0);
@@ -956,7 +957,10 @@ fn tx_controller_last_swr() {
     let mut ctrl = TxController::new();
     assert!(ctrl.last_swr().is_none());
 
-    let swr = SwrReading { forward: 100, reflected: 20 };
+    let swr = SwrReading {
+        forward: 100,
+        reflected: 20,
+    };
     ctrl.update_swr(swr);
 
     assert!(ctrl.last_swr().is_some());
@@ -1047,7 +1051,10 @@ fn vox_hang_time() {
     }
 
     // After processing more samples with no audio, VOX should be untriggered
-    assert!(!vox.is_triggered(), "VOX should eventually become untriggered");
+    assert!(
+        !vox.is_triggered(),
+        "VOX should eventually become untriggered"
+    );
 }
 
 #[test]
@@ -1055,10 +1062,10 @@ fn vox_threshold_clamp() {
     let mut vox = Vox::new();
 
     vox.set_threshold(2.0); // Above 1.0
-    // Should be clamped internally
+                            // Should be clamped internally
 
     vox.set_threshold(-1.0); // Below 0.0
-    // Should be clamped internally
+                             // Should be clamped internally
 }
 
 #[test]

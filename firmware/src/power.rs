@@ -292,6 +292,11 @@ impl Default for PowerManager {
 #[cfg(feature = "embedded")]
 impl defmt::Format for PowerManager {
     fn format(&self, f: defmt::Formatter) {
-        defmt::write!(f, "Power({}, limit={}%)", self.state, self.thermal_limit_percent);
+        defmt::write!(
+            f,
+            "Power({}, limit={}%)",
+            self.state,
+            self.thermal_limit_percent
+        );
     }
 }

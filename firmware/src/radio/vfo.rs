@@ -2,8 +2,8 @@
 //!
 //! Manages dual VFOs (A/B) for split operation and memory channels.
 
-use crate::types::{Band, Frequency, Mode};
 use super::state::VfoSelect;
+use crate::types::{Band, Frequency, Mode};
 
 /// VFO settings (stored per VFO)
 #[derive(Clone, Copy, Debug)]

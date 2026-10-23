@@ -21,7 +21,7 @@ fn test_agc_config_default() {
 #[test]
 fn test_agc_config_from_ms() {
     let config = AgcConfig::from_ms(48000, 10, 500);
-    assert_eq!(config.attack_samples, 480);  // 10ms at 48kHz
+    assert_eq!(config.attack_samples, 480); // 10ms at 48kHz
     assert_eq!(config.decay_samples, 24000); // 500ms at 48kHz
 }
 
@@ -264,11 +264,7 @@ fn test_smeter_as_percent() {
     }
 
     let percent = meter.as_percent();
-    assert!(
-        percent <= 100,
-        "Percent should be 0-100, got {}",
-        percent
-    );
+    assert!(percent <= 100, "Percent should be 0-100, got {}", percent);
 }
 
 // =============================================================================
@@ -319,7 +315,11 @@ fn test_smeter_db_over_s9_granularity() {
     let db_over = meter.db_over_s9();
 
     assert_eq!(s, 9, "Strong signal should read S9, got S{}", s);
-    assert!(db_over > 0, "Strong signal should have dB over S9, got {}", db_over);
+    assert!(
+        db_over > 0,
+        "Strong signal should have dB over S9, got {}",
+        db_over
+    );
 }
 
 #[test]
@@ -337,7 +337,10 @@ fn test_smeter_s9_threshold() {
     if value <= 9.0 {
         assert_eq!(meter.db_over_s9(), 0, "At or below S9, dB over should be 0");
     } else {
-        assert!(meter.db_over_s9() > 0, "Above S9, dB over should be positive");
+        assert!(
+            meter.db_over_s9() > 0,
+            "Above S9, dB over should be positive"
+        );
     }
 }
 
@@ -389,7 +392,11 @@ fn test_smeter_clamping_high() {
     // Should clamp to max (S9+60 = value 19)
     let value = meter.value();
     assert!(value <= 15.0, "S-meter should clamp at max, got {}", value);
-    assert!(value >= 9.0, "Strong signal should be at least S9, got {}", value);
+    assert!(
+        value >= 9.0,
+        "Strong signal should be at least S9, got {}",
+        value
+    );
 }
 
 #[test]

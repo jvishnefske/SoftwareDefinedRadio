@@ -439,9 +439,15 @@ fn test_fir_filter_impulse_response() {
     let out6 = filter.process(zero);
 
     // Should see impulse spread over 5 samples
-    assert!(from_sample(out1).abs() > 0.0, "First output should be nonzero");
+    assert!(
+        from_sample(out1).abs() > 0.0,
+        "First output should be nonzero"
+    );
     // After 5 zeros, response should decay
-    assert!(from_sample(out6).abs() < 0.01, "Response should decay to zero");
+    assert!(
+        from_sample(out6).abs() < 0.01,
+        "Response should decay to zero"
+    );
 }
 
 #[test]
@@ -648,11 +654,7 @@ fn test_total_audio_chain_latency() {
     // Total chain latency in samples
     // At 48kHz, 20ms = 960 samples
     // Our chain should be well under 100 samples
-    assert!(
-        delay < 100,
-        "Audio chain delay too high: {} samples",
-        delay
-    );
+    assert!(delay < 100, "Audio chain delay too high: {} samples", delay);
 
     // Convert to ms at 48kHz
     let latency_ms = delay as f32 / 48.0;

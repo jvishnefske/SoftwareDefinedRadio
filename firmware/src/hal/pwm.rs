@@ -141,8 +141,7 @@ impl Default for PaDrive {
 }
 
 /// H-bridge phase configuration for Class-E operation
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-#[derive(Default)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum HBridgePhase {
     /// Both sides off
     #[default]
@@ -167,7 +166,6 @@ impl HBridgePhase {
         }
     }
 }
-
 
 impl defmt::Format for HBridgePhase {
     fn format(&self, f: defmt::Formatter) {

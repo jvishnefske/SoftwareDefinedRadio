@@ -61,7 +61,7 @@ pub struct AudioAdc<'d> {
 
 impl AudioAdc<'_> {
     /// Create a new audio ADC driver
-    #[must_use] 
+    #[must_use]
     pub fn new(adc: ADC1) -> Self {
         let adc = Adc::new(adc);
         Self { adc }
@@ -86,7 +86,7 @@ pub struct IqAdc<'d> {
 
 impl IqAdc<'_> {
     /// Create a new IQ ADC driver
-    #[must_use] 
+    #[must_use]
     pub fn new(adc: ADC2) -> Self {
         let adc = Adc::new(adc);
         Self { adc }
@@ -141,8 +141,14 @@ impl defmt::Format for PowerReading {
         let swr = self.swr_ratio();
         let whole = swr as u32;
         let frac = ((swr - whole as f32) * 10.0) as u32;
-        defmt::write!(f, "Pwr(fwd={}, ref={}, SWR={}.{}:1)",
-            self.forward.raw(), self.reflected.raw(), whole, frac);
+        defmt::write!(
+            f,
+            "Pwr(fwd={}, ref={}, SWR={}.{}:1)",
+            self.forward.raw(),
+            self.reflected.raw(),
+            whole,
+            frac
+        );
     }
 }
 

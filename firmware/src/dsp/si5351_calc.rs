@@ -50,7 +50,8 @@ impl PllParams {
     pub fn vco_frequency(&self, xtal_hz: u64) -> u64 {
         // FVCO = FXTAL × (a + b/c)
         // To avoid floating point: FVCO = (FXTAL × a × c + FXTAL × b) / c
-        (xtal_hz * u64::from(self.a) * u64::from(self.c) + xtal_hz * u64::from(self.b)) / u64::from(self.c)
+        (xtal_hz * u64::from(self.a) * u64::from(self.c) + xtal_hz * u64::from(self.b))
+            / u64::from(self.c)
     }
 
     /// Validate parameters are in range
@@ -124,12 +125,7 @@ impl MsParams {
     /// Create fractional multisynth params
     #[must_use]
     pub const fn fractional(a: u32, b: u32, c: u32) -> Self {
-        Self {
-            a,
-            b,
-            c,
-            r_div: 0,
-        }
+        Self { a, b, c, r_div: 0 }
     }
 
     /// Calculate output frequency given VCO frequency
@@ -249,7 +245,10 @@ pub fn calculate_frequency(
 }
 
 /// Calculate frequency with R divider for low frequencies
-fn calculate_with_r_divider(xtal_hz: u64, target_hz: u64) -> Option<(PllParams, MsParams, u64, i64)> {
+fn calculate_with_r_divider(
+    xtal_hz: u64,
+    target_hz: u64,
+) -> Option<(PllParams, MsParams, u64, i64)> {
     // Try increasing R divider values
     for r_div in 1u8..=7 {
         let r = 1u64 << r_div;
@@ -482,7 +481,7 @@ mod tests {
     fn ms_params_validation() {
         assert!(!MsParams::integer(3).is_valid()); // Below min
         assert!(MsParams::integer(4).is_valid()); // Min allowed
-        // a=5 is not allowed per datasheet
+                                                  // a=5 is not allowed per datasheet
         assert!(MsParams::integer(6).is_valid());
         assert!(!MsParams::integer(1801).is_valid()); // Above max
     }

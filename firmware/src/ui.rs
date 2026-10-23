@@ -326,13 +326,11 @@ pub fn render_menu_screen(buffer: &mut DisplayBuffer, menu_index: usize) {
             let _ = rect
                 .into_styled(PrimitiveStyle::with_fill(BinaryColor::On))
                 .draw(buffer);
-            let _ =
-                Text::with_baseline(item.label, Point::new(4, y), inv_style, Baseline::Top)
-                    .draw(buffer);
+            let _ = Text::with_baseline(item.label, Point::new(4, y), inv_style, Baseline::Top)
+                .draw(buffer);
         } else {
-            let _ =
-                Text::with_baseline(item.label, Point::new(4, y), style, Baseline::Top)
-                    .draw(buffer);
+            let _ = Text::with_baseline(item.label, Point::new(4, y), style, Baseline::Top)
+                .draw(buffer);
         }
     }
 }
