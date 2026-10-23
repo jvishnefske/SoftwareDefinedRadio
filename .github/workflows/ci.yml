@@ -67,7 +67,9 @@ jobs:
         run: cargo llvm-cov --manifest-path firmware/Cargo.toml --no-default-features --features std --target x86_64-unknown-linux-gnu --lcov --output-path lcov.info --fail-under-lines 89
       - name: Coverage summary
         if: always()
-        run: cargo llvm-cov report --manifest-path firmware/Cargo.toml --target x86_64-unknown-linux-gnu --summary-only
+        run: |
+          cargo llvm-cov report --manifest-path firmware/Cargo.toml --target x86_64-unknown-linux-gnu --summary-only | tee coverage-summary.txt
+          echo "::notice title=Coverage (regions, functions, lines)::$(grep '^TOTAL' coverage-summary.txt | tr -s ' ')"
       - name: Upload lcov report
         if: always()
         uses: actions/upload-artifact@v4
