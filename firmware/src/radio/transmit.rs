@@ -9,8 +9,7 @@ use crate::types::{PowerLevel, SwrReading, TxRxState};
 const TR_RELAY_DELAY_US: u32 = 10_000;
 
 /// Transmit state machine
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-#[derive(Default)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum TxState {
     /// Radio is receiving
     #[default]
@@ -37,7 +36,6 @@ impl TxState {
         }
     }
 }
-
 
 #[cfg(feature = "embedded")]
 impl defmt::Format for TxState {

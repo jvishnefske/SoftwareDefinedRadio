@@ -46,7 +46,7 @@ pub struct I2cBus<'d> {
 
 impl<'d> I2cBus<'d> {
     /// Create a new I2C bus wrapper
-    #[must_use] 
+    #[must_use]
     pub fn new(i2c: I2c<'d, Async>) -> Self {
         Self { i2c }
     }
@@ -84,7 +84,12 @@ impl<'d> I2cBus<'d> {
     }
 
     /// Write multiple registers starting at base address
-    pub async fn write_regs(&mut self, addr: I2cAddress, base_reg: u8, values: &[u8]) -> I2cResult<()> {
+    pub async fn write_regs(
+        &mut self,
+        addr: I2cAddress,
+        base_reg: u8,
+        values: &[u8],
+    ) -> I2cResult<()> {
         // Build buffer with register address prefix
         // For small writes, use stack buffer
         if values.len() <= 16 {

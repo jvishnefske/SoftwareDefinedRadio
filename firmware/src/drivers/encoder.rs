@@ -88,7 +88,7 @@ impl QuadratureDecoder {
 
     /// Update with new A/B pin states, returns direction if step completed
     pub fn update(&mut self, a: bool, b: bool) -> Option<Direction> {
-        use EncoderState::{Idle, CwStart, CcwStart, CwNext, CwFinal, CcwNext, CcwFinal};
+        use EncoderState::{CcwFinal, CcwNext, CcwStart, CwFinal, CwNext, CwStart, Idle};
 
         // Only process on state change
         if a == self.last_a && b == self.last_b {
@@ -212,7 +212,7 @@ impl<'d> Encoder<'d> {
     pub const DEFAULT_LONG_PRESS_MS: u32 = 500;
 
     /// Create a new encoder driver
-    #[must_use] 
+    #[must_use]
     pub fn new(a_pin: Input<'d>, b_pin: Input<'d>, button: EncoderButton<'d>) -> Self {
         Self {
             a_pin,

@@ -307,13 +307,7 @@ impl Default for RadioState {
 #[cfg(feature = "embedded")]
 impl defmt::Format for RadioState {
     fn format(&self, f: defmt::Formatter) {
-        defmt::write!(
-            f,
-            "Radio({}, {}, {})",
-            self.frequency,
-            self.mode,
-            self.txrx
-        );
+        defmt::write!(f, "Radio({}, {}, {})", self.frequency, self.mode, self.txrx);
     }
 }
 
@@ -512,7 +506,10 @@ pub fn apply_event(state: RadioState, event: RadioEvent) -> RadioState {
         RadioEvent::ToggleNb => state.toggle_nb(),
         RadioEvent::TogglePreamp => state.toggle_preamp(),
         RadioEvent::ToggleAtt => state.toggle_attenuator(),
-        RadioEvent::SwitchVfo | RadioEvent::SwapVfo | RadioEvent::CopyAtoB | RadioEvent::CopyBtoA => {
+        RadioEvent::SwitchVfo
+        | RadioEvent::SwapVfo
+        | RadioEvent::CopyAtoB
+        | RadioEvent::CopyBtoA => {
             // VFO operations require VfoManager, handled at higher level
             state
         }

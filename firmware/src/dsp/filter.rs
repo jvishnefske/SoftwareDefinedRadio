@@ -58,7 +58,8 @@ impl<const N: usize> FirCoefficients<N> {
             if n.abs() < 0.0001 {
                 coeffs[i] = 2.0 * fc;
             } else {
-                coeffs[i] = (2.0 * core::f32::consts::PI * fc * n).sin() / (core::f32::consts::PI * n);
+                coeffs[i] =
+                    (2.0 * core::f32::consts::PI * fc * n).sin() / (core::f32::consts::PI * n);
             }
 
             // Apply Hamming window

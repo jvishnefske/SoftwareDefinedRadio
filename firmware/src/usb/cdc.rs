@@ -20,7 +20,7 @@ impl<'d> Default for CdcState<'d> {
 
 impl<'d> CdcState<'d> {
     /// Create new CDC state
-    #[must_use] 
+    #[must_use]
     pub fn new() -> Self {
         Self {
             state: State::new(),

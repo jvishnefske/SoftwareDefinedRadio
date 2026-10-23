@@ -194,8 +194,8 @@ pub struct HilbertTransform {
 impl HilbertTransform {
     /// Hilbert filter coefficients (31-tap, odd samples only)
     const COEFFS: [f32; 16] = [
-        0.0, 0.0636620, 0.0, 0.1061033, 0.0, 0.1591549, 0.0, 0.2122066,
-        0.0, 0.3183099, 0.0, 0.6366198, 0.0, -0.6366198, 0.0, -0.3183099,
+        0.0, 0.0636620, 0.0, 0.1061033, 0.0, 0.1591549, 0.0, 0.2122066, 0.0, 0.3183099, 0.0,
+        0.6366198, 0.0, -0.6366198, 0.0, -0.3183099,
     ];
 
     /// Create a new Hilbert transform

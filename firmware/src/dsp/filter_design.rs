@@ -254,11 +254,15 @@ impl BiquadCoeffs {
         let cos_2omega = (2.0 * omega).cos();
 
         // |H(e^jw)|^2 = |B(e^jw)|^2 / |A(e^jw)|^2
-        let num = self.b0 * self.b0 + self.b1 * self.b1 + self.b2 * self.b2
+        let num = self.b0 * self.b0
+            + self.b1 * self.b1
+            + self.b2 * self.b2
             + 2.0 * (self.b0 * self.b1 + self.b1 * self.b2) * cos_omega
             + 2.0 * self.b0 * self.b2 * cos_2omega;
 
-        let den = 1.0 + self.a1 * self.a1 + self.a2 * self.a2
+        let den = 1.0
+            + self.a1 * self.a1
+            + self.a2 * self.a2
             + 2.0 * (self.a1 + self.a1 * self.a2) * cos_omega
             + 2.0 * self.a2 * cos_2omega;
 
@@ -395,7 +399,11 @@ impl AmBandwidth {
 ///
 /// For sharper response, cascade multiple stages
 #[must_use]
-pub fn design_cw_filter(center_freq: f32, bandwidth: CwBandwidth, sample_rate: f32) -> BiquadCoeffs {
+pub fn design_cw_filter(
+    center_freq: f32,
+    bandwidth: CwBandwidth,
+    sample_rate: f32,
+) -> BiquadCoeffs {
     let q = bandwidth.q_at(center_freq);
     BiquadCoeffs::bandpass_peak(center_freq, sample_rate, q)
 }
@@ -404,7 +412,10 @@ pub fn design_cw_filter(center_freq: f32, bandwidth: CwBandwidth, sample_rate: f
 ///
 /// Returns (high-pass coeffs, low-pass coeffs)
 #[must_use]
-pub fn design_ssb_filter(bandwidth: SsbBandwidth, sample_rate: f32) -> (BiquadCoeffs, BiquadCoeffs) {
+pub fn design_ssb_filter(
+    bandwidth: SsbBandwidth,
+    sample_rate: f32,
+) -> (BiquadCoeffs, BiquadCoeffs) {
     let q = 0.707; // Butterworth response
 
     let hpf = BiquadCoeffs::highpass(f32::from(bandwidth.low_cutoff()), sample_rate, q);
@@ -545,7 +556,11 @@ mod tests {
 
         // At DC, magnitude should be ~1.0
         let mag_dc = coeffs.magnitude_at(10.0, SAMPLE_RATE);
-        assert!(approx_eq(mag_dc, 1.0, TOLERANCE), "DC magnitude: {}", mag_dc);
+        assert!(
+            approx_eq(mag_dc, 1.0, TOLERANCE),
+            "DC magnitude: {}",
+            mag_dc
+        );
 
         // At cutoff, magnitude should be ~0.707 (-3dB)
         let mag_fc = coeffs.magnitude_at(fc, SAMPLE_RATE);
@@ -777,7 +792,11 @@ mod tests {
 
         // Should be unity above shelf
         let mag_high = coeffs.magnitude_at(5000.0, SAMPLE_RATE);
-        assert!(approx_eq(mag_high, 1.0, 0.1), "High freq magnitude: {}", mag_high);
+        assert!(
+            approx_eq(mag_high, 1.0, 0.1),
+            "High freq magnitude: {}",
+            mag_high
+        );
     }
 
     #[test]
@@ -786,7 +805,11 @@ mod tests {
 
         // Should be unity below shelf frequency
         let mag_low = coeffs.magnitude_at(100.0, SAMPLE_RATE);
-        assert!(approx_eq(mag_low, 1.0, 0.1), "Low freq magnitude: {}", mag_low);
+        assert!(
+            approx_eq(mag_low, 1.0, 0.1),
+            "Low freq magnitude: {}",
+            mag_low
+        );
 
         // Should boost above shelf
         let mag_high = coeffs.magnitude_at(10000.0, SAMPLE_RATE);

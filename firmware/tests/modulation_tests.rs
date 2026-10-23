@@ -701,7 +701,11 @@ fn test_ssb_modulator_demodulator_roundtrip() {
     let energy: f32 = recovered.iter().map(|x| x * x).sum();
     let rms = (energy / recovered.len() as f32).sqrt();
 
-    assert!(rms > 0.01, "Recovered audio should have energy, got RMS {}", rms);
+    assert!(
+        rms > 0.01,
+        "Recovered audio should have energy, got RMS {}",
+        rms
+    );
 }
 
 #[test]

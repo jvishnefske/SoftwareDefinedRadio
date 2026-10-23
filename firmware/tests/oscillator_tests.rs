@@ -165,16 +165,8 @@ fn test_quadrature_range() {
 
     for _ in 0..1000 {
         let (i, q) = osc.next();
-        assert!(
-            i >= -1.1 && i <= 1.1,
-            "I component out of range: {}",
-            i
-        );
-        assert!(
-            q >= -1.1 && q <= 1.1,
-            "Q component out of range: {}",
-            q
-        );
+        assert!(i >= -1.1 && i <= 1.1, "I component out of range: {}", i);
+        assert!(q >= -1.1 && q <= 1.1, "Q component out of range: {}", q);
     }
 }
 
@@ -197,11 +189,7 @@ fn test_quadrature_reset() {
         "After reset I should be 1, got {}",
         i
     );
-    assert!(
-        q.abs() < EPSILON,
-        "After reset Q should be 0, got {}",
-        q
-    );
+    assert!(q.abs() < EPSILON, "After reset Q should be 0, got {}", q);
 }
 
 // =============================================================================
@@ -353,7 +341,11 @@ fn test_zero_frequency() {
     // DC - should always be 0 (sin of constant phase 0)
     for _ in 0..100 {
         let sample = osc.next();
-        assert!(sample.abs() < EPSILON, "Zero freq should output 0, got {}", sample);
+        assert!(
+            sample.abs() < EPSILON,
+            "Zero freq should output 0, got {}",
+            sample
+        );
     }
 }
 
@@ -439,11 +431,7 @@ fn test_quadrature_phase_accuracy() {
     }
 
     let (i, q) = osc.next();
-    assert!(
-        i.abs() < 0.2,
-        "After 90°, I should be ~0, got {}",
-        i
-    );
+    assert!(i.abs() < 0.2, "After 90°, I should be ~0, got {}", i);
     assert!(
         (q - 1.0).abs() < 0.2 || (q + 1.0).abs() < 0.2,
         "After 90°, Q should be ~±1, got {}",

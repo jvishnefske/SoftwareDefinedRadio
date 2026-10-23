@@ -40,7 +40,9 @@ fn dac_matches_audio() {
 #[test]
 fn i2c_frequency_valid() {
     // Standard I2C speeds: 100kHz, 400kHz, 1MHz
-    assert!(I2C_FREQUENCY_HZ == 100_000 || I2C_FREQUENCY_HZ == 400_000 || I2C_FREQUENCY_HZ == 1_000_000);
+    assert!(
+        I2C_FREQUENCY_HZ == 100_000 || I2C_FREQUENCY_HZ == 400_000 || I2C_FREQUENCY_HZ == 1_000_000
+    );
 }
 
 #[test]
@@ -126,8 +128,12 @@ fn usb_pid_valid() {
 #[test]
 fn usb_packet_size_valid() {
     // CDC packet size must be 8, 16, 32, or 64 for full-speed USB
-    assert!(USB_CDC_PACKET_SIZE == 8 || USB_CDC_PACKET_SIZE == 16 ||
-            USB_CDC_PACKET_SIZE == 32 || USB_CDC_PACKET_SIZE == 64);
+    assert!(
+        USB_CDC_PACKET_SIZE == 8
+            || USB_CDC_PACKET_SIZE == 16
+            || USB_CDC_PACKET_SIZE == 32
+            || USB_CDC_PACKET_SIZE == 64
+    );
 }
 
 // =============================================================================
@@ -322,8 +328,13 @@ fn dma_channels_unique() {
 #[test]
 fn timer_channels_unique() {
     // All timer assignments should be different
-    let timers = [timers::AUDIO_SAMPLE, timers::IQ_SAMPLE, timers::ENCODER,
-                  timers::PA_PWM, timers::GENERAL];
+    let timers = [
+        timers::AUDIO_SAMPLE,
+        timers::IQ_SAMPLE,
+        timers::ENCODER,
+        timers::PA_PWM,
+        timers::GENERAL,
+    ];
     for i in 0..timers.len() {
         for j in (i + 1)..timers.len() {
             assert_ne!(timers[i], timers[j], "Timer assignments must be unique");

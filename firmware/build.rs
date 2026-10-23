@@ -10,7 +10,10 @@ fn main() {
     println!("cargo:rerun-if-changed=build.rs");
 
     // Link memory.x from project directory
-    println!("cargo:rustc-link-search={}", std::env::var("CARGO_MANIFEST_DIR").unwrap());
+    println!(
+        "cargo:rustc-link-search={}",
+        std::env::var("CARGO_MANIFEST_DIR").unwrap()
+    );
 
     // Optional: Link X-CUBE-TCPP for USB Power Delivery
     #[cfg(feature = "usb-pd")]

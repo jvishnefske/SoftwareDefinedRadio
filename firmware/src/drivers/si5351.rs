@@ -148,7 +148,6 @@ struct PllParams {
     c: u32,
 }
 
-
 /// Multisynth divider parameters
 #[derive(Clone, Copy, Debug)]
 struct MsParams {
@@ -174,7 +173,7 @@ impl<'d> Si5351<'d> {
     pub const DEFAULT_XTAL: u32 = 25_000_000;
 
     /// Create a new `Si5351A` driver
-    #[must_use] 
+    #[must_use]
     pub fn new(i2c: I2c<'d, Async>) -> Self {
         Self {
             bus: I2cBus::new(i2c),
@@ -211,7 +210,10 @@ impl<'d> Si5351<'d> {
     /// Wait for device to be ready (`SYS_INIT` cleared)
     async fn wait_ready(&mut self) -> I2cResult<()> {
         for _ in 0..100 {
-            let status = self.bus.read_reg(I2cAddress::SI5351, reg::DEVICE_STATUS).await?;
+            let status = self
+                .bus
+                .read_reg(I2cAddress::SI5351, reg::DEVICE_STATUS)
+                .await?;
             if status & 0x80 == 0 {
                 return Ok(());
             }
@@ -378,13 +380,15 @@ impl<'d> Si5351<'d> {
             (p2 & 0xFF) as u8,
         ];
 
-        self.bus
-            .write_regs(I2cAddress::SI5351, base, &regs)
-            .await
+        self.bus.write_regs(I2cAddress::SI5351, base, &regs).await
     }
 
     /// Program multisynth registers
-    async fn program_multisynth(&mut self, output: ClockOutput, params: &MsParams) -> I2cResult<()> {
+    async fn program_multisynth(
+        &mut self,
+        output: ClockOutput,
+        params: &MsParams,
+    ) -> I2cResult<()> {
         let base = output.ms_reg();
 
         // Calculate register values
@@ -403,8 +407,6 @@ impl<'d> Si5351<'d> {
             (p2 & 0xFF) as u8,
         ];
 
-        self.bus
-            .write_regs(I2cAddress::SI5351, base, &regs)
-            .await
+        self.bus.write_regs(I2cAddress::SI5351, base, &regs).await
     }
 }

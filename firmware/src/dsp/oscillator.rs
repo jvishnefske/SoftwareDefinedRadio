@@ -345,8 +345,10 @@ impl DtmfGenerator {
             _ => return,
         };
 
-        self.low_osc.set_frequency(Self::LOW_FREQS[low_idx], sample_rate);
-        self.high_osc.set_frequency(Self::HIGH_FREQS[high_idx], sample_rate);
+        self.low_osc
+            .set_frequency(Self::LOW_FREQS[low_idx], sample_rate);
+        self.high_osc
+            .set_frequency(Self::HIGH_FREQS[high_idx], sample_rate);
         self.active = true;
     }
 

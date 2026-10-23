@@ -7,12 +7,12 @@
 //! - CW tone generation
 //! - Audio processing chain
 
-pub mod filter;
 pub mod agc;
-pub mod oscillator;
-pub mod modulation;
-pub mod si5351_calc;
-pub mod filter_design;
 pub mod audio_chain;
+pub mod filter;
+pub mod filter_design;
+pub mod modulation;
 pub mod noise_reduction;
+pub mod oscillator;
+pub mod si5351_calc;
 pub mod spectrum;

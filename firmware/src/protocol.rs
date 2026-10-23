@@ -386,10 +386,7 @@ impl CatResponse {
         let prefix = if vfo_b { "FB" } else { "FA" };
         let hz = freq.as_hz();
         // Format as 11-digit number
-        let _ = core::fmt::write(
-            &mut self.buffer,
-            format_args!("{prefix}{hz:011};"),
-        );
+        let _ = core::fmt::write(&mut self.buffer, format_args!("{prefix}{hz:011};"));
     }
 
     /// Format mode response

@@ -70,7 +70,7 @@ pub struct AudioDac<'d, T: embassy_stm32::dac::Instance> {
 
 impl<'d, T: embassy_stm32::dac::Instance> AudioDac<'d, T> {
     /// Create a new audio DAC driver
-    #[must_use] 
+    #[must_use]
     pub fn new(channel: DacChannel<'d, T, 1>) -> Self {
         Self { channel }
     }
